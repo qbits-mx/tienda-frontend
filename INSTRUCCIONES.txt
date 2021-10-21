@@ -1,0 +1,11 @@
+# Estas instrucciones son para instalar VueJS en Ubuntu.
+# Para las personas que tienen Mac es más fácil. 
+# Ver: https://apuntes.de/nodejs/instalacion-en-mac/#gsc.tab=0
+ 
+curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash -
+sudo apt-get install -y nodejs
+sudo npm install -g @vue/cli
+tar xzvf node_modules.tar.gz
+# ejecutar la siguiente linea sólo si se presenta algún tipo de programa:
+# npm install --save
+npm run serve
