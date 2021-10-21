@@ -1,0 +1,10 @@
+/dist
+/lib
+/node_modules
+package-lock.json
+/.vscode
+log/
+/.idea
+/target/
+.VSCodeCounter 
+.DS_Store

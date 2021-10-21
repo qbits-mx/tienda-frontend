@@ -1,0 +1,8 @@
+{
+    "pais":"mexico",
+    "monedas": [
+        {"nombre":"centenario", "valor":"54,356"},
+        {"nombre":"Onza", "valor":"4,564"},
+        {"nombre":"peso", "valor":"1.00"}
+    ]
+}

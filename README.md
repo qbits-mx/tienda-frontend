@@ -1,2 +1,2 @@
-# tienda-frontend
-Projecto vuejs para el front de tienda
+# petstore-front
+Frontend del proyecto de petstore
