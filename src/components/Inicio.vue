@@ -4,7 +4,7 @@
       <div class="card-header card-custom-header"> 
         <label class="control-label h4" >Bienvenido</label>
         <br/>
-        <label class="control-label" >Esta es la página principal del sistema Gustavo</label>
+        <label class="control-label" >Esta es la página principal del sistema XYZ</label>
       </div>
       <div class="card-body align">
         <div class="row">
