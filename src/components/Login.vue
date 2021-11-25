@@ -131,7 +131,7 @@ export default {
             router.push({'name':'regenera-clave'});
         },
         checkCredentials: function() {
-            axios.post('/api/login.json', {
+            axios.post('/api/acceso/login', {
                 usuario: this.usr,
                 clave: this.psw
             }).then(response => {
