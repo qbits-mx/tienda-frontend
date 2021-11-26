@@ -178,7 +178,7 @@
                                     <vue-recaptcha
                                         id="solvecaptcha"
                                         ref="recaptcha"
-                                        sitekey="6LffEdkaAAAAAOJllar3d53MdUh3qOZLhdQ8GuQs"
+                                        sitekey="6LeypzsdAAAAAD716pR1WaBMWpPCmdYWOjKyPkoM"
                                         @expired="onCaptchaExpired"
                                         @verify="onCaptchaVerified"/>
                                   </div>
