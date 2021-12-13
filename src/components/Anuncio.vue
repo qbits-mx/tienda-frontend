@@ -11,19 +11,18 @@
       <div class="col-md-7 col-lg-7 col-12">
 
         <div class="card defaultColor w-100">
-
-          <div class="card-header">
-            <label class="control-label h4">Comprar producto</label>
-          </div><!-- ends card header -->
-
           <div class="card-body align">
 
-            <div class="card">
-              <div class="card-body">
-                {{anuncio.descripcion}}
-              </div>
+            <div>
+                {{anuncio.descripcion || "Audífonos Over-Ear Studio3 Wireless con cancelación de Ruido, Chip W1 para audífonos diseñado por Apple, Bluetooth Class 1, cancelación de Ruido Activa, 22 Horas de Audio - Negro"}}
             </div>
+            <hr/>
 
+            <div class="row">
+                <div class="abc"><b-form-rating v-model="anuncio.estrellas" readonly></b-form-rating></div>
+                <div class="abc"><p>1,567 Calificaciones</p></div>
+            </div>
+            <p>Seleccionar metodo de pago:</p>
             <div class="row justify-content-around">
               <div class="col-4">
                 <div class="form-check">
@@ -76,7 +75,6 @@
 
               </div>
             </div>
-            <b-form-rating v-model="anuncio.estrellas" readonly></b-form-rating>
           </div><!-- ends card body -->
 
         </div><!-- ends card -->
@@ -218,6 +216,11 @@ input {
 .g-recaptcha {
   transform: scale(0.9);
   transform-origin: 0 0;
+}
+
+.abc{
+    float:right;
+    margin-left:50px;
 }
 
 .collapse {
