@@ -19,7 +19,7 @@
             <hr/>
 
             <div class="row">
-                <div class="abc"><b-form-rating v-model="anuncio.estrellas" readonly></b-form-rating></div>
+                <div class="abc"><b-form-rating v-model="compVal" readonly></b-form-rating></div>
                 <div class="abc"><p style="margin-top:7px">{{anuncio.votantes || 3428}} calificaciones</p></div>
             </div>
             <p style="margin-top:19px">Seleccionar metodo de pago:</p>
@@ -71,7 +71,7 @@
                     data-target="#termsModal">Comprar
                 </button>
 
-                <!--          Modal-->
+                <!-- Modal-->
 
               </div>
             </div>
@@ -107,7 +107,24 @@ export default {
     }
   },
   watch: {},
-  computed: {},
+  computed: {
+    compVal: {
+      get () {
+        if (this.anuncio.estrellas) {
+          return this.anuncio.estrellas
+        } else {
+          return 4.5
+        }
+      },
+      set (val) {
+        if (this.selected) {
+          this.valueTrue = val
+        } else {
+          this.valueFalse = val
+        }
+      }
+    }
+  },
   methods: {
     obtenerAnuncio() {
       this.loading = true;
