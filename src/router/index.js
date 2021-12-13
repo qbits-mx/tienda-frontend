@@ -15,6 +15,7 @@ import CambiaDatosPersonales from '@/components/CambiaDatosPersonales'
 import MisDirecciones        from '@/components/MisDirecciones'
 import ConsultaRol           from '@/components/ConsultaRol'
 import NotFound              from'@/components/NotFound'
+import Anuncio               from '@/components/Anuncio'
 
 Vue.use(Router);
 
@@ -23,6 +24,12 @@ const routes = [
     path: '/ui/not-found',
     name: 'not-found',
     component: NotFound
+  },
+  {
+    path: '/ui/anuncio/:id',
+    name: 'anuncio',
+    props: true, 
+    component: Anuncio
   },
   {
     path: '/ui/cambia-datos-personales',
