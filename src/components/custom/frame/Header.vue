@@ -40,6 +40,7 @@
                   <b-dropdown-item href="#" @click="navega('/ui/catalogos')">Catálogos</b-dropdown-item>
                   <b-dropdown-item href="#" @click="navega('/ui/reporte-graficas')">Reportes Gráficos</b-dropdown-item>
                   <b-dropdown-item href="#" @click="navega('/ui/admin')">Home</b-dropdown-item>
+                  <b-dropdown-item href="#" @click="navega('/ui/gestor-administrador')">Gestor Administrador</b-dropdown-item>
                 </div>
                 <div v-if="logged">
                   <b-dropdown-divider  />

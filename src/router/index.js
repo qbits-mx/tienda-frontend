@@ -15,6 +15,7 @@ import CambiaDatosPersonales from '@/components/CambiaDatosPersonales'
 import MisDirecciones        from '@/components/MisDirecciones'
 import ConsultaRol           from '@/components/ConsultaRol'
 import NotFound              from'@/components/NotFound'
+import GestorAdministrador from '@/components/GestorAdministrador'
 
 Vue.use(Router);
 
@@ -80,6 +81,12 @@ const routes = [
     path: '/ui/consulta-rol',
     name: 'ConsultaRol',
     component:ConsultaRol,
+    meta: { allowedRoles: ['admin'] }
+  },
+  {
+    path: '/ui/gestor-administrador',
+    name: 'GestorAdministrador',
+    component:GestorAdministrador,
     meta: { allowedRoles: ['admin'] }
   },
   { 
