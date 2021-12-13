@@ -20,13 +20,13 @@
 
             <div class="row">
                 <div class="abc"><b-form-rating v-model="anuncio.estrellas" readonly></b-form-rating></div>
-                <div class="abc"><p>1,567 Calificaciones</p></div>
+                <div class="abc"><p style="margin-top:7px">{{anuncio.votantes || 3428}} calificaciones</p></div>
             </div>
-            <p>Seleccionar metodo de pago:</p>
+            <p style="margin-top:19px">Seleccionar metodo de pago:</p>
             <div class="row justify-content-around">
               <div class="col-4">
                 <div class="form-check">
-                  <input class="form-check-input" type="radio" name="flexRadioDefault" v-model="idCatalogoFormaPago" value="1">
+                  <input class="form-check-input" type="radio" name="flexRadioDefault" style="height:19px; width:19px"  v-model="idCatalogoFormaPago" value="1">
                   <label class="form-check-label" >
                     Efectivo
                   </label>
@@ -34,7 +34,7 @@
               </div>
               <div class="col-4">
                 <div class="form-check">
-                  <input class="form-check-input" type="radio" name="flexRadioDefault" v-model="idCatalogoFormaPago" value="2" >
+                  <input class="form-check-input" type="radio" name="flexRadioDefault" style="height:19px; width:19px" v-model="idCatalogoFormaPago" value="2" >
                   <label class="form-check-label" >
                     Transferencia bancaria
                   </label>
@@ -44,7 +44,7 @@
             <div class="row justify-content-around">
               <div class="col-4">
                 <div class="form-check">
-                  <input class="form-check-input" type="radio" name="flexRadioDefault" v-model="idCatalogoFormaPago" value="3">
+                  <input class="form-check-input" type="radio" name="flexRadioDefault" style="height:19px; width:19px" v-model="idCatalogoFormaPago" value="3">
                   <label class="form-check-label" >
                     Tarjeta de débito
                   </label>
@@ -52,7 +52,7 @@
               </div>
               <div class="col-4">
                 <div class="form-check">
-                  <input class="form-check-input" type="radio" name="flexRadioDefault"  v-model="idCatalogoFormaPago" value="4">
+                  <input class="form-check-input" type="radio" name="flexRadioDefault" style="height:19px; width:19px" v-model="idCatalogoFormaPago" value="4">
                   <label class="form-check-label">
                     Tarjeta de crédito
                   </label>
@@ -78,8 +78,6 @@
           </div><!-- ends card body -->
 
         </div><!-- ends card -->
-
-
       </div>
     </div>
   </div>
