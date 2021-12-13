@@ -5,9 +5,9 @@
         <label class="control-label h4" >Administración de Catalogos</label>
         
       </div>
-      <div class="card-body align" v-for="categoria in Lista" :key = categoria.ke>
+      <div class="card-body align" v-for="categoria in Lista" :key = categoria.key>
               <div class="card-header card-custom-header"> 
-                <label class="control-label h5" >{{categoria[0].idCatalogoCategoria}}</label>
+                <label class="control-label h5" >{{categoria[0].tipoCatalogo}}</label>
             </div>
         <div class="container" id = 'AdministraCatalogo'>
             <br>
@@ -45,10 +45,10 @@ export default ({
     mounted(){
         let categorias = {}
         axios.
-            get('/api/obtener-todosLosCatalogos.json')
+            get('api/obtener-catalogos-join.json')
             .then(response =>{
                 (response.data).forEach(x => {
-                const identificador = x.idCatalogoCategoria;
+                const identificador = x.idMaestro;
                 if (!categorias[identificador]) categorias[identificador]=[]
                     categorias[identificador].push(x);
                 })
