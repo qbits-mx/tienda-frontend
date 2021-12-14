@@ -1,223 +1,199 @@
 <template>
-    <div>
 
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Checkout example · Bootstrap v5.1</title>
-
-        <link rel="canonical" href="https://getbootstrap.com/docs/5.1/examples/checkout/">
-    
-
-        <!-- Bootstrap core CSS -->
-        <link href="../assets/dist/css/bootstrap.min.css" rel="stylesheet">
-        
-    
-        <!-- Custom styles for this template -->
-        <link href="form-validation.css" rel="stylesheet">
-    </head>
-
-    <body class="bg-light">
-        <div class="container">
-            <main>
-                <div class="py-5 text-center">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" fill="currentColor" class="bi bi-file-earmark-post" viewBox="0 0 16 16">
-                    <path d="M14 4.5V14a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h5.5L14 4.5zm-3 0A1.5 1.5 0 0 1 9.5 3V1H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V4.5h-2z"/>
-                    <path d="M4 6.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-.5.5h-7a.5.5 0 0 1-.5-.5v-7zm0-3a.5.5 0 0 1 .5-.5H7a.5.5 0 0 1 0 1H4.5a.5.5 0 0 1-.5-.5z"/>
-                    </svg>
-                    <h3 class="mb-3">¡Vamos a crear un anuncio!</h3>
-
-                </div>
-                
-                <div class="row g-5">
-                    <div class="col-md-7 col-lg-8">
-                        <h4 class="mb-3">Completa el siguiente formulario: </h4>
-                        <form class="needs-validation" novalidate >
-                            <div class="row g-3">
+  <div>
+    <!-- Bootstrap core CSS -->
+    <link href="../assets/dist/css/bootstrap.min.css" rel="stylesheet">
 
 
-                                <div class="col-md-12"> 
-                                    <label for="categoria" class="form-label">Selecciona la categoria de tu producto:</label>
-                                    <select class="form-select" id="categoria" required>
-                                        <option value=""> Selecciona una opcion</option>
-                                        <option value="01">Mascotas                  	</option>
-                                        <option value="02">Línea blanca								</option>
-                                        <option value="03">Electrónica								</option>
-                                        <option value="04">Deportes										</option>
-                                        <option value="05">Música											</option>
-                                        <option value="06">Belleza										</option>
-                                        <option value="07">Salud /Cuidado personal		</option>
-                                        <option value="08">Productos del Hogar				</option>
-                                        <option value="09">Alimentos									</option>
-                                        <option value="10">Ropa												</option>
-                                    </select>
-                                    <div class="invalid-feedback">
-                                        Selecciona una categoria valida.
-                                    </div>
-                                </div>
-                                
+    <!-- Custom styles for this template -->
+    <link href="form-validation.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/estilos.css">
+        <div class="py-5 text-center">
+          <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" fill="currentColor" class="bi bi-file-earmark-post" viewBox="0 0 16 16">
+          <path d="M14 4.5V14a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h5.5L14 4.5zm-3 0A1.5 1.5 0 0 1 9.5 3V1H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V4.5h-2z"/>
+          <path d="M4 6.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-.5.5h-7a.5.5 0 0 1-.5-.5v-7zm0-3a.5.5 0 0 1 .5-.5H7a.5.5 0 0 1 0 1H4.5a.5.5 0 0 1-.5-.5z"/>
+          </svg>
+          <p class="lead">¡Vamos a crear un anuncio!</p>
 
-                                <div class="col-md-12"> 
-                                    <label for="zona" class="form-label">Selecciona la zona de entrega de tu conveniencia:</label>
-                                    <select class="form-select" id="zona" required>
-                                        <option value=""> Selecciona una opcion</option>
-                                        <option value="01">Alvaro Obregon </option>
-                                        <option value="02">Azcapotzalco </option>
-                                        <option value="03">Benito Juarez</option>
-                                        <option value="04">Coyoacan </option>
-                                        <option value="05">Cuajimalpa de Morelos </option>
-                                        <option value="06">Cuauhtemoc </option>
-                                        <option value="07">Gustavo A. Madero </option>
-                                        <option value="08">Iztacalco </option>
-                                        <option value="09">Iztapalapa </option>
-                                        <option value="10">Magdalena Contreras </option>
-                                        <option value="11">Miguel Hidalgo </option>
-                                        <option value="12">Milpa Alta </option>
-                                        <option value="13">Tlalpan </option>
-                                        <option value="14">Tlahuac </option>
-                                        <option value="15">Venustiano Carranza </option>
-                                        <option value="16">Xochimilco </option>
-
-                                    </select>
-                                    <div class="invalid-feedback">
-                                        Por favor, elige una zona valida.
-                                    </div>
-                                </div>
-                                
-                            
-                                <div class="my-3">
-                                    <div class="col-md-12"> 
-                                        <label for="pago" class="form-label">Selecciona la forma de pago  para tus compradores:</label>
-                                        <select class="form-select" id="pago" required>
-                                            <option value=""> Selecciona una opcion</option>
-                                            <option value="01">Efectivo  			</option>
-                                            <option value="02">Tarjeta de Debito   			</option>
-                                        </select>
-                                        <div class="invalid-feedback">
-                                            Por favor, elige una zona valida.
-                                        </div>
-                                    </div>
-                                </div>
-
-
-                                <div class="col-md-12">
-                                    <label for="descripcion" class="form-label">Descrpcion de su producto.</label>
-                                    <textarea type="text" class="form-control" rows="5" id="descripcion" placeholder="" value="" required></textarea>
-                                    <div class="invalid-feedback">
-                                        No se puede crear un anuncio sin la descripcion de su producto.
-                                    </div>
-                                </div>
-                                
-                             
-                                
-                                <div class="col-md-12">
-                                    <label for="country" class="form-label">Condicion en la que esta el producto:</label>
-                                    <select class="form-select" id="country" required>
-                                        <option value=""> Selecciona una opcion</option>
-                                        <option value="01">Nuevo  			</option>
-                                        <option value="02">Usado   			</option>
-                                    </select>
-                                    <div class="invalid-feedback">
-                                        Por favor, elige una opcion de condicion para el articulo.
-                                    </div>
-                                </div>
-                                
-                                <div class="col-12">
-                                    <label for="email" class="form-label">Email <span class="text-muted">(Opcional)</span></label>
-                                    <input type="email" class="form-control" id="email" placeholder="you@example.com">
-                                    <div class="invalid-feedback">
-                                        Por favor, ingresa un correo valido.
-                                    </div>
-                                </div>
-
-                                
-                                
-                                
-                                <div class="col-12">
-                                    <label for="vigencia" class="form-label">Vigencia <span class="text-muted">(Opcional)</span></label>
-                                    <input type = "date" name = "day" min="2021-12-14" max="2022-01-04"/>
-                                    <div class="invalid-feedback">
-                                        Por favor, elige una fecha de vigencia valida.
-                                    </div>
-                                </div>
-
-                                <div class="col-12">
-                                    <label for="imagenes" class="form-label">Imagenes <span class="text-muted">(Opcional)</span></label>
-                                    <input type="file" id="imagenes" name="imagenes" accept="image/png, image/jpeg">
-                                    <div class="invalid-feedback">
-                                        Por favor, elige imagenes en el formato correcto (png, jpeg).
-                                    </div>
-                                </div>
-
-                                 <div class="col-12">
-                                    <label for="videos" class="form-label">Videos <span class="text-muted">(Opcional)</span></label>
-                                    <input type="file" id="videos" name="videos" accept="video/mp4">
-                                    <div class="invalid-feedback">
-                                        Por favor, elige videos en el formato correcto (mp4).
-                                    </div>
-                                </div>
-
-                                
-                                 <hr >
-                                <button class="w-100 btn btn-primary btn-lg" type="submit">Finalizar</button>
-                                
-                        
-
-                            </div>
-
-                            
-                            
-                        </form>
-                        
-                            
-                    </div>
-                    
-                    
-                </div>
-            </main>
         </div>
-        
-        <footer class="my-5 pt-5 text-muted text-center text-small">
-            <p class="mb-1">&copy; 2021</p>
-            <ul class="list-inline">
-                <li class="list-inline-item"><a href="#">Privacy</a></li>
-                <li class="list-inline-item"><a href="#">Terms</a></li>
-                <li class="list-inline-item"><a href="#">Support</a></li>
-            </ul>
-        </footer>
-    </body>
+   
 
-    </div>
+      <b-form @submit="onSubmit" @reset="onReset" v-if="show">
+
+      <b-form-group id="input-group-cat" label="Categorias:" label-for="input-cat">
+        <b-form-select
+          id="input-cat"
+          v-model="form.categoria"
+          :options="categorias"
+          required
+        ></b-form-select>
+      </b-form-group>
+
+      <b-form-group id="input-group-zonaE" label="Zona de entrega:" label-for="input-zonaE">
+        <b-form-select
+          id="input-zonaE"
+          v-model="form.entrega"
+          :options="entregas"
+          required
+        ></b-form-select>
+      </b-form-group>
+
+      <b-form-group id="input-group-pago" label="Metodo de pago:" label-for="input-pago">
+        <b-form-select
+          id="input-pago"
+          v-model="form.pago"
+          :options="pago"
+          required
+        ></b-form-select>
+      </b-form-group>
+     
+      
+      <b-form-textarea
+        id="descripcion"
+        v-model="form.descripcion"
+        placeholder="Escribe aqui tu descripcion"
+        rows="3"
+        max-rows="6"
+        required
+      ></b-form-textarea>
+     
+      
+      <b-form-group
+        id="input-group-1"
+        label="Datos de contacto (correo):"
+        label-for="input-1"
+        description="Proporciona una direccion de correo valida para que puedan contactarte."
+      >
+        <b-form-input
+          id="input-1"
+          v-model="form.email"
+          type="email"
+          placeholder="Enter email"
+          
+        ></b-form-input>
+      </b-form-group>
+
+      <b-form-group id="input-group-cond" label="Condicion actual de tu producto:" label-for="input-cond">
+       <b-form-select
+          id="input-cond"
+          v-model="form.condicion"
+          :options="condicion"
+          required
+        ></b-form-select>
+      </b-form-group>
+
+      <label for="calendar">Selecciona una fecha como vigencia de tu anuncio:</label>
+      <div >
+        <b-calendar id="calendar" v-model="form.fechaVig" :min="min" :max="max" locale="en"
+        
+        ></b-calendar>
+      </div>
+      <label for="Imagenes">Selecciona las imagenes que deseas agregar a tu anuncio:</label>
+      <div>
+        <!-- Styled -->
+        <b-form-file
+          id="imagenes"
+          accept=".jpg, .png, .gif"
+          v-model="form.file1"
+          :state="Boolean(file1)"
+          placeholder="Elige la ubicacion de tu archivo..."
+          drop-placeholder="Arrastra tu archivo a este lugar..."
+      ></b-form-file>
+        <div class="mt-3">Selected file: {{ file1 ? file1.name : '' }}</div>
+
+      </div>
+      <label for="Videos">Selecciona los videos que deseas agregar a tu anuncio:</label>
+      <div>
+        <!-- Styled -->
+        <b-form-file
+          id="videos"
+          accept=".mp4"
+          v-model="form.file2"
+          :state="Boolean(file2)"
+          placeholder="Elige la ubicacion de tu archivo..."
+          drop-placeholder="Arrastra tu archivo a este lugar..."
+      ></b-form-file>
+        <div class="mt-3">Selected file: {{ file2 ? file2.name : '' }}</div>
+
+      </div>
+
+     
+      
+
+      <b-button type="submit" variant="primary">Submit</b-button>
+      <b-button type="reset" variant="danger">Reset</b-button>
+      
+    </b-form>
+      
+      
+   
+  </div>
 </template>
 
-<script src="../assets/dist/js/bootstrap.bundle.min.js"></script>
-<script src="form-validation.js"></script>
-
 <script>
-(function () {
-  'use strict'
+  export default {
+    data() {
+      const now = new Date()
+      const today = new Date(now.getFullYear(), now.getMonth(), now.getDate())
+      const minDate = new Date(today)
+      const maxDate = new Date(today)
+      maxDate.setMonth(maxDate.getMonth() + 1)
+      maxDate.setDate(maxDate.getDate())
+     
+      return {
+       
+        min: minDate,
+        max: maxDate,
+        
+        form: {
+          
+          categoria: null,
+          entrega:   null,
+          pago:   null,
+          descripcion: '',
+          email: '',
+          fechaVig: '',
+          condicion: null,
+          file1: null,
+          file2: null
+        },
+        categorias: [{ text: 'Selecciona Una', value: null },'Linea Blanca',  'Mascotas', 'Electronica', 'Deportes','Musica Belleza', 'Salud/Cuidado Personal','Productos del hogar','Alimentos0','Ropa'],
+        entregas:   [{ text: 'Selecciona Una', value: null },'Álvaro Obregón', 'Azcapotzalco', 'Benito Juárez', 'Coyoacán ', 'Cuajimalpa de Morelos',
+                                                            'Cuauhtémoc',     'Gustavo A. Madero','Iztacalco','Iztapalapa	','La Magdalena Contreras',
+                                                            'Miguel Hidalgo', 'Milpa Alta', 'Tláhuac', 'Tlalpan	', 'Venustiano Carranza','Xochimilco	'],
 
-  // Fetch all the forms we want to apply custom Bootstrap validation styles to
-  var forms = document.querySelectorAll('.needs-validation')
-
-  // Loop over them and prevent submission
-  Array.prototype.slice.call(forms)
-    .forEach(function (form) {
-      form.addEventListener('submit', function (event) {
-        if (!form.checkValidity()) {
-          event.preventDefault()
-          event.stopPropagation()
-        }
-
-        form.classList.add('was-validated')
-      }, false)
-    })
-})()
-
-
-
-
-</script>
+        pago:       [{ text: 'Selecciona Una', value: null },'Efectivo', 'Tarjeta de Debito'],
+        condicion:  [{ text: 'Select One', value: null }, 'Nuevo', 'Usado',],
+        show: true
+        
+      }
+    },
+    methods: {
+      onSubmit(event) {
+        event.preventDefault()
+        alert(JSON.stringify(this.form))
+      },
+      onReset(event) {
+        event.preventDefault()
+        // Reset our form values
+        this.form.categoria = null
+        this.form.entrega = null
+        this.form.pago = null
+        this.form.descripcion = ''
+        this.form.email = ''
+        this.form.condicion = ''
+        this.form.fechaVig = ''
+        this.form.file1 = ''
+        this.form.file2 =''
+        // Trick to reset/clear native browser form validation state
+        this.show = false
+        this.$nextTick(() => {
+          this.show = true
+        })
+      }
+    }   
+  }
+</script>   
 
 
 <style>
