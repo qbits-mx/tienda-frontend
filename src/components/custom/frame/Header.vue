@@ -34,6 +34,7 @@
                   <b-dropdown-item href="#" @click="navega('/ui/compras')">Mis Compras</b-dropdown-item>
                   <b-dropdown-item href="#" @click="navega('/ui/mis-direcciones')">Mis Direcciones</b-dropdown-item>
                   <b-dropdown-item href="#" @click="navega('/ui/mis-metodos-pago')">Mis Métodos de pago</b-dropdown-item>
+                  <b-dropdown-item href="#" @click="navega('/ui/crear-anuncio')"> Crea tu Anuncio </b-dropdown-item>
                 </div>
                 <div v-if="admin">
                   <b-dropdown-divider/>
@@ -58,7 +59,6 @@
               </div>
               <div v-else>
                 <input @click="navega('/ui/login')" type="button" class="btn btn-outline-success" value="Ingresar" />
-                <input @click="navega('/ui/crear-anuncio')" type="button" class="btn btn-outline-success" value="Crea Anuncio" />
               </div>        
 
             </b-navbar-nav>

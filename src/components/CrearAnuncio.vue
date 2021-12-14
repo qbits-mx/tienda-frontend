@@ -4,15 +4,9 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="description" content="">
-        <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
-        <meta name="generator" content="Hugo 0.88.1">
         <title>Checkout example · Bootstrap v5.1</title>
 
         <link rel="canonical" href="https://getbootstrap.com/docs/5.1/examples/checkout/">
-        <link rel="stylesheet" href="https://necolas.github.io/normalize.css/8.0.1/normalize.css">
-        <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-        <link rel="stylesheet" href="css/estilos.css">
     
 
         <!-- Bootstrap core CSS -->
@@ -31,14 +25,14 @@
                     <path d="M14 4.5V14a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h5.5L14 4.5zm-3 0A1.5 1.5 0 0 1 9.5 3V1H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V4.5h-2z"/>
                     <path d="M4 6.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-.5.5h-7a.5.5 0 0 1-.5-.5v-7zm0-3a.5.5 0 0 1 .5-.5H7a.5.5 0 0 1 0 1H4.5a.5.5 0 0 1-.5-.5z"/>
                     </svg>
-                    <p class="lead">¡Vamos a crear un anuncio!</p>
+                    <h3 class="mb-3">¡Vamos a crear un anuncio!</h3>
 
                 </div>
                 
                 <div class="row g-5">
                     <div class="col-md-7 col-lg-8">
                         <h4 class="mb-3">Completa el siguiente formulario: </h4>
-                        <form  novalidate action="" class="formulario" id="formulario">
+                        <form class="needs-validation" novalidate >
                             <div class="row g-3">
 
 
@@ -135,6 +129,9 @@
                                         Por favor, ingresa un correo valido.
                                     </div>
                                 </div>
+
+                                
+                                
                                 
                                 <div class="col-12">
                                     <label for="vigencia" class="form-label">Vigencia <span class="text-muted">(Opcional)</span></label>
@@ -159,12 +156,20 @@
                                         Por favor, elige videos en el formato correcto (mp4).
                                     </div>
                                 </div>
+
+                                
+                                 <hr >
+                                <button class="w-100 btn btn-primary btn-lg" type="submit">Finalizar</button>
+                                
+                        
+
                             </div>
 
-                            <hr class="my-4">
-                            <button class="w-100 btn btn-primary btn-lg" type="submit">Finalizar</button>
+                            
                             
                         </form>
+                        
+                            
                     </div>
                     
                     
@@ -173,7 +178,7 @@
         </div>
         
         <footer class="my-5 pt-5 text-muted text-center text-small">
-            <p class="mb-1">&copy; 2017-2021 Company Name</p>
+            <p class="mb-1">&copy; 2021</p>
             <ul class="list-inline">
                 <li class="list-inline-item"><a href="#">Privacy</a></li>
                 <li class="list-inline-item"><a href="#">Terms</a></li>
@@ -186,7 +191,7 @@
 </template>
 
 <script src="../assets/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="form-validation.js"></script>
+<script src="form-validation.js"></script>
 
 <script>
 (function () {

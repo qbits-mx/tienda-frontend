@@ -29,7 +29,7 @@ const routes = [
     path: '/ui/crear-anuncio',
     name: 'crear-anuncio',
     component: CrearAnuncio,
-
+    meta: { allowedRoles: ['admin','normal'] }
   },
   {
     path: '/ui/cambia-datos-personales',
