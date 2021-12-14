@@ -38,7 +38,7 @@
                 <div class="row g-5">
                     <div class="col-md-7 col-lg-8">
                         <h4 class="mb-3">Completa el siguiente formulario: </h4>
-                        <form class="needs-validation" novalidate action="" id="formulario">
+                        <form  novalidate action="" class="formulario" id="formulario">
                             <div class="row g-3">
 
 
@@ -160,12 +160,14 @@
                                     </div>
                                 </div>
                             </div>
+
+                            <hr class="my-4">
+                            <button class="w-100 btn btn-primary btn-lg" type="submit">Finalizar</button>
                             
                         </form>
                     </div>
                     
-                    <hr class="my-4">
-                    <button class="w-100 btn btn-primary btn-lg" type="submit">Finalizar</button>
+                    
                 </div>
             </main>
         </div>
