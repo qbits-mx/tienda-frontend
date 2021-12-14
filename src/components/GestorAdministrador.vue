@@ -21,7 +21,7 @@
             <h4 class="control-label" style="text-align:center"><b>No Validados</b></h4>
             <div class="row" v-for="(noValidado, index) in noValidados" :key="index" style="background-color:#D7EAF9;margin-bottom:1%">
                 <div class="col-sm" >
-                  <button @click="$router.push('validar-rechazar/anuncio/' +noValidado.id )" class="btn btn-primary btn-sm">Ver anuncio</button>
+                  <button @click="$router.push('/validar-rechazar/anuncio/' +noValidado.id )" class="btn btn-primary btn-sm">Ver anuncio</button>
                     <div class="container" >
                         <div class="row">
                             <div class="col-sm">
@@ -146,9 +146,12 @@ methods: {
     },
     getMultimediaNoValidados(Anuncio){
       axios.get('api/dame-multimedias.json?id='+Anuncio.id).then(response => {
-          response.data.forEach((value) => {
-              this.urlNoValidados.push(value.url)
-          })
+          if (response.data.length > 0) {
+                this.urlNoValidados.push(response.data[0].url);
+          }
+          //response.data.forEach((value) => {
+              //this.urlNoValidados.push(value.url)
+          //})
       }).catch(error => {
           console.log(error);
           this.$modal.show('aviso');
@@ -158,9 +161,12 @@ methods: {
     },
     getMultimediaValidados(Anuncio){
       axios.get('api/dame-multimedias.json?id='+Anuncio.id).then(response => {
-          response.data.forEach((value) => {
-              this.urlValidados.push(value.url)
-          })
+          if (response.data.length > 0) {
+                this.urlValidados.push(response.data[0].url);
+          }
+          //response.data.forEach((value) => {
+              //this.urlValidados.push(value.url)
+          //})
       }).catch(error => {
           console.log(error);
           this.$modal.show('aviso');

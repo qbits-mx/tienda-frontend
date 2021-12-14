@@ -16,6 +16,8 @@ import MisDirecciones        from '@/components/MisDirecciones'
 import ConsultaRol           from '@/components/ConsultaRol'
 import NotFound              from'@/components/NotFound'
 import GestorAdministrador   from '@/components/GestorAdministrador'
+import AnuncioValidar        from '@/components/AnuncioValidar'
+import AnuncioRechazar       from '@/components/AnuncioRechazar'
 
 Vue.use(Router);
 
@@ -87,6 +89,20 @@ const routes = [
     path: '/ui/gestor-administrador',
     name: 'GestorAdministrador',
     component:GestorAdministrador,
+    meta: { allowedRoles: ['admin'] }
+  },
+  {
+    path: '/validar-rechazar/anuncio/:idAnuncio',
+    name: 'AnuncioValidar',
+    component: AnuncioValidar,
+    props: castNumberParam,
+    meta: { allowedRoles: ['admin'] }
+  },
+  {
+    path: '/validar-rechazar/rechazar/:idAnuncio',
+    name: 'AnuncioRechazar',
+    component: AnuncioRechazar,
+    props: castNumberParam,
     meta: { allowedRoles: ['admin'] }
   },
   { 
@@ -167,5 +183,10 @@ router.beforeEach((to, from, next) => {
   next(); // *** El recurso NO requiere autenticación
 })
 
+function castNumberParam(route) {
+  return {
+    idAnuncio: Number(route.params.idAnuncio),
+  };
+}
 
 export default router;
