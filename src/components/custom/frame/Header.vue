@@ -58,6 +58,7 @@
               </div>
               <div v-else>
                 <input @click="navega('/ui/login')" type="button" class="btn btn-outline-success" value="Ingresar" />
+                <input @click="navega('/ui/crear-anuncio')" type="button" class="btn btn-outline-success" value="Crea Anuncio" />
               </div>        
 
             </b-navbar-nav>

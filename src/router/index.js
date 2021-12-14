@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import store from '../store'
 import axios from 'axios';
 
+import CrearAnuncio          from '@/components/CrearAnuncio'
 import Inicio                from '@/components/Inicio'
 import Login                 from '@/components/Login'
 import Registro              from '@/components/Registro2'
@@ -23,6 +24,12 @@ const routes = [
     path: '/ui/not-found',
     name: 'not-found',
     component: NotFound
+  },
+  {
+    path: '/ui/crear-anuncio',
+    name: 'crear-anuncio',
+    component: CrearAnuncio,
+
   },
   {
     path: '/ui/cambia-datos-personales',
