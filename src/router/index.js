@@ -15,7 +15,7 @@ import CambiaDatosPersonales from '@/components/CambiaDatosPersonales'
 import MisDirecciones        from '@/components/MisDirecciones'
 import ConsultaRol           from '@/components/ConsultaRol'
 import NotFound              from'@/components/NotFound'
-import GestorAdministrador from '@/components/GestorAdministrador'
+import GestorAdministrador   from '@/components/GestorAdministrador'
 
 Vue.use(Router);
 
