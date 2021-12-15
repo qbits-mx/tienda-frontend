@@ -15,6 +15,8 @@ import CambiaDatosPersonales from '@/components/CambiaDatosPersonales'
 import MisDirecciones        from '@/components/MisDirecciones'
 import ConsultaRol           from '@/components/ConsultaRol'
 import NotFound              from'@/components/NotFound'
+import HistorialCompras      from'@/components/HistorialCompras'
+import CalificarProducto      from'@/components/CalificarProducto'
 
 Vue.use(Router);
 
@@ -81,6 +83,16 @@ const routes = [
     name: 'ConsultaRol',
     component:ConsultaRol,
     meta: { allowedRoles: ['admin'] }
+  },
+  {
+    path: '/ui/historial-compras',
+    name: 'historial-compras',
+    component: HistorialCompras
+  },
+  {
+    path: '/ui/calificar-producto',
+    name: 'calificar-producto',
+    component: CalificarProducto
   },
   { 
     path: "*", 
