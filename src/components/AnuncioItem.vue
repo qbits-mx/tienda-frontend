@@ -1,7 +1,5 @@
 <template>
-  <div class="anuncio">
-    <p>Holaaaaaaaaaa</p>
-  </div>
+  <div class="anuncio"></div>
 </template>
 
 <script>
@@ -21,5 +19,6 @@ export default {
   padding: 10px;
   width: 1200px;
   height: 300px;
+  border: 10px;
 }
 </style>

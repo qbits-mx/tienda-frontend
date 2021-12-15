@@ -10,28 +10,28 @@
         <p>Forma de pago</p>
         <b-form-checkbox
           id="checkbox-1"
-          v-model="efectivo"
+          v-model="pago"
           name="checkbox-1"
-          value="1"
-          unchecked-value="0"
+          value="0"
+          unchecked-value=""
         >
           Efectivo
         </b-form-checkbox>
         <b-form-checkbox
           id="checkbox-2"
-          v-model="tarjeta"
+          v-model="pago"
           name="checkbox-1"
           value="1"
-          unchecked-value="0"
+          unchecked-value=""
         >
           Tarjeta
         </b-form-checkbox>
         <b-form-checkbox
           id="checkbox-3"
-          v-model="transferencia"
+          v-model="pago"
           name="checkbox-1"
-          value="1"
-          unchecked-value="0"
+          value="2"
+          unchecked-value=""
         >
           Transferencia
         </b-form-checkbox>
@@ -40,91 +40,91 @@
         <p>Categoria</p>
         <b-form-checkbox
           id="checkbox-4"
-          v-model="mascotas"
+          v-model="departamento"
           name="checkbox-1"
-          value="1"
-          unchecked-value="0"
+          value="0"
+          unchecked-value=""
         >
           Mascotas
         </b-form-checkbox>
         <b-form-checkbox
           id="checkbox-5"
-          v-model="lineaBlanca"
+          v-model="departamento"
           name="checkbox-1"
           value="1"
-          unchecked-value="0"
+          unchecked-value=""
         >
           Línea blanca
         </b-form-checkbox>
         <b-form-checkbox
           id="checkbox-6"
-          v-model="electronica"
+          v-model="departamento"
           name="checkbox-1"
-          value="1"
-          unchecked-value="0"
+          value="2"
+          unchecked-value=""
         >
           Electrónica
         </b-form-checkbox>
         <b-form-checkbox
           id="checkbox-7"
-          v-model="deportes"
+          v-model="departamento"
           name="checkbox-1"
-          value="1"
-          unchecked-value="0"
+          value="3"
+          unchecked-value=""
         >
           Deportes
         </b-form-checkbox>
         <b-form-checkbox
           id="checkbox-8"
-          v-model="musica"
+          v-model="departamento"
           name="checkbox-1"
-          value="1"
-          unchecked-value="0"
+          value="4"
+          unchecked-value=""
         >
           Música
         </b-form-checkbox>
         <b-form-checkbox
           id="checkbox-9"
-          v-model="belleza"
+          v-model="departamento"
           name="checkbox-1"
-          value="1"
-          unchecked-value="0"
+          value="5"
+          unchecked-value=""
         >
           Belleza
         </b-form-checkbox>
         <b-form-checkbox
           id="checkbox-10"
-          v-model="salud"
+          v-model="departamento"
           name="checkbox-1"
-          value="1"
-          unchecked-value="0"
+          value="6"
+          unchecked-value=""
         >
           Salud / Cuidado personal
         </b-form-checkbox>
         <b-form-checkbox
           id="checkbox-11"
-          v-model="hogar"
+          v-model="departamento"
           name="checkbox-1"
-          value="1"
-          unchecked-value="0"
+          value="7"
+          unchecked-value=""
         >
           Hogar
         </b-form-checkbox>
         <b-form-checkbox
           id="checkbox-12"
-          v-model="alimento"
+          v-model="departamento"
           name="checkbox-1"
-          value="1"
-          unchecked-value="0"
+          value="8"
+          unchecked-value=""
         >
           Alimentos
         </b-form-checkbox>
         <b-form-checkbox
           id="checkbox-13"
-          v-model="ropa"
+          v-model="departamento"
           name="checkbox-1"
-          value="1"
-          unchecked-value="0"
+          value="9"
+          unchecked-value=""
         >
           Ropa
         </b-form-checkbox>
@@ -133,19 +133,19 @@
         <p>Condiciones</p>
         <b-form-checkbox
           id="checkbox-14"
-          v-model="nuevo"
+          v-model="condiciones"
           name="checkbox-1"
-          value="1"
-          unchecked-value="0"
+          value="0"
+          unchecked-value=""
         >
           Nuevo
         </b-form-checkbox>
         <b-form-checkbox
           id="checkbox-15"
-          v-model="usado"
+          v-model="condiciones"
           name="checkbox-1"
           value="1"
-          unchecked-value="0"
+          unchecked-value=""
         >
           Usado
         </b-form-checkbox>
@@ -154,248 +154,251 @@
         <p>Zona</p>
         <b-form-checkbox
           id="checkbox-16"
-          v-model="alvaroObregon"
+          v-model="zona"
           name="checkbox-1"
-          value="1"
-          unchecked-value="0"
+          value="0"
+          unchecked-value=""
         >
           Álvaro Obregón
         </b-form-checkbox>
         <b-form-checkbox
           id="checkbox-17"
-          v-model="azcapotzalco"
+          v-model="zona"
           name="checkbox-1"
           value="1"
-          unchecked-value="0"
+          unchecked-value=""
         >
           Azcapotzalco
         </b-form-checkbox>
         <b-form-checkbox
           id="checkbox-18"
-          v-model="benitoJuarez"
+          v-model="zona"
           name="checkbox-1"
-          value="1"
-          unchecked-value="0"
+          value="2"
+          unchecked-value=""
         >
           Benito Juárez
         </b-form-checkbox>
         <b-form-checkbox
           id="checkbox-19"
-          v-model="coyoacan"
+          v-model="zona"
           name="checkbox-1"
-          value="1"
-          unchecked-value="0"
+          value="3"
+          unchecked-value=""
         >
           Coyoacán
         </b-form-checkbox>
         <b-form-checkbox
           id="checkbox-20"
-          v-model="cuajimalpaDeMorelos"
+          v-model="zona"
           name="checkbox-1"
-          value="1"
-          unchecked-value="0"
+          value="4"
+          unchecked-value=""
         >
           Cuajimalpa de Morelos
         </b-form-checkbox>
         <b-form-checkbox
           id="checkbox-21"
-          v-model="cuauhtemoc"
+          v-model="zona"
           name="checkbox-1"
-          value="1"
-          unchecked-value="0"
+          value="5"
+          unchecked-value=""
         >
           Cuauhtémoc
         </b-form-checkbox>
         <b-form-checkbox
           id="checkbox-22"
-          v-model="gustavoMadero"
+          v-model="zona"
           name="checkbox-1"
-          value="1"
-          unchecked-value="0"
+          value="6"
+          unchecked-value=""
         >
           Gustavo A. Madero
         </b-form-checkbox>
         <b-form-checkbox
           id="checkbox-23"
-          v-model="iztacalco"
+          v-model="zona"
           name="checkbox-1"
-          value="1"
-          unchecked-value="0"
+          value="7"
+          unchecked-value=""
         >
           Iztacalco
         </b-form-checkbox>
         <b-form-checkbox
           id="checkbox-24"
-          v-model="iztapalapa"
+          v-model="zona"
           name="checkbox-1"
-          value="1"
-          unchecked-value="0"
+          value="8"
+          unchecked-value=""
         >
           Iztapalapa
         </b-form-checkbox>
         <b-form-checkbox
           id="checkbox-25"
-          v-model="magdanelaContreras"
+          v-model="zona"
           name="checkbox-1"
-          value="1"
-          unchecked-value="0"
+          value="9"
+          unchecked-value=""
         >
           Magdanela Contreras
         </b-form-checkbox>
         <b-form-checkbox
           id="checkbox-26"
-          v-model="miguelHidalgo"
+          v-model="zona"
           name="checkbox-1"
-          value="1"
-          unchecked-value="0"
+          value="10"
+          unchecked-value=""
         >
           Miguel Hidalgo
         </b-form-checkbox>
         <b-form-checkbox
           id="checkbox-27"
-          v-model="milpaAlta"
+          v-model="zona"
           name="checkbox-1"
-          value="1"
-          unchecked-value="0"
+          value="11"
+          unchecked-value=""
         >
           Milpa Alta
         </b-form-checkbox>
         <b-form-checkbox
           id="checkbox-28"
-          v-model="tlahuac"
+          v-model="zona"
           name="checkbox-1"
-          value="1"
-          unchecked-value="0"
+          value="12"
+          unchecked-value=""
         >
           Tláhuac
         </b-form-checkbox>
         <b-form-checkbox
           id="checkbox-29"
-          v-model="tlalpan"
+          v-model="zona"
           name="checkbox-1"
-          value="1"
-          unchecked-value="0"
+          value="13"
+          unchecked-value=""
         >
           Tlalpan
         </b-form-checkbox>
         <b-form-checkbox
           id="checkbox-30"
-          v-model="venustianoCarranza"
+          v-model="zona"
           name="checkbox-1"
-          value="1"
-          unchecked-value="0"
+          value="14"
+          unchecked-value=""
         >
           Venustiano Carranza
         </b-form-checkbox>
         <b-form-checkbox
           id="checkbox-31"
-          v-model="xochimilco"
+          v-model="zona"
           name="checkbox-1"
-          value="1"
-          unchecked-value="0"
+          value="15"
+          unchecked-value=""
         >
           Xochimilco
         </b-form-checkbox>
       </div>
+      <div class="estrellas">
+        <p>Estrellas</p>
+        <b-form-checkbox
+          id="checkbox-32"
+          v-model="puntuacion"
+          name="checkbox-1"
+          value="5"
+          unchecked-value="0"
+        >
+          5 estrellas
+        </b-form-checkbox>
+        <b-form-checkbox
+          id="checkbox-33"
+          v-model="puntuacion"
+          name="checkbox-1"
+          value="4"
+          unchecked-value="0"
+        >
+          4 estrellas
+        </b-form-checkbox>
+        <b-form-checkbox
+          id="checkbox-34"
+          v-model="puntuacion"
+          name="checkbox-1"
+          value="3"
+          unchecked-value="0"
+        >
+          3 estrellas
+        </b-form-checkbox>
+        <b-form-checkbox
+          id="checkbox-35"
+          v-model="puntuacion"
+          name="checkbox-1"
+          value="2"
+          unchecked-value="0"
+        >
+          2 estrellas
+        </b-form-checkbox>
+        <b-form-checkbox
+          id="checkbox-36"
+          v-model="puntuacion"
+          name="checkbox-1"
+          value="1"
+          unchecked-value="0"
+        >
+          1 estrellas
+        </b-form-checkbox>
+      </div>
       <div>Producto: {{ producto }}</div>
-      <div>
-        Pago:
-        <ul>
-          <li>efectivo({{ efectivo }})</li>
-          <li>tarjeta({{ tarjeta }})</li>
-          <li>transferencia({{ transferencia }})</li>
-        </ul>
-      </div>
-      <div>
-        Condiciones:
-        <ul>
-          <li>nuevo({{ nuevo }})</li>
-          <li>usado({{ usado }})</li>
-        </ul>
-      </div>
-      <div>
-        Departamento:
-        <ul>
-          <li>mascotas({{ mascotas }})</li>
-          <li>linea-blanca({{ uslineaBlancaado }})</li>
-          <li>electronica({{ electronica }})</li>
-          <li>deportes({{ deportes }})</li>
-          <li>musica({{ musica }})</li>
-          <li>belleza({{ belleza }})</li>
-          <li>salud({{ salud }})</li>
-          <li>hogar({{ hogar }})</li>
-          <li>alimento({{ alimento }})</li>
-          <li>ropa({{ ropa }})</li>
-        </ul>
-      </div>
-      <div>
-        Zona:
-        <ul>
-          <li>alvaroObregon({{ alvaroObregon }})</li>
-          <li>azcapotzalco({{ azcapotzalco }})</li>
-          <li>benitoJuarez({{ benitoJuarez }})</li>
-          <li>coyoacan({{ coyoacan }})</li>
-          <li>cuajimalpaDeMorelos({{ cuajimalpaDeMorelos }})</li>
-          <li>cuauhtemoc({{ cuauhtemoc }})</li>
-          <li>gustavoMadero({{ gustavoMadero }})</li>
-          <li>iztacalco({{ iztacalco }})</li>
-          <li>iztapalapa({{ iztapalapa }})</li>
-          <li>magdanelaContreras({{ magdanelaContreras }})</li>
-          <li>miguelHidalgo({{ miguelHidalgo }})</li>
-          <li>milpaAlta({{ milpaAlta }})</li>
-          <li>tlahuac({{ tlahuac }})</li>
-          <li>tlalpan({{ tlalpan }})</li>
-          <li>xochimilco({{ xochimilco }})</li>
-          <li>xochimilco({{ xochimilco }})</li>
-        </ul>
-      </div>
+      <div>Estrellas: {{ puntuacion }}</div>
+      <div>Pago: {{ pago }}</div>
+      <div>Condiciones: {{ condiciones }}</div>
+      <div>Departamento: {{ departamento }}</div>
+      <div>Zona: {{ zona }}</div>
     </div>
-    <div>
-      <AnuncioItem></AnuncioItem>
+    <div class="anuncio">
+      <img src="../assets/bicicleta.jpg" alt="bicicleta" class="images" />
+      <div class="descripcion">
+        <p class="articulo">Bicicleta</p>
+        <p class="desc">
+          Marca: Blitz Modelo:Maniac Especificaciones: Material: Acero Rodada:
+          20 Manubrio: con rotor Frenos: Caliper Accesorios: Cubrecadenas y
+          Parador Rines: Reforzado de 48 rayos Llanta: 20"x2.25"
+        </p>
+        <div class="calificacion">
+          <img src="../assets/estrella.jpg" alt="estrella" class="estrella" />
+          <img src="../assets/estrella.jpg" alt="estrella" class="estrella" />
+          <img src="../assets/estrella.jpg" alt="estrella" class="estrella" />
+          <img src="../assets/estrella.jpg" alt="estrella" class="estrella" />
+        </div>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
-import AnuncioItem from "./AnuncioItem.vue";
+//import AnuncioItem from "./AnuncioItem.vue";
+import axios from "axios";
 export default {
   components: {
-    AnuncioItem,
+    //AnuncioItem,
+  },
+  methods: {
+    buscarProducto: function() {
+      axios.get("/api/buscarPoducto", {
+        descripcion: this.producto,
+        idCatalogoDepartamento: this.departamento,
+        idCatalogoZonaEntrega: this.zona,
+        idCatalogoFormaPago: this.pago,
+        idCatalogoCondicion: this.condiciones,
+        estrellas: this.puntuacion,
+      });
+    },
   },
   data() {
     return {
       producto: "",
-      efectivo: "0",
-      tarjeta: "0",
-      transferencia: "0",
-      nuevo: "0",
-      usado: "0",
-      mascotas: "0",
-      lineaBlanca: "0",
-      electronica: "0",
-      deportes: "0",
-      musica: "0",
-      belleza: "0",
-      salud: "0",
-      hogar: "0",
-      alimento: "0",
-      ropa: "0",
-      alvaroObregon: "0",
-      azcapotzalco: "0",
-      benitoJuarez: "0",
-      coyoacan: "0",
-      cuajimalpaDeMorelos: "0",
-      cuauhtemoc: "0",
-      gustavoMadero: "0",
-      iztacalco: "0",
-      iztapalapa: "0",
-      magdanelaContreras: "0",
-      miguelHidalgo: "0",
-      milpaAlta: "0",
-      tlahuac: "0",
-      tlalpan: "0",
-      venustianoCarranza: "0",
-      xochimilco: "0",
+      pago: "",
+      condiciones: "",
+      departamento: "",
+      zona: "",
+      puntuacion: "",
     };
   },
 };
@@ -428,5 +431,44 @@ export default {
   background-color: #c5d1dc;
   margin: 10px;
   padding: 10px;
+}
+.estrellas {
+  background-color: #a9c3db;
+  margin: 10px;
+  padding: 10px;
+}
+.anuncio {
+  display: flex;
+  background-color: #e9ecef;
+  margin: 75px;
+  padding: 10px;
+  width: 1200px;
+  height: 300px;
+  border: 10px;
+}
+.images {
+  width: 275px;
+  height: 275px;
+}
+.articulo {
+  font-size: 250%;
+  margin: 10px;
+  padding: 10px;
+}
+.descripcion {
+  flex-direction: column;
+}
+.desc {
+  margin: 10px;
+  padding: 10px;
+}
+.calificacion {
+  display: flex;
+  margin: 10px;
+  padding: 10px;
+}
+.estrella {
+  width: 50px;
+  height: 50px;
 }
 </style>
