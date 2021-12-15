@@ -345,27 +345,94 @@
           1 estrellas
         </b-form-checkbox>
       </div>
-      <div>Producto: {{ producto }}</div>
-      <div>Estrellas: {{ puntuacion }}</div>
-      <div>Pago: {{ pago }}</div>
-      <div>Condiciones: {{ condiciones }}</div>
-      <div>Departamento: {{ departamento }}</div>
-      <div>Zona: {{ zona }}</div>
+      <div class="filtros">
+        <div>Producto: {{ producto }}</div>
+        <div>Estrellas: {{ puntuacion }}</div>
+        <div>Pago: {{ pago }}</div>
+        <div>Condiciones: {{ condiciones }}</div>
+        <div>Departamento: {{ departamento }}</div>
+        <div>Zona: {{ zona }}</div>
+      </div>
     </div>
-    <div class="anuncio">
-      <img src="../assets/bicicleta.jpg" alt="bicicleta" class="images" />
-      <div class="descripcion">
-        <p class="articulo">Bicicleta</p>
-        <p class="desc">
-          Marca: Blitz Modelo:Maniac Especificaciones: Material: Acero Rodada:
-          20 Manubrio: con rotor Frenos: Caliper Accesorios: Cubrecadenas y
-          Parador Rines: Reforzado de 48 rayos Llanta: 20"x2.25"
-        </p>
-        <div class="calificacion">
-          <img src="../assets/estrella.jpg" alt="estrella" class="estrella" />
-          <img src="../assets/estrella.jpg" alt="estrella" class="estrella" />
-          <img src="../assets/estrella.jpg" alt="estrella" class="estrella" />
-          <img src="../assets/estrella.jpg" alt="estrella" class="estrella" />
+    <div class="queue">
+      <div class="anuncio">
+        <img src="../assets/bicicleta.jpg" alt="bicicleta" class="images" />
+        <div class="descripcion">
+          <p class="articulo">Bicicleta</p>
+          <p class="desc">
+            Marca: Blitz Modelo:Maniac Especificaciones: Material: Acero Rodada:
+            20 Manubrio: con rotor Frenos: Caliper Accesorios: Cubrecadenas y
+            Parador Rines: Reforzado de 48 rayos Llanta: 20"x2.25"
+          </p>
+          <div class="calificacion">
+            <img src="../assets/estrella.jpg" alt="estrella" class="estrella" />
+            <img src="../assets/estrella.jpg" alt="estrella" class="estrella" />
+            <img src="../assets/estrella.jpg" alt="estrella" class="estrella" />
+            <img src="../assets/estrella.jpg" alt="estrella" class="estrella" />
+          </div>
+        </div>
+      </div>
+      <div class="anuncio">
+        <img src="../assets/bicicleta_1.jpg" alt="bicicleta" class="images" />
+        <div class="descripcion">
+          <p class="articulo">Bicicleta azul</p>
+          <p class="desc">
+            Bicicleta urbana Centurfit MKZ-BICIVINTAGE R26 7v frenos v-brakes
+            color menta con pie de apoyo Nuevo | 650 vendidos Bicicleta urbana
+            Centurfit MKZ-BICIVINTAGE R26 7v frenos v-brakes color menta con pie
+            de apoyo
+          </p>
+          <div class="calificacion">
+            <img src="../assets/estrella.jpg" alt="estrella" class="estrella" />
+            <img src="../assets/estrella.jpg" alt="estrella" class="estrella" />
+            <img src="../assets/estrella.jpg" alt="estrella" class="estrella" />
+            <img src="../assets/estrella.jpg" alt="estrella" class="estrella" />
+            <img src="../assets/estrella.jpg" alt="estrella" class="estrella" />
+          </div>
+        </div>
+      </div>
+      <div class="anuncio">
+        <img src="../assets/bicicleta_2.jpg" alt="bicicleta" class="images" />
+        <div class="descripcion">
+          <p class="articulo">Bicicleta</p>
+          <p class="desc">
+            Bicicleta Alubike Mtb Xta 3.0 2022 12v
+          </p>
+          <div class="calificacion">
+            <img src="../assets/estrella.jpg" alt="estrella" class="estrella" />
+            <img src="../assets/estrella.jpg" alt="estrella" class="estrella" />
+            <img src="../assets/estrella.jpg" alt="estrella" class="estrella" />
+          </div>
+        </div>
+      </div>
+      <div class="anuncio">
+        <img src="../assets/bicicleta_3.jpg" alt="bicicleta" class="images" />
+        <div class="descripcion">
+          <p class="articulo">Bicicleta</p>
+          <p class="desc">
+            Mountain bike Monk StarBike 2.1 2020 R26 18v frenos v-brakes color
+            rojo/blanco
+          </p>
+          <div class="calificacion">
+            <img src="../assets/estrella.jpg" alt="estrella" class="estrella" />
+            <img src="../assets/estrella.jpg" alt="estrella" class="estrella" />
+            <img src="../assets/estrella.jpg" alt="estrella" class="estrella" />
+            <img src="../assets/estrella.jpg" alt="estrella" class="estrella" />
+          </div>
+        </div>
+      </div>
+      <div class="anuncio">
+        <img src="../assets/bicicleta_4.jpg" alt="bicicleta" class="images" />
+        <div class="descripcion">
+          <p class="articulo">Bicicleta rosa</p>
+          <p class="desc">
+            Bicicleta urbana Altera BA RBIKE-002 2019 R26 M 1v freno caliper
+            color rosa con pie de apoyo.
+          </p>
+          <div class="calificacion">
+            <img src="../assets/estrella.jpg" alt="estrella" class="estrella" />
+            <img src="../assets/estrella.jpg" alt="estrella" class="estrella" />
+          </div>
         </div>
       </div>
     </div>
@@ -434,6 +501,11 @@ export default {
 }
 .estrellas {
   background-color: #a9c3db;
+  margin: 10px;
+  padding: 10px;
+}
+.filtros {
+  background-color: #c5d1dc;
   margin: 10px;
   padding: 10px;
 }
