@@ -11,14 +11,14 @@
             </div>
         <div class="container" id = 'AdministraCatalogo'>
             <br>
-                <button type="button" class="btn btn-success float-right" v-on:click = "agregarCatalogo(categoria[0].idCatalogoCategoria)" >Agregar Catalogo</button>
+                <button type="button" class="btn btn-success float-right" v-on:click = "agregarCatalogo(categoria[0].idMaestro)" >Agregar Elemento</button>
             <br>
             <div class = "container" style="overflow-y:scroll; height:400px">
                 <ul class = "list-group">
                     <li class = "list-group-item" v-for="catalogo in categoria" :key="catalogo.idCatalogo">
                         {{catalogo.nombre}}                        
                         <button type="button" class="btn btn-danger float-right" v-on:click = "eliminarCatalogo(catalogo.id)" >Eliminar</button>
-                        <button type="button" class="btn btn-primary float-right" v-on:click = "renombrarCatalogo(catalogo.id,catalogo.nombre)">Renombrar</button>
+                        <button type="button" class="btn btn-primary float-right" v-on:click = "renombrarCatalogo(categoria[0].idMaestro,catalogo.id,catalogo.nombre)">Renombrar</button>
                     </li>
                 </ul>
             </div>        
@@ -29,7 +29,7 @@
 </template>
 
 <script>
-import router from '../router';
+
 import axios from 'axios'; 
 
 export default ({  
@@ -39,10 +39,16 @@ export default ({
         return {
             error: false,
             loading: true,
+            cambios:0,
             Lista: null
         }
     },
-    mounted(){
+      mounted(){
+        this.cargaLista();
+    },
+    methods: {
+    
+    cargaLista(){
         let categorias = {}
         axios.
             get('api/obtener-catalogos-join.json')
@@ -59,12 +65,9 @@ export default ({
                 console.log(error)
                 this.errored =true
             })
-            .finally(()=>this.loading = false)
+            .finally(()=>this.loading = false);
     },
-    methods: {
-        consultaAnuncios(idCatInit) {
-        router.push({path:'/ui/consulta-anuncios-publico/'+idCatInit}).catch(()=>{});
-    },
+    
     agregarCatalogo(idCatalogoCategoria){
         const nameRegExp = new RegExp(/^([A-Za-z0-9]\s)*/);
 
@@ -73,30 +76,45 @@ export default ({
         if (nombre == null || nombre == "" || !(nameRegExp.test(this.name)) ) {
             alert("Hubo un problema con el nombre.");
         } else {
-            let publicado = axios.get("api/insertar-catalogo.json?activo="+activo+
+            axios.get("api/insertar-catalogo.json?activo="+activo+
+                    "&idCatalogoCategoria="+idCatalogoCategoria+"&nombre="+nombre)
+                    .then(data => {
+                        if(data){
+                           this.cargaLista();
+                            alert("El catalogo se creo de forma exitosa");
+                        }else{
+                            alert("Parece que hubo un error al crear: "+data);
+                    }
+            console.log("ENTRADA "+ idCatalogoCategoria+ " - publicado? = "+data);
+
+            console.log("api/insertar-catalogo.json?activo="+activo+
                     "&idCatalogoCategoria="+idCatalogoCategoria+"&nombre="+nombre);
-            if(publicado){
-                alert("El catalgo se creo de forma exitosa");
-                location.reload();
-            }else{
-                alert("Parece que hubo un error al crear"+publicado);   
-            }
+            console.log("ENTRADA "+ idCatalogoCategoria+ " - publicado? = "+data);
+
+                    });
+            
+            
+            
         }
     },
     eliminarCatalogo(id){
+        console.log("El id es: "+id)
         if (confirm("¿Seguro que desea eliminarlo?")) {
-            let eliminado = axios.get("api/eliminar-catalogo-porId.json?id="+id);
-            if (eliminado){
-                alert("Eliminación exitosa");
-                location.reload();
-            }else{
-                alert("Hubo un error al eliminar");
-            }
+            axios.get("api/eliminar-catalogo-porId.json?id="+id)
+            .then(data =>{
+                if (data){
+                    this.cargaLista();
+                    alert("Eliminación exitosa");
+                }else{
+                    alert("Hubo un error al eliminar");
+                }
+            });
+            
         } else {
             alert("Eliminación cancelada");
         }    
     },
-    renombrarCatalogo(id,nombreAntiguo){
+    renombrarCatalogo(idCatalogoCategoria,id,nombreAntiguo){
         const nameRegExp = new RegExp(/^([A-Za-z0-9]\s)*/);
 
         let nombre = prompt("Ingrese el nuevo nombre para el catálogo:", nombreAntiguo);
@@ -105,20 +123,21 @@ export default ({
         } else {
             if (confirm("¿Seguro que desea renombrar?")) {
                 console.log("id = "+id+ " nombre= "+ nombre);
-                let renombrado = axios.get("api/modificar-nombreDeCatalogo-porId.json?id="+id+"&nuevoNombre="+nombre);
-                 if(renombrado){
-                    alert("El catalgo "+nombreAntiguo+" se cambio a "+ nombre+" de forma exitosa");
-                    location.reload();
-                }else{
-                    alert("Parece que hubo un error al renombrar"+renombrado);
-                }
-
+                axios.get("api/modificar-nombreDeCatalogo-porId.json?id="+id+"&nuevoNombre="+nombre)
+                .then( data =>{
+                    if(data){
+                        this.cargaLista();
+                        alert("El catalago "+nombreAntiguo+" se cambio a "+ nombre+" de forma exitosa");
+                    }else{
+                        alert("Parece que hubo un error al renombrar" + data);
+                    }
+                });
             }else{
                 alert("Operacion cancelada");
             }
+            
         }
-    }
-
+   },
   }
 })
     
