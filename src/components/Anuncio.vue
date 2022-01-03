@@ -80,7 +80,12 @@
           </div><!-- ends card body -->
 
         </div><!-- ends card -->
-
+        
+        <!-- Empieza chat -->
+        <div class="card-header">
+            <label class="control-label h4">Chat</label>
+            <Chat v-bind:chatList="chatList" v-bind:idAnuncio=1 v-bind:idRemitente= this.idUsuario  v-bind:idHiloPadre= [1,3] />
+        </div>
 
       </div>
     </div>
@@ -95,8 +100,11 @@ import axios from 'axios';
 
 import store from '../store'
 
+import Chat from './Chat'
+
 export default {
   components: {
+    Chat
   },
   props: {
     id: [String, Number]
@@ -107,7 +115,9 @@ export default {
       target: '',
       anuncio: {},
       loading: false,
-      idCatalogoFormaPago: '1'
+      idCatalogoFormaPago: '1',
+      chatList: [],
+      idUsuario : store.state.session.detalles.id
     }
   },
   watch: {},
@@ -136,8 +146,81 @@ export default {
   mounted() {
     store.commit('setToggleHeader', true);
     store.commit('setToggleFooter', true);
-    this.obtenerAnuncio();
-  }
+    this.chatList=[
+      [{
+        id: 1,
+        idAnuncio: 1,
+        idRemitente : 2,
+        idHiloPadre : 2,
+        mensaje: "Hola quiero el sillon",
+        fecha: "2021-12-10" 
+      },
+      {
+        id: 2,
+        idAnuncio: 1,
+        idRemitente : 1,
+        idHiloPadre : 2,
+        mensaje: "Pero le cayo cafe, importa?",
+        fecha: "2021-12-10" 
+      },
+      {
+        id: 3,
+        idAnuncio: 1,
+        idRemitente : 2,
+        idHiloPadre : 2,
+        mensaje: "No, no importa?",
+        fecha: "2021-12-10" 
+      },
+      {
+        id: 4,
+        idAnuncio: 1,
+        idRemitente : 1,
+        idHiloPadre : 2,
+        mensaje: "ok",
+        fecha: "2021-12-11" 
+      }],
+
+      [
+      {
+        id: 5,
+        idAnuncio: 1,
+        idRemitente : 3,
+        idHiloPadre : 3,
+        mensaje: "Buenas",
+        fecha: "2021-12-11" 
+      },
+      {
+        id: 6,
+        idAnuncio: 1,
+        idRemitente : 3,
+        idHiloPadre : 3,
+        mensaje: "Noches",
+        fecha: "2021-12-11" 
+      },
+      {
+        id: 7,
+        idAnuncio: 1,
+        idRemitente : 3,
+        idHiloPadre : 3,
+        mensaje: "Tiene un sillon nuevo?",
+        fecha: "2021-12-11" 
+      },
+      {
+        id: 8,
+        idAnuncio: 1,
+        idRemitente : 1,
+        idHiloPadre : 3,
+        mensaje: "No, solo este que esta en la foto",
+        fecha: "2021-12-11" 
+      }],
+    ]
+    //this.obtenerAnuncio();
+
+
+  },
+  created(){
+
+  },
 }
 
 </script>
