@@ -1,22 +1,27 @@
 <template>
     <div>
 
-        <div class="card-body align" style="display: table-cell; width=300px;overflow-x:scroll" v-bind:key=conv.id v-for="(conv,idx) in chatList" :id="'conv' + idx" >
+        <div class="container" style="display: table-cell; width=300px;overflow-x:scroll" v-bind:key=conv.id v-for="(conv,idx) in chatList" :id="'conv' + idx" >
             
-            <div class="container" style ="height=10px;overflow-y:scroll">
-            <div v-bind:key="chat.idHiloPadre" v-for="chat in conv" v-bind:id='chat.id'>
+            <div class="container" style ="overflow-y:scroll; height:400px">
+            
+            <div v-bind:key="chat.id" v-for="chat in conv" :id='chat.id'>
             <tr >
                 {{chat.mensaje}}
             </tr>
+            
             </div>
-                <input :id="'e_text_' + idx" class="e-input" type="text" placeholder="Manda un mensaje" @keypress.enter="sendMsg('e_text_' + idx)"/>
+                <button class = "btn btn-info" type="button" :id="'b_' + idx"> > </button>
+                <input :id="'e_text_' + idx" class="e-input" type="text" placeholder="Manda un mensaje" @keypress.enter="sendMsg('e_text_' + idx, conv[0].idHiloPadre)"/>
             </div>
         </div>
-              </div>
+        </div>
 
 </template>
 
 <script>
+
+import axios from 'axios'
 
 export default {
 
@@ -24,14 +29,19 @@ export default {
     data() {
         return {
             msg : "",
-            chat :[]
+            chat :[],
+
         }
     },
     props:[
         'chatList',
+        "id",
         'idAnuncio',
         "idRemitente",
-        "idHiloPadre"
+        "idHiloPadre",
+        "mensaje",
+        "fecha",
+        
     ],
     methods: {
 
@@ -39,28 +49,23 @@ export default {
               if (!obj.savesize) obj.savesize=obj.size;
                 obj.size=Math.max(obj.savesize,obj.value.length);
         },
-        sendMsg(id){
+        sendMsg(id, idHiloPadre){
 
-            var text = document.getElementById(id).value;
-            var today = new Date();
-            var dd = String(today.getDate()).padStart(2, '0');
-            var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
-            var yyyy = today.getFullYear();
+            console.log("idHiloPadres es: " + idHiloPadre)
+            var cadena ="api/enviar-mensaje.json?idAnuncio="+this.idAnuncio+
+                        "&idHiloPadre="+idHiloPadre+
+                        "&idRemitente="+this.idRemitente+"&mensaje="+ document.getElementById(id).value.replaceAll(" ", "%20");
 
-            const newMsg = {
-                idAnuncio : this.idAnuncio,
-                idRemitente : this.idRemitente,
-                idHiloPadre : this.idHiloPadre,
-                mensaje : text,
-                fecha : yyyy + "/" + mm + "/" + dd
-            }
-            console.log(newMsg)
+
+            axios.get(cadena)
+                .then( x => {
+                    console.log(x.data)
+                })
             document.getElementById(id).value = ""
 
         }
     },
     mounted() {
-        this.id = this._uid
     }
     
 
