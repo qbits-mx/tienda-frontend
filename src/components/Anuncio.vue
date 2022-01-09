@@ -117,6 +117,7 @@ export default {
       loading: false,
       idCatalogoFormaPago: '1',
       chatList: [],
+      
       idUsuario : store.state.session.detalles.id
     }
   },
@@ -147,14 +148,15 @@ export default {
       axios.get("api/get-conversaciones.json?idAnuncio="+this.id[1])
         .then( x => {
           this.chatList = x.data;
+          setInterval(this.cargaMensajes(id), 10000);
         })
-      console.log(id)
-    }
+    },    
   },
   mounted() {
     store.commit('setToggleHeader', true);
     store.commit('setToggleFooter', true);
     this.cargaMensajes(this.idUsuario);
+    
     console.log("Los chats valen" + this.chatList)
 
     //this.obtenerAnuncio();
