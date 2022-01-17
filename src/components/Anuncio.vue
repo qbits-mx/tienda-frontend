@@ -145,12 +145,16 @@ export default {
     },
     cargaMensajes(id){
       //Hacer comprobacion de si es comprador o vendedor
+      //Revisar si es comprador, vendedor.
+
       axios.get("api/get-conversaciones.json?idAnuncio="+this.id[1])
         .then( x => {
           this.chatList = x.data;
-          setInterval(this.cargaMensajes(id), 10000);
+          console.log(id)
+//          setTimeout(this.cargaMensajes(id), 15000);
         })
-    },    
+//      
+    } 
   },
   mounted() {
     store.commit('setToggleHeader', true);
