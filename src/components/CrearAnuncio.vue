@@ -19,7 +19,26 @@
    
 
       <b-form @submit="onSubmit" @reset="onReset" v-if="show">
-
+        <b-form-group id="input-group-nombre" label="Nombre:" label-for="input-nombre">
+        <b-form-textarea
+            id="nombre"
+            v-model="form.nombre"
+            placeholder="Escribe aquí el nombre de tu anuncio"
+            rows="1"
+            max-rows="1"
+            required
+        ></b-form-textarea>
+        </b-form-group>
+        <b-form-group id="input-group-precio" label="Precio:" label-for="input-precio">
+          <b-form-textarea
+              id="precio"
+              v-model="form.precio"
+              placeholder="Escribe aquí el precio de tu artículo"
+              rows="1"
+              max-rows="1"
+              required
+          ></b-form-textarea>
+        </b-form-group>
       <b-form-group id="input-group-cat" label="Categorias:" label-for="input-cat">
         <b-form-select
           id="input-cat"
@@ -66,7 +85,7 @@
       >
         <b-form-input
           id="input-1"
-          v-model="form.email"
+          v-model="form.datos_contacto"
           type="email"
           placeholder="Enter email"
           
@@ -84,7 +103,7 @@
 
       <label for="calendar">Selecciona una fecha como vigencia de tu anuncio:</label>
       <div >
-        <b-calendar id="calendar" v-model="form.fechaVig" :min="min" :max="max" locale="en"
+        <b-calendar id="calendar" v-model="form.vigenciaAnuncio" :min="min" :max="max" locale="en"
         
         ></b-calendar>
       </div>
@@ -131,6 +150,8 @@
 </template>
 
 <script>
+import axios from 'axios'
+import store from '../store'
   export default {
     data() {
       const now = new Date()
@@ -146,24 +167,22 @@
         max: maxDate,
         
         form: {
-          
-          categoria: null,
-          entrega:   null,
-          pago:   null,
-          descripcion: '',
-          email: '',
-          fechaVig: '',
-          condicion: null,
-          file1: null,
-          file2: null
+          datos_contacto: "",
+          descripcion: "",
+          idCatalogoCondicion: 1,
+          idCatalogoDepartamento: 1,
+          idCatalogoFormaDePago: 1,
+          idCatalogoZonaDeEntrega: 1,
+          idUsuario: store.state.session.idUser,
+          nombre: "",
+          precio: null,
+          vigenciaAnuncio: ""
         },
-        categorias: [{ text: 'Selecciona Una', value: null },'Linea Blanca',  'Mascotas', 'Electronica', 'Deportes','Musica Belleza', 'Salud/Cuidado Personal','Productos del hogar','Alimentos0','Ropa'],
-        entregas:   [{ text: 'Selecciona Una', value: null },'Álvaro Obregón', 'Azcapotzalco', 'Benito Juárez', 'Coyoacán ', 'Cuajimalpa de Morelos',
-                                                            'Cuauhtémoc',     'Gustavo A. Madero','Iztacalco','Iztapalapa	','La Magdalena Contreras',
-                                                            'Miguel Hidalgo', 'Milpa Alta', 'Tláhuac', 'Tlalpan	', 'Venustiano Carranza','Xochimilco	'],
+        categorias: [{ text: 'Selecciona Una', value: null },1],
+        entregas:   [{ text: 'Selecciona Una', value: null },1],
 
-        pago:       [{ text: 'Selecciona Una', value: null },'Efectivo', 'Tarjeta de Debito'],
-        condicion:  [{ text: 'Select One', value: null }, 'Nuevo', 'Usado',],
+        pago:       [{ text: 'Selecciona Una', value: null }, 1],
+        condicion:  [{ text: 'Select One', value: null }, 1],
         show: true
         
       }
@@ -171,20 +190,22 @@
     methods: {
       onSubmit(event) {
         event.preventDefault()
-        alert(JSON.stringify(this.form))
+        axios.post("http://localhost:9999/api/salva-anuncio.json", this.form)
       },
       onReset(event) {
         event.preventDefault()
         // Reset our form values
-        this.form.categoria = null
-        this.form.entrega = null
-        this.form.pago = null
-        this.form.descripcion = ''
-        this.form.email = ''
-        this.form.condicion = ''
-        this.form.fechaVig = ''
-        this.form.file1 = ''
-        this.form.file2 =''
+
+        this.form.datos_contacto = ""
+        this.form.descripcion = ""
+        this.form.idCatalogoCondicion =  1
+        this.form.idCatalogoDepartamento = 1
+        this.form.idCatalogoFormaDePago = 1
+        this.form.idCatalogoZonaDeEntrega = 1
+        this.form.nombre = ""
+        this.form.precio = null
+        this.form.vigenciaAnuncio = ""
+
         // Trick to reset/clear native browser form validation state
         this.show = false
         this.$nextTick(() => {
