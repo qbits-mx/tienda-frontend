@@ -85,7 +85,7 @@
       >
         <b-form-input
           id="input-1"
-          v-model="form.datos_contacto"
+          v-model="form.contacto"
           type="email"
           placeholder="Enter email"
           
@@ -167,7 +167,7 @@ import store from '../store'
         max: maxDate,
         
         form: {
-          datos_contacto: "",
+          contacto: "",
           descripcion: "",
           idCatalogoCondicion: 1,
           idCatalogoDepartamento: 1,
@@ -196,7 +196,7 @@ import store from '../store'
         event.preventDefault()
         // Reset our form values
 
-        this.form.datos_contacto = ""
+        this.form.contacto = ""
         this.form.descripcion = ""
         this.form.idCatalogoCondicion =  1
         this.form.idCatalogoDepartamento = 1
