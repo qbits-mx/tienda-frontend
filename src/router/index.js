@@ -14,9 +14,13 @@ import CambiaClave           from '@/components/CambiaClave'
 import CambiaDatosPersonales from '@/components/CambiaDatosPersonales'
 import MisDirecciones        from '@/components/MisDirecciones'
 import ConsultaRol           from '@/components/ConsultaRol'
-import NotFound              from'@/components/NotFound'
-import HistorialCompras      from'@/components/HistorialCompras'
-import CalificarProducto      from'@/components/CalificarProducto'
+import NotFound              from '@/components/NotFound'
+import HistorialCompras      from '@/components/HistorialCompras'
+import CalificarProducto     from '@/components/CalificarProducto'
+import AuditarComentario     from '@/components/AuditarComentario'
+import ValidarComentario     from '@/components/ValidarComentario'
+import ProductoVen     from '@/components/ProductoVen'
+import ProductoCom     from '@/components/ProductoCom'
 
 Vue.use(Router);
 
@@ -93,6 +97,26 @@ const routes = [
     path: '/ui/calificar-producto',
     name: 'calificar-producto',
     component: CalificarProducto
+  },
+  {
+    path: '/ui/auditar-comentario',
+    name: 'auditar-comentario',
+    component: AuditarComentario
+  },
+  {
+  path: '/ui/producto-ven',
+  name: 'producto-ven',
+  component: ProductoVen
+  },
+  {
+    path: '/ui/producto-com',
+    name: 'producto-com',
+    component: ProductoCom
+    },
+  {
+    path: '/ui/validar-comentario',
+    name: 'validar-comentario',
+    component: ValidarComentario
   },
   { 
     path: "*", 
