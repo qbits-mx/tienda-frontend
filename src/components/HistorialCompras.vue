@@ -15,7 +15,7 @@
   </div-->
 
 
-  <from class="col-sm-12" style="width:100%; height:100%; ">
+  <from class="col-sm-12" style="text-align: center; ">
             <button @click="openProductosVen" class="btn btn-warning" >Productos Vendidos</button>
   </from>
   <from class="col-sm-12" style="text-align: center;">
