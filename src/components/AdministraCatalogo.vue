@@ -18,7 +18,7 @@
                     <li class = "list-group-item" v-for="catalogo in categoria" :key="catalogo.idCatalogo">
                         {{catalogo.nombre}}                        
                         <button type="button" class="btn btn-danger float-right" v-on:click = "eliminarCatalogo(catalogo.id)" >Eliminar</button>
-                        <button type="button" class="btn btn-primary float-right" v-on:click = "renombrarCatalogo(categoria[0].idMaestro,catalogo.id,catalogo.nombre)">Renombrar</button>
+                        <button type="button" class="btn btn-primary float-right" v-on:click = "renombrarCatalogo(catalogo.id,catalogo.nombre)">Renombrar</button>
                     </li>
                 </ul>
             </div>        
@@ -30,7 +30,9 @@
 
 <script>
 
-import axios from 'axios'; 
+import axios from 'axios';
+import Vue from 'vue';
+import VueSimpleAlert from "vue-simple-alert";
 
 export default ({  
     name: "AdministraCatalogo",
@@ -47,19 +49,39 @@ export default ({
         this.cargaLista();
     },
     methods: {
-    
+    abreToast(msg) {
+        Vue.$toast.open({
+          message: msg,
+          type: 'info',
+          duration: 5000,
+          position:'top'
+        });
+    },
+    exitoToast(msg) {
+        Vue.$toast.open({
+          message: msg,
+          type: 'success',
+          duration: 5000,
+          position:'top'
+        });
+    },
+    errorToast(msg){
+        Vue.$toast.open({
+          message: msg,
+          type: 'error',
+          duration: 5000,
+          position:'top'
+        });
+    },
     cargaLista(){
         let categorias = {}
-        axios.
-            get('api/obtener-catalogos-join.json')
-            .then(response =>{
+        axios.get('api/obtener-catalogos-join.json').then(response =>{
                 (response.data).forEach(x => {
                 const identificador = x.idMaestro;
                 if (!categorias[identificador]) categorias[identificador]=[]
-                    categorias[identificador].push(x);
+                categorias[identificador].push(x);
                 })
             this.Lista = categorias;
-            console.log(this.Lista)
             })
             .catch(error =>{
                 console.log(error)
@@ -69,74 +91,67 @@ export default ({
     },
     
     agregarCatalogo(idCatalogoCategoria){
-        const nameRegExp = new RegExp(/^([A-Za-z0-9]\s)*/);
-
+        const nameRegExp = /^[a-zA-Z0-9ñ ]+$/;
+        Vue.use(VueSimpleAlert);
         let activo = true;
-        let nombre = prompt("Ingrese el nombre del nuevo catálogo:", "Catalogo Nuevo");
-        if (nombre == null || nombre == "" || !(nameRegExp.test(this.name)) ) {
-            alert("Hubo un problema con el nombre.");
-        } else {
-            axios.get("api/insertar-catalogo.json?activo="+activo+
-                    "&idCatalogoCategoria="+idCatalogoCategoria+"&nombre="+nombre)
+        this.$prompt("Ingresa el nuevo nombre").then((nombre) => {
+            if (nombre == null || nombre == "" || !(nameRegExp.test(nombre)) ) {
+                this.abreToast("El nombre no puede contener caracteres extraños y no puede ser vacio");
+            } else {
+                axios.get("api/insertar-catalogo.json?activo="+activo+"&idCatalogoCategoria="+idCatalogoCategoria+"&nombre="+nombre)
                     .then(data => {
-                        if(data){
-                           this.cargaLista();
-                            alert("El catalogo se creo de forma exitosa");
+                        if(data.data){
+                        this.cargaLista();
+                            this.exitoToast("El catalogo se creo de forma exitosa");
                         }else{
-                            alert("Parece que hubo un error al crear: "+data);
-                    }
-            console.log("ENTRADA "+ idCatalogoCategoria+ " - publicado? = "+data);
-
-            console.log("api/insertar-catalogo.json?activo="+activo+
-                    "&idCatalogoCategoria="+idCatalogoCategoria+"&nombre="+nombre);
-            console.log("ENTRADA "+ idCatalogoCategoria+ " - publicado? = "+data);
-
+                            this.abreToast("Error al crear el catalogo, compruebe que el nombre no este en uso");
+                        }
                     });
-            
-            
-            
-        }
+            }            
+        });
     },
     eliminarCatalogo(id){
-        console.log("El id es: "+id)
-        if (confirm("¿Seguro que desea eliminarlo?")) {
+        Vue.use(VueSimpleAlert);
+        if (id === 14) {
+            this.errorToast("No se puede eliminar este elemento");
+            return;
+        }
+        this.$confirm("¿Seguro que desea eliminarlo?").then(() => {
             axios.get("api/eliminar-catalogo-porId.json?id="+id)
             .then(data =>{
-                if (data){
+                if (data.data){
                     this.cargaLista();
-                    alert("Eliminación exitosa");
+                    this.exitoToast("Eliminación exitosa");
                 }else{
-                    alert("Hubo un error al eliminar");
+                    this.abreToast("Error al eliminar");
                 }
             });
-            
-        } else {
-            alert("Eliminación cancelada");
-        }    
+        });
     },
-    renombrarCatalogo(idCatalogoCategoria,id,nombreAntiguo){
-        const nameRegExp = new RegExp(/^([A-Za-z0-9]\s)*/);
-
-        let nombre = prompt("Ingrese el nuevo nombre para el catálogo:", nombreAntiguo);
-        if (nombre == null || nombre == "" || !(nameRegExp.test(this.name)) ) {
-            alert("Hubo un problema con el nombre.");
-        } else {
-            if (confirm("¿Seguro que desea renombrar?")) {
-                console.log("id = "+id+ " nombre= "+ nombre);
-                axios.get("api/modificar-nombreDeCatalogo-porId.json?id="+id+"&nuevoNombre="+nombre)
-                .then( data =>{
-                    if(data){
-                        this.cargaLista();
-                        alert("El catalago "+nombreAntiguo+" se cambio a "+ nombre+" de forma exitosa");
-                    }else{
-                        alert("Parece que hubo un error al renombrar" + data);
-                    }
-                });
-            }else{
-                alert("Operacion cancelada");
-            }
-            
+    renombrarCatalogo(id,nombreAntiguo){
+        Vue.use(VueSimpleAlert);
+        if (id === 14) {
+            this.errorToast("No se puede renombrar este elemento");
+            return;
         }
+        const nameRegExp = /^[a-zA-Z0-9ñ ]+$/;
+        this.$prompt("NuevoNombre").then((nombre) => {
+            if (nombre == null || nombre == "" || !(nameRegExp.test(nombre))) {
+                this.abreToast("El nombre no puede contener caracteres extraños y no puede ser vacio");
+            } else {
+                this.$confirm("¿Seguro que deseas renombrarlo?").then(() => { 
+                    axios.get("api/modificar-nombreDeCatalogo-porId.json?id="+id+"&nuevoNombre="+nombre)
+                    .then( data =>{
+                        if(data.data){
+                            this.cargaLista();
+                            this.exitoToast("El catalago \""+nombreAntiguo+"\" se cambio a \""+ nombre+"\" de forma exitosa");
+                        }else{
+                            this.abreToast("Hubo un error al renombrar, por favor verifique que el nuevo nombre no este siendo utilizado");
+                        }
+                    });
+                });
+            }
+        });
    },
   }
 })
