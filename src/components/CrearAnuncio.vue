@@ -190,7 +190,13 @@ import store from '../store'
     methods: {
       onSubmit(event) {
         event.preventDefault()
-        axios.post("http://localhost:9999/api/salva-anuncio.json", this.form)
+        axios.post("http://localhost:9999/api/salva-anuncio.json", this.form).then(res => {
+          if(res.data == -1) {
+            alert("Sólo se puede tener un anuncio activo y usted ya tiene uno");
+          }else {
+            alert("USTED SERÁ REDIRECCIONADO");
+          }
+        });
       },
       onReset(event) {
         event.preventDefault()
