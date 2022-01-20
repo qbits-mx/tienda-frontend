@@ -26,8 +26,11 @@
                         <div class="row">
                             <div class="col-sm">
                               <p style="text-align: center;"><b>Id de anuncio: {{noValidado.id}}</b></p>
-                                <p style="color:#c2b280;margin-bottom:0%;font-size:large;"><b>Descripción Anuncio: </b></p>
-                                <p style="color:#c2b280;margin-top:0%;text-decoration: underline;font-size:large;"><b>{{noValidado.descripcion}}</b></p>
+                                <p style="color:#436499;margin-bottom:0%;font-size:large;"><b>Nombre Anuncio: </b></p>
+                                <p style="color:#2e8b57;margin-top:0%;text-decoration: underline;font-size:large;"><b>{{noValidado.nombre}}</b></p>
+                                <p style="color:#436499;margin-bottom:0%;font-size:large;"><b>Precio Anuncio: </b></p>
+                                <p style="color:#2e8b57;margin-top:0%;text-decoration: underline;font-size:large;"><b>{{noValidado.precio}} MXN</b></p>
+                                
                             </div>
                         <div class="col-sm-6" >
                           <img v-bind:src="urlNoValidados[index]" width="100%">
@@ -44,9 +47,10 @@
                         <div class="row">
                             <div class="col-sm">
                               <p style="text-align: center;"><b>Id de anuncio: {{validado.id}}</b></p>
-                                <p style="color:#c2b280;margin-bottom:0%;font-size:large;"><b>Descripción Anuncio: </b></p>
-                                <p style="color:#c2b280;margin-top:0%;text-decoration: underline;font-size:large;"><b>{{validado.descripcion}}</b></p>
-                              
+                                <p style="color:#436499;margin-bottom:0%;font-size:large;"><b>Nombre Anuncio: </b></p>
+                                <p style="color:#2e8b57;margin-top:0%;text-decoration: underline;font-size:large;"><b>{{validado.nombre}}</b></p>
+                                <p style="color:#436499;margin-bottom:0%;font-size:large;"><b>Precio Anuncio: </b></p>
+                                <p style="color:#2e8b57;margin-top:0%;text-decoration: underline;font-size:large;"><b>{{validado.precio}} MXN</b></p>
                             </div>
                         <div class="col-sm-6" >
                           <img v-bind:src="urlValidados[index]" width="100%">
@@ -116,7 +120,6 @@ methods: {
               this.noValidados.push(value);
               this.getMultimediaNoValidados(value) 
           });
-          //this.compras = this.compras.sort((a,b) => (a.fechaCompra > b.fechaCompra) ? 1 : ((b.fechaCompra > a.fechaCompra) ? -1 : 0)).reverse();
           this.currentPage = this.noValidados.slice(0, this.perPage);
           this.rows = this.noValidados.length;
           this.page = 1;
@@ -133,7 +136,6 @@ methods: {
               this.validados.push(value);
               this.getMultimediaValidados(value)
           });
-          //this.compras = this.compras.sort((a,b) => (a.fechaCompra > b.fechaCompra) ? 1 : ((b.fechaCompra > a.fechaCompra) ? -1 : 0)).reverse();
           this.currentPage = this.noValidados.slice(0, this.perPage);
           this.rows = this.noValidados.length;
           this.page = 1;
