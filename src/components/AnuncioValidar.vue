@@ -7,6 +7,22 @@
             <div class="card-body" style="margin:20px;">
                 <div class="row">
                     <div class="col">
+                        <label class="control-label h4">Título:</label>
+                    </div>
+                    <div class="col">
+                        <label class="control-label h5"> {{ this.anuncio.nombre }} </label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <label class="control-label h4">Precio:</label>
+                    </div>
+                    <div class="col">
+                        <label class="control-label h5"> {{ this.anuncio.precio }} </label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
                         <label class="control-label h4">Descripción:</label>
                     </div>
                     <div class="col">

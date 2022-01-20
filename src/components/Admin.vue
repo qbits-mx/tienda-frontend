@@ -10,37 +10,20 @@
 
       <div class="row mb-3">
         <div class="col d-flex my-2">
-          <botonAdmin colorTarjeta="rgba(58,194,58,0.56)" titulo="Gráficos" descripcion="Información visual en tiempo real"
-                      link="reporte-graficas" icono="far fa-chart-bar fa-4x icono shrink" color="btn btn-success btn-block">
+          <botonAdmin colorTarjeta="rgba(58,194,58,0.56)" titulo="Validar y Publicar" descripcion="Validar ó Rechazar los anuncios"
+                      link="/ui/gestor-administrador" icono="fas fa-compact-disc fa-4x icono shrink" color="btn btn-success btn-block">
           </botonAdmin>
         </div>
         <div class="col d-flex my-2">
-          <botonAdmin colorTarjeta="rgba(255,0,0,0.4)" titulo="Listado de Compras" descripcion="Pedidos realizados por clientes"
-                      link="admin-compras" icono="fas fa-shopping-bag fa-4x icono shrink" color="btn btn-danger btn-block">
+          <botonAdmin colorTarjeta="rgba(255,0,0,0.4)" titulo="Administrar Catálogo" descripcion="Se administra el catálogo de la tienda"
+                      link="/admin/catalogos" icono="fas fa-compact-disc fa-4x icono shrink" color="btn btn-danger btn-block">
           </botonAdmin>
         </div>
       </div>
       <div class="row mb-3" >
         <div class="col d-flex my-2">
-          <botonAdmin colorTarjeta="rgba(0,150,255,0.4)" titulo="Formatos multimedia" descripcion="Modifica los tipos de formatos multimedia soportados."
-                      link="consulta-tipos-medias" icono="fas fa-compact-disc fa-4x icono shrink" color="btn btn-primary btn-block">
-          </botonAdmin>
-        </div>
-        <div class="col d-flex my-2">
-          <botonAdmin colorTarjeta="rgba(255,255,0,0.5)" titulo="Catálogos de Países" descripcion="Modifica países"
-                      link="consulta-pais" icono="fas fa-globe-americas fa-4x icono shrink" color="btn btn-warning btn-block">
-          </botonAdmin>
-        </div>
-      </div>
-      <div class="row mb-3">
-        <div class="col d-flex my-2">
-          <botonAdmin colorTarjeta="rgba(1,1,1,0.2)" titulo="Insertar Anuncio" descripcion="Genera un nuevo anuncio"
-                      link="admin-anuncio" icono="fas fa-bone fa-4x icono shrink" color="btn btn-secondary btn-block">
-          </botonAdmin>
-        </div>
-        <div class="col d-flex my-2">
-          <botonAdmin colorTarjeta="rgba(0,170,200,0.4)" titulo="Editar Anuncio" descripcion="Modifica un anuncio ya existente"
-                      link="admin-consulta-anuncio" icono="fas fa-pencil-alt fa-4x icono shrink" color="btn btn-info btn-block">
+          <botonAdmin colorTarjeta="rgba(0,150,255,0.4)" titulo="Auditar Comentarios" descripcion="Se revisan los comentarios de los anuncios"
+                      link="/ui/auditar-comentario" icono="fas fa-compact-disc fa-4x icono shrink" color="btn btn-primary btn-block">
           </botonAdmin>
         </div>
       </div>

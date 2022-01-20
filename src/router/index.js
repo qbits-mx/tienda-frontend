@@ -14,10 +14,11 @@ import CambiaClave           from '@/components/CambiaClave'
 import CambiaDatosPersonales from '@/components/CambiaDatosPersonales'
 import MisDirecciones        from '@/components/MisDirecciones'
 import ConsultaRol           from '@/components/ConsultaRol'
-import NotFound              from'@/components/NotFound'
+import NotFound              from '@/components/NotFound'
 import GestorAdministrador   from '@/components/GestorAdministrador'
 import AnuncioValidar        from '@/components/AnuncioValidar'
 import AnuncioRechazar       from '@/components/AnuncioRechazar'
+import Admin                 from '@/components/Admin'
 
 Vue.use(Router);
 
@@ -83,6 +84,12 @@ const routes = [
     path: '/ui/consulta-rol',
     name: 'ConsultaRol',
     component:ConsultaRol,
+    meta: { allowedRoles: ['admin'] }
+  },
+  {
+    path: '/ui/admin',
+    name: 'Admin',
+    component: Admin,
     meta: { allowedRoles: ['admin'] }
   },
   {
