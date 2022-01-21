@@ -117,7 +117,7 @@ export default {
       loading: false,
       idCatalogoFormaPago: '1',
       chatList: [],
-      
+      soyVendedorb : '',
       idUsuario : store.state.session.detalles.id
     }
   },
@@ -143,28 +143,40 @@ export default {
         this.loading = false;
       })
     },
+    soyVendedor(id){
+      axios("api/api/soy-vendedor.json?idAnuncio="+this.anuncio.id +"&idRemitente="+id)
+          .then(x => {
+            console.log("Soyvendedor? "+ x.data);
+
+            this.soyVendedorb = x.data;
+          })
+
+    },
     cargaMensajes(id){
       //Hacer comprobacion de si es comprador o vendedor
       //Revisar si es comprador, vendedor.
+      
 
-      axios.get("api/get-conversaciones.json?idAnuncio="+this.id[1])
+      axios.get("api/get-conversaciones.json?idAnuncio="+id)
         .then( x => {
           this.chatList = x.data;
-          console.log(id)
-//          setTimeout(this.cargaMensajes(id), 15000);
+          
+          setInterval(this.cargaMensajes(id), 5000);
+          
         })
-//      
-    } 
+
+     }
   },
+
   mounted() {
     store.commit('setToggleHeader', true);
     store.commit('setToggleFooter', true);
+    this.soyVendedor(this.idUsuario);
     this.cargaMensajes(this.idUsuario);
-    
+
     console.log("Los chats valen" + this.chatList)
 
     //this.obtenerAnuncio();
-
 
   },
   created(){

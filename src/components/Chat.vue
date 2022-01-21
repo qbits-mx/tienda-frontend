@@ -7,7 +7,7 @@
             background: linear-gradient(to top,  #38373a, #b2b2b3);
             width=30%;  ">
 
-            <div class="container" style ="overflow-y:scroll; height:300px;  
+            <div class="container" style ="overflow-y:scroll; height:300px; width :350px;
             margin: 20px 0px 20px 0px; display:flex; flex-direction: column-reverse;
             ">
             
