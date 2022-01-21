@@ -13,14 +13,13 @@
         <div class="card defaultColor w-100">
 
           <div class="card-header">
-            <label class="control-label h4">Comprar producto</label>
+            <label class="control-label h4">Precio: {{anuncio.precio || 50.20}}</label>
           </div><!-- ends card header -->
 
           <div class="card-body align">
-
             <div class="card">
               <div class="card-body">
-                {{anuncio.descripcion}}
+                {{anuncio.descripcion || "Audífonos Over-Ear Studio3 Wireless con cancelación de Ruido, Chip W1 para audífonos diseñado por Apple, Bluetooth Class 1, cancelación de Ruido Activa, 22 Horas de Audio - Negro"}}
               </div>
             </div>
 
@@ -65,25 +64,40 @@
             <!-- button -->
             <div class="form-group row">
               <div class="col text-center">
-                <button
-                    @click="actualizaCompra"
-                    class="btn btn-success"
-                    data-toggle="modal"
-                    data-target="#termsModal">Comprar
-                </button>
-
+                <div v-if="true">
+                  <button type="button" class="btn btn-lg btn-primary" enabled onClick="this.disabled=true">Comprar</button>
+                </div>
+                
+              
                 <!--          Modal-->
 
               </div>
             </div>
-            <b-form-rating v-model="anuncio.estrellas" readonly></b-form-rating>
-          </div><!-- ends card body -->
+            <b-form-rating v-model="anuncio.estrellas" readonly></b-form-rating> 
 
+          </div><!-- ends card body -->
         </div><!-- ends card -->
+          <div style="margin-left:650px">
+            <button
+                    @click="$router.push('chat')"
+                    class="btn btn-success"
+                    data-toggle="modal"
+                    data-target="#termsModal">Ver Chat
+            </button>
+          </div>
+
+        <div class="card border-light mb-3" style="max-width: 36rem;">
+  <div class="card-header">Comentarios</div>
+  <div class="card-body">
+    <h5 class="card-title">Usuario</h5>
+    <p class="card-text">Aqui van los comentarios...</p>
+  </div>
+</div>
 
 
       </div>
     </div>
+
   </div>
 
 </template>
@@ -124,7 +138,7 @@ export default {
     actualizaCompra(){
       const idUsuario = store.state.session.id || 0;
       this.loading = true;
-      axios("api/actualiza-compra.json?idCatalogoFormaPago="+this.idCatalogoFormaPago+"&idComprador="+idUsuario+"&idProducto="+this.anuncio.id)
+      axios("api/actualiza-compra.json?idCatalogoFormaPago="+this.idCatalogoFormaPago+"&idComprador="+idUsuario+"&idProducto="+this.anuncio.id+"&idComprado="+this.anuncio.comprado+"&precio="+this.anuncio.precio)
           .then(() => {
             this.obtenerAnuncio();
           })
