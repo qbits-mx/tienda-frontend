@@ -5,17 +5,18 @@
         <label class="control-label h4" >Administración de Catalogos</label>
         
       </div>
-      <div class="card-body align" v-for="categoria in Lista" :key = categoria.key>
+      
+      <div class="card-body align" v-for="(value,key) in Categorias" :key= key >
               <div class="card-header card-custom-header"> 
-                <label class="control-label h5" >{{categoria[0].tipoCatalogo}}</label>
+                <label class="control-label h5" >{{key}}</label>
             </div>
         <div class="container" id = 'AdministraCatalogo'>
             <br>
-                <button type="button" class="btn btn-success float-right" v-on:click = "agregarCatalogo(categoria[0].idMaestro)" >Agregar Elemento</button>
+                <button type="button" class="btn btn-success float-right" v-on:click = "agregarCatalogo(key)" >Agregar Elemento</button>
             <br>
             <div class = "container" style="overflow-y:scroll; height:400px">
                 <ul class = "list-group">
-                    <li class = "list-group-item" v-for="catalogo in categoria" :key="catalogo.idCatalogo">
+                    <li class = "list-group-item" v-for="catalogo in value" :key="catalogo.idCatalogo">
                         {{catalogo.nombre}}                        
                         <button type="button" class="btn btn-danger float-right" v-on:click = "eliminarCatalogo(catalogo.id)" >Eliminar</button>
                         <button type="button" class="btn btn-primary float-right" v-on:click = "renombrarCatalogo(catalogo.id,catalogo.nombre)">Renombrar</button>
@@ -41,12 +42,11 @@ export default ({
         return {
             error: false,
             loading: true,
-            cambios:0,
-            Lista: null
+            Categorias: null
         }
     },
       mounted(){
-        this.cargaLista();
+        this.cargaCategorias();
     },
     methods: {
     abreToast(msg) {
@@ -73,15 +73,27 @@ export default ({
           position:'top'
         });
     },
-    cargaLista(){
+    cargaCategorias(){
         let categorias = {}
+        axios.get('api/obtener-todos-catalogosMaestros.json').then(response =>{
+                (response.data).forEach(x => {
+                    categorias[x.tipoCatalogo]=[];
+                })
+                this.Categorias = categorias
+                this.cargaLista();
+            })
+            .catch(error =>{
+                console.log(error)
+                this.errored =true
+            })
+            .finally(()=>this.loading = false);
+    },
+    cargaLista(){
         axios.get('api/obtener-catalogos-join.json').then(response =>{
                 (response.data).forEach(x => {
-                const identificador = x.idMaestro;
-                if (!categorias[identificador]) categorias[identificador]=[]
-                categorias[identificador].push(x);
+                    const identificador = x.tipoCatalogo;
+                    this.Categorias[identificador].push(x);
                 })
-            this.Lista = categorias;
             })
             .catch(error =>{
                 console.log(error)
@@ -90,7 +102,7 @@ export default ({
             .finally(()=>this.loading = false);
     },
     
-    agregarCatalogo(idCatalogoCategoria){
+    agregarCatalogo(tipoCatalogo){
         const nameRegExp = /^[a-zA-Z0-9ñ ]+$/;
         Vue.use(VueSimpleAlert);
         let activo = true;
@@ -98,15 +110,19 @@ export default ({
             if (nombre == null || nombre == "" || !(nameRegExp.test(nombre)) ) {
                 this.abreToast("El nombre no puede contener caracteres extraños y no puede ser vacio");
             } else {
-                axios.get("api/insertar-catalogo.json?activo="+activo+"&idCatalogoCategoria="+idCatalogoCategoria+"&nombre="+nombre)
-                    .then(data => {
+                axios.get("api/buscar-catalogo-tipo-catalogo.json?tipoCatalogo="+tipoCatalogo)
+                .then(idCatalogoCategoria => {
+                    
+                    axios.get("api/insertar-catalogo.json?activo="+activo+"&idCatalogoCategoria="+idCatalogoCategoria.data.id+"&nombre="+nombre)
+                     .then(data => {
                         if(data.data){
-                        this.cargaLista();
+                            this.cargaCategorias();
                             this.exitoToast("El catalogo se creo de forma exitosa");
                         }else{
                             this.abreToast("Error al crear el catalogo, compruebe que el nombre no este en uso");
                         }
-                    });
+                    });    
+                })
             }            
         });
     },
@@ -120,7 +136,7 @@ export default ({
             axios.get("api/eliminar-catalogo-porId.json?id="+id)
             .then(data =>{
                 if (data.data){
-                    this.cargaLista();
+                    this.cargaCategorias();
                     this.exitoToast("Eliminación exitosa");
                 }else{
                     this.abreToast("Error al eliminar");
@@ -143,7 +159,7 @@ export default ({
                     axios.get("api/modificar-nombreDeCatalogo-porId.json?id="+id+"&nuevoNombre="+nombre)
                     .then( data =>{
                         if(data.data){
-                            this.cargaLista();
+                            this.cargaCategorias();
                             this.exitoToast("El catalago \""+nombreAntiguo+"\" se cambio a \""+ nombre+"\" de forma exitosa");
                         }else{
                             this.abreToast("Hubo un error al renombrar, por favor verifique que el nuevo nombre no este siendo utilizado");
