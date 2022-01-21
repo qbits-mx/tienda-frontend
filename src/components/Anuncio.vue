@@ -144,26 +144,35 @@ export default {
       })
     },
     soyVendedor(id){
-      axios("api/api/soy-vendedor.json?idAnuncio="+this.anuncio.id +"&idRemitente="+id)
+      console.log("idRemitente = " + id)
+      axios("/api/soy-vendedor.json?idAnuncio="+this.id[1] +"&idRemitente="+id)
           .then(x => {
-            console.log("Soyvendedor? "+ x.data);
-
             this.soyVendedorb = x.data;
           })
-
+      console.log("idAnuncio = " + this.id[1])
     },
     cargaMensajes(id){
       //Hacer comprobacion de si es comprador o vendedor
       //Revisar si es comprador, vendedor.
-      
+      if (this.soyVendedorb) {
+        axios.get("api/get-conversaciones.json?idAnuncio="+id)
+          .then( x => {
+            this.chatList = x.data;
+          })        
+      }else{
 
-      axios.get("api/get-conversaciones.json?idAnuncio="+id)
-        .then( x => {
-          this.chatList = x.data;
-          
-          setInterval(this.cargaMensajes(id), 5000);
-          
-        })
+        axios.get("/api/get-conversacion.json?idAnuncio="+id+ "&idHiloPadre="+this.idUsuario)
+          .then( x => {
+            if (this.chatList.length === 0){
+              this.chatList.push(x.data);
+            }else{
+              this.chatList.pop();
+              this.chatList.push(x.data);
+
+            }
+          })
+      }
+
 
      }
   },
@@ -172,9 +181,8 @@ export default {
     store.commit('setToggleHeader', true);
     store.commit('setToggleFooter', true);
     this.soyVendedor(this.idUsuario);
-    this.cargaMensajes(this.idUsuario);
-
-    console.log("Los chats valen" + this.chatList)
+    setInterval(function() {
+      this.cargaMensajes(this.id[1]); }.bind(this) , 500);
 
     //this.obtenerAnuncio();
 

@@ -33,9 +33,6 @@
                 @keypress.enter="sendMsg('e_text_' + idx, conv[0].idHiloPadre)"/>
         </div>
     
-     
-
-
     </div>
 
 </template>
@@ -71,6 +68,7 @@ export default {
         },
 
         sendMsg(id, idHiloPadre){
+            
 
             console.log("idHiloPadres es: " + idHiloPadre)
 
