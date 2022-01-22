@@ -34,8 +34,7 @@
                   <b-dropdown-item href="#" @click="navega('/ui/compras')">Mis Compras</b-dropdown-item>
                   <b-dropdown-item href="#" @click="navega('/ui/mis-direcciones')">Mis Direcciones</b-dropdown-item>
                   <b-dropdown-item href="#" @click="navega('/ui/mis-metodos-pago')">Mis Métodos de pago</b-dropdown-item>
-                  <b-dropdown-item href="#" @click="navega('/ui/historial-compras')">Historial de compras</b-dropdown-item>
-                  <b-dropdown-item href="#" @click="navega('/ui/auditar-comentario')">Auditar Comentario</b-dropdown-item>
+                  <b-dropdown-item href="#" @click="navega('/ui/historiales')">Historial de compras</b-dropdown-item>
                 </div>
                 <div v-if="admin">
                   <b-dropdown-divider/>

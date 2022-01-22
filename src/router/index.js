@@ -15,7 +15,9 @@ import CambiaDatosPersonales from '@/components/CambiaDatosPersonales'
 import MisDirecciones        from '@/components/MisDirecciones'
 import ConsultaRol           from '@/components/ConsultaRol'
 import NotFound              from '@/components/NotFound'
+import Historiales           from '@/components/Historiales'
 import HistorialCompras      from '@/components/HistorialCompras'
+import HistorialVentas       from '@/components/HistorialVentas'
 import CalificarProducto     from '@/components/CalificarProducto'
 import AuditarComentario     from '@/components/AuditarComentario'
 import ValidarComentario     from '@/components/ValidarComentario'
@@ -91,7 +93,17 @@ const routes = [
   {
     path: '/ui/historial-compras',
     name: 'historial-compras',
-    component: HistorialCompras
+    component: HistorialCompras,
+  },
+  {
+    path: '/ui/historial-ventas',
+    name: 'historial-ventas',
+    component: HistorialVentas,
+  },
+  {
+    path: '/ui/historiales',
+    name: 'historiales',
+    component: Historiales
   },
   {
     path: '/ui/calificar-producto',
@@ -101,7 +113,8 @@ const routes = [
   {
     path: '/ui/auditar-comentario',
     name: 'auditar-comentario',
-    component: AuditarComentario
+    component: AuditarComentario,
+    meta: { allowedRoles: ['admin'] }
   },
   {
   path: '/ui/producto-ven',

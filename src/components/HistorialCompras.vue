@@ -1,63 +1,101 @@
 <template>
-<div>
-
-  <div v-if="result" class="content">
-    <p>User ID: {{ result.id }}</p>
-    <p>Title: {{ result.idUsuario }}</p>
-    <!-- >
-    <b-dropdown-item href="#" @click="navega('/ui/calificar-producto')">Mis Compras</b-dropdown-item>
-    <!-->
-  </div>
-
-
-  <!--<div class="col-sm-12" style="text-align: center;">
-            <button @click="openRegistroPage" class="btn btn-warning" >Calificar</button>
-  </div-->
-
-
-  <from class="col-sm-12" style="text-align: center; ">
-            <button @click="openProductosVen" class="btn btn-warning" >Productos Vendidos</button>
-  </from>
-  <from class="col-sm-12" style="text-align: center;">
-            <button @click="openProductosCom" class="btn btn-warning" >Productos Comprados</button>
-  </from>
-</div>   
-                        
-</template>
+    <div class="col-sm-12" style="text-align: center;" >
+        <h3 class="p-3 text-center" >Historial de compras</h3>
+        <table class="table table-striped table-bordered table-dark">
+            <thead>
+                <tr>
+                    <th>Nombre del Anuncio</th>
+                    <th>Fecha de Compra</th>
+                    <th>  </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr v-for="item in result" :key="item.id">
+                    <td>{{item.nombre}}</td>
+                    <td>{{item.fechaCompra}}</td>
+                    <td>
+                        <button @click="getConsulta(item.id)" class="btn btn-warning" style="background-color: white; border-color: black">Detalle</button> 
+                    </td>
+                </tr>
+            </tbody>
+        </table>        
+    </div>   
+        
+</template> 
 
 <script>
 import axios from 'axios';
 import router from '../router'
 export default {
-    data: ()=> ({
-        result: null
-    }),
-    created(){
-        axios.get('http://localhost:9999/api/obtener-consulta.json?idComprador=859')
-            .then( result =>{
-                this.result = result.data;
-                console.log("this.result")
-                console.log(this.result)
-                console.log(result.data)
-            }).catch(e => console.log(e))
+    data () {
+        return {
+            aprobado : '',
+            id : '',
+        result: '',
+        }
+        
     },
-    methods: {
-        openProductosVen: function() {
-        router.push({'name':'producto-ven'});
-        },
-        openProductosCom: function() {
-        router.push({'name':'producto-com'});
-        },
+      beforeMount() {
+          this.getHistorial();
+      },
+     methods: {
+       getHistorial(){
+            axios.get('http://localhost:9999/api/obtener-historial-comprados.json?idComprador=1')
+            .then( res =>{
+                this.result = res.data;
+                console.log(this.result);
+                //console.log(store.state.session.idUser);
+            }).catch(e => console.log(e))
+       },
         openRegistroPage: function() {
-        router.push({'name':'calificar-producto'});
+        router.push({'name':'validar-comentario'});
         },
-        infoAnuncio(){
-
+        async getConsulta(paramid){
+            this.id = paramid
+            console.log(this.id)
+            let objectToSend = {
+              id: this.id
+            }
+            axios.get(`api/obtener-info-comprado.json?idAnuncio=${this.id}`, {params: objectToSend}).then(response => {
+            
+            if(response.data) console.log(response.data);
+            
+            }).catch(e => console.log(e))
+        },
+        async rechazar(paramid){
+            this.id = paramid
+            this.aprobado = 0
+            console.log(this.id)
+            console.log(this.aprobado)
+            let objectToSend = {
+              aprobado: this.aprobado,
+              id: this.id
+            }
+            
+            axios.put(`api/auditar-comentario.json?aprobado=${this.aprobado}&id=${this.id}`, {params: objectToSend}).then(response => {
+            
+            if(response.data) console.log(response.data);
+            
+            }).catch(e => console.log(e))
+            window.location.reload();
+        },
+        submition() {
+            let objectToSend = {
+              aprobado: this.aprobado,
+              id: this.id
+            }
+            
+            axios.put(`http://localhost:9999/api/auditar-comentario.json?aprobado=${this.aprobado}&id=${this.id}`, {params: objectToSend}).then(response => {
+            
+            if(response.data) console.log(response.data);
+            
+            }).catch(e => console.log(e))
         }
         
     }
-
 }
+
+
 </script>
 
 <style>
