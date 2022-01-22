@@ -1,18 +1,3 @@
-<!-- >
-
-<template>
-<div>
-  <div v-if="result" class="content">
-    <p>User ID: {{ result.id }}</p>
-    <p>Title: {{ result.idUsuario }}</p>
-    <b-dropdown-item href="#" @click="navega('/ui/calificar-producto')">Mis Compras</b-dropdown-item>
-  </div>
-  <div class="col-sm-12" style="text-align: center;">
-            <button @click="openRegistroPage" class="btn btn-warning" >Validar un Comentario</button>
-  </div>
-</div>                           
-</template>  -->
-
 <template>
     <div class="col-sm-12" style="text-align: center;" >
         <h3 class="p-3 text-center" >Comentarios Pendientes</h3>
@@ -25,9 +10,9 @@
                 </tr>
             </thead>
             <tbody>
-                <tr v-for="item in items" :key="item.id">
-                    <td>{{item.name}}</td>
-                    <td>{{item.sexo}}</td>
+                <tr v-for="item in result" :key="item.id">
+                    <td>{{item.nombre}}</td>
+                    <td>{{item.comentario}}</td>
                     <td>
                         <button @click="validar(item.id)" class="btn btn-warning" style="background-color: white; border-color: black">Validar este Comentario</button> <button @click="rechazar(item.id)" class="btn btn-warning" style="background-color: white; border-color: black">Rechazar este comentario</button>
                     </td>
@@ -47,7 +32,7 @@ export default {
         return {
             aprobado : '',
             id : '',
-        result: [],
+        result: '',
         items: [
       {
         id: 1,
@@ -71,83 +56,63 @@ export default {
         }
         
     },
-    created(){
-        axios.get('http://localhost:9999/api/revisar-comentarios.json')
-            .then( result =>{
-                this.result = result.data;
-                console.log("aqui es")
-                console.log(result.data)
-            }).catch(e => console.log(e))
-    },
+      beforeMount() {
+          this.revisaComentarios();
+      },
      methods: {
+       revisaComentarios(){
+         axios.get('api/revisar-comentarios.json')
+            .then( res =>{
+                this.result = res.data;
+                console.log(res.data);
+            }).catch(e => console.log(e))
+       },
         openRegistroPage: function() {
         router.push({'name':'validar-comentario'});
         },
-        validar(paramid){
+        async validar(paramid){
             this.id = paramid
             this.aprobado = 1
             console.log(this.id)
             console.log(this.aprobado)
             let objectToSend = {
-              //comentario: this.comentario,
               aprobado: this.aprobado,
               id: this.id
             }
-            //let keyAcces = localStorage.getItem('vuex');
-            //keyAcces = JSON.parse(keyAcces)
-            //console.log(keyAcces)
-
-            //let infoUser = keyAcces.session.idUser;
-            //console.log("infoUser")
-            //console.log(infoUser)
-            axios.put(`http://localhost:9999/api/auditar-comentario.json?aprobado=${this.aprobado}&id=${this.id}`, {params: objectToSend}).then(response => {
-            //axios.put('http://localhost:9999/api/crear-calificacion.json?comentario='+ this.comentario + '&estrellas='+ this.estrellas + '&id=' +this.id}, {params: objectToSend}).then(response => {
+            axios.put(`api/auditar-comentario.json?aprobado=${this.aprobado}&id=${this.id}`, {params: objectToSend}).then(response => {
+            
             if(response.data) console.log(response.data);
-            //router.push('confirma-registro');
+            
             }).catch(e => console.log(e))
-
+            window.location.reload();
         },
-        rechazar(paramid){
+        async rechazar(paramid){
             this.id = paramid
             this.aprobado = 0
             console.log(this.id)
             console.log(this.aprobado)
             let objectToSend = {
-              //comentario: this.comentario,
               aprobado: this.aprobado,
               id: this.id
             }
-            //let keyAcces = localStorage.getItem('vuex');
-            //keyAcces = JSON.parse(keyAcces)
-            //console.log(keyAcces)
-
-            //let infoUser = keyAcces.session.idUser;
-            //console.log("infoUser")
-            //console.log(infoUser)
-            axios.put(`http://localhost:9999/api/auditar-comentario.json?aprobado=${this.aprobado}&id=${this.id}`, {params: objectToSend}).then(response => {
-            //axios.put('http://localhost:9999/api/crear-calificacion.json?comentario='+ this.comentario + '&estrellas='+ this.estrellas + '&id=' +this.id}, {params: objectToSend}).then(response => {
+            
+            axios.put(`api/auditar-comentario.json?aprobado=${this.aprobado}&id=${this.id}`, {params: objectToSend}).then(response => {
+            
             if(response.data) console.log(response.data);
-            //router.push('confirma-registro');
+            
             }).catch(e => console.log(e))
-
+            window.location.reload();
         },
         submition() {
             let objectToSend = {
-              //comentario: this.comentario,
               aprobado: this.aprobado,
               id: this.id
             }
-            //let keyAcces = localStorage.getItem('vuex');
-            //keyAcces = JSON.parse(keyAcces)
-            //console.log(keyAcces)
-
-            //let infoUser = keyAcces.session.idUser;
-            //console.log("infoUser")
-            //console.log(infoUser)
+            
             axios.put(`http://localhost:9999/api/auditar-comentario.json?aprobado=${this.aprobado}&id=${this.id}`, {params: objectToSend}).then(response => {
-            //axios.put('http://localhost:9999/api/crear-calificacion.json?comentario='+ this.comentario + '&estrellas='+ this.estrellas + '&id=' +this.id}, {params: objectToSend}).then(response => {
+            
             if(response.data) console.log(response.data);
-            //router.push('confirma-registro');
+            
             }).catch(e => console.log(e))
         }
         
