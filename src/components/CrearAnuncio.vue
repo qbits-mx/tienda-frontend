@@ -223,7 +223,7 @@ import store from '../store'
         }
       });
       
-      axios.get('http://localhost:9999/api/obtener-catalogos-porIdCatalogoCategoria.json?idCatalogoCategoria=4').then(resp => {
+      axios.get('http://localhost:9999/api/obtener-catalogos-porIdCatalogoCategoria.json?idCatalogoCategoria=3').then(resp => {
 
         for(var i=0;i<resp.data.length;i++){
           entregaArr.push(resp.data[i].nombre);
@@ -238,7 +238,7 @@ import store from '../store'
       });
       
 
-      axios.get('http://localhost:9999/api/obtener-catalogos-porIdCatalogoCategoria.json?idCatalogoCategoria=5').then(resp => {
+      axios.get('http://localhost:9999/api/obtener-catalogos-porIdCatalogoCategoria.json?idCatalogoCategoria=4').then(resp => {
 
         for(var i=0;i<resp.data.length;i++){
           pagoArr.push(resp.data[i].nombre);
