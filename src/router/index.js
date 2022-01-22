@@ -23,6 +23,8 @@ import AuditarComentario     from '@/components/AuditarComentario'
 import ValidarComentario     from '@/components/ValidarComentario'
 import ProductoVen     from '@/components/ProductoVen'
 import ProductoCom     from '@/components/ProductoCom'
+import ConsultaCompra   from  '@/components/ConsultaCompra'
+import ConsultaVenta    from '@/components/ConsultaVenta'
 
 Vue.use(Router);
 
@@ -130,6 +132,16 @@ const routes = [
     path: '/ui/validar-comentario',
     name: 'validar-comentario',
     component: ValidarComentario
+  },
+  {
+    path: '/ui/consulta-compra',
+    name: 'consulta-compra',
+    component: ConsultaCompra
+  },
+  {
+    path: '/ui/consulta-venta',
+    name: 'consulta-venta',
+    component: ConsultaVenta
   },
   { 
     path: "*", 

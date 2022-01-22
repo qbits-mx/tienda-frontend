@@ -40,7 +40,15 @@ export default {
       },
      methods: {
        getHistorial(){
-            axios.get('http://localhost:9999/api/obtener-historial-comprados.json?idComprador=1')
+           /* aqui vemos el Id */
+            let keyAcces = localStorage.getItem('vuex');
+            keyAcces = JSON.parse(keyAcces)
+            console.log(keyAcces)
+
+            let infoUser = keyAcces.session.idUser;
+            console.log("infoUser")
+            console.log(infoUser)
+            axios.get('http://localhost:9999/api/obtener-historial-comprados.json?idComprador=' + infoUser)
             .then( res =>{
                 this.result = res.data;
                 console.log(this.result);
@@ -61,36 +69,10 @@ export default {
             if(response.data) console.log(response.data);
             
             }).catch(e => console.log(e))
+            router.push({'name':'consulta-compra'});
         },
-        async rechazar(paramid){
-            this.id = paramid
-            this.aprobado = 0
-            console.log(this.id)
-            console.log(this.aprobado)
-            let objectToSend = {
-              aprobado: this.aprobado,
-              id: this.id
-            }
-            
-            axios.put(`api/auditar-comentario.json?aprobado=${this.aprobado}&id=${this.id}`, {params: objectToSend}).then(response => {
-            
-            if(response.data) console.log(response.data);
-            
-            }).catch(e => console.log(e))
-            window.location.reload();
-        },
-        submition() {
-            let objectToSend = {
-              aprobado: this.aprobado,
-              id: this.id
-            }
-            
-            axios.put(`http://localhost:9999/api/auditar-comentario.json?aprobado=${this.aprobado}&id=${this.id}`, {params: objectToSend}).then(response => {
-            
-            if(response.data) console.log(response.data);
-            
-            }).catch(e => console.log(e))
-        }
+        
+       
         
     }
 }
