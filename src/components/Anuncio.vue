@@ -84,6 +84,7 @@
         <!-- Empieza chat -->
         <div class="card-header">
             <label class="control-label h4">Chat</label>
+            
             <Chat v-bind:chatList="chatList" v-bind:idAnuncio=this.id[1] v-bind:idRemitente= this.idUsuario />
         </div>
 
