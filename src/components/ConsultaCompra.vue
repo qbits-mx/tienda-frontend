@@ -1,8 +1,10 @@
 <template>
 
+
   <div class="ancho centra">
 
-    <div v-if="loading" class="loader"/>
+
+    <!--div v-if="loading" class="loader"/-->
 
     <div class="row">
       <div class="col-md-5 col-lg-5 col-12">
@@ -14,84 +16,64 @@
        
         <!-- Este es el cambio   -->
           <div class="card-header">
-            <label class="control-label h4">Nombre: {{anuncio.nombre || 50.20}}</label>
+            <label class="control-label h4">Nombre: {{this.result.nombre}}</label>
           </div>
         <!--  -->  
 
           <div class="card-header">
-            <label class="control-label h4">Precio: {{anuncio.precio || 50.20}}</label>
-          </div><!-- ends card header -->
+            <label class="control-label h4">Precio: {{this.result.precio}}</label>
+          </div>
+          
+          <div class="card-header">
+            <label class="control-label h4">Comprado el {{this.result.fecha}}</label>
+          </div>
+          <div class="card-header">
+            <label class="control-label h4">Vendió: @{{this.result.nick_name}}</label>
+          </div>
+          <!-- ends card header -->
+        <!-- ends card body -->
+        <!-- ends card -->
+        </div>
 
-          <div class="card-body align">
-            <div class="card">
-              <div class="card-body">
-                {{anuncio.descripcion || "Audífonos Over-Ear Studio3 Wireless con cancelación de Ruido, Chip W1 para audífonos diseñado por Apple, Bluetooth Class 1, cancelación de Ruido Activa, 22 Horas de Audio - Negro"}}
-              </div>
-            </div>
-
-            <div class="row justify-content-around">
-              <div class="col-4">
-                <div class="form-check">
-                  <input class="form-check-input" type="radio" name="flexRadioDefault" v-model="idCatalogoFormaPago" value="1">
-                  <label class="form-check-label" >
-                    Efectivo
-                  </label>
-                </div>
-              </div>
-              <div class="col-4">
-                <div class="form-check">
-                  <input class="form-check-input" type="radio" name="flexRadioDefault" v-model="idCatalogoFormaPago" value="2" >
-                  <label class="form-check-label" >
-                    Transferencia bancaria
-                  </label>
-                </div>
-              </div>
-            </div>
-            <div class="row justify-content-around">
-              <div class="col-4">
-                <div class="form-check">
-                  <input class="form-check-input" type="radio" name="flexRadioDefault" v-model="idCatalogoFormaPago" value="3">
-                  <label class="form-check-label" >
-                    Tarjeta de débito
-                  </label>
-                </div>
-              </div>
-              <div class="col-4">
-                <div class="form-check">
-                  <input class="form-check-input" type="radio" name="flexRadioDefault"  v-model="idCatalogoFormaPago" value="4">
-                  <label class="form-check-label">
-                    Tarjeta de crédito
-                  </label>
-                </div>
-              </div>
-            </div>
-
-
-           
-            <b-form-rating v-model="anuncio.estrellas" readonly></b-form-rating> 
-
-          </div><!-- ends card body -->
-        </div><!-- ends card -->
-          <div style="margin-left:650px">
+          
+          
+          
+        
+          <!--div style="margin-left:650px">
             <button
                     @click="$router.push('chat')"
                     class="btn btn-success"
                     data-toggle="modal"
                     data-target="#termsModal">Ver Chat
             </button>
+          </div-->
+    
+              <!--div v-if="mostrar" class="form-group">
+              <div  class="form-group">
+                <label for="exampleFormControlTextarea1">Comentario</label>
+                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" v-model="mensaje"></textarea>
+              </div--> 
+      
+
+        <form>
+          <div v-if = "result.estrellas == 0 " class="card-body align">       
+            <b-form-rating show-clear variant="warning" v-model="value"></b-form-rating>
+          </div>
+          <div v-else>
+            <b-form-rating variant="warning" v-model="result.estrellas" readonly></b-form-rating> 
           </div>
 
-           <!--div class="form-group">
-              <label for="exampleInputComentario">Comentario</label>
-                <input type="text" class="form-control" id="exampleInputComentario" aria-describedby="emailHelp" placeholder="Comentario de anuncio">
-                <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-            </div-->
-
-              <div v-if="mostrar" class="form-group">
-                <label for="exampleFormControlTextarea1">Example textarea</label>
-                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-              </div>
-
+          <div class="card-header">
+            <label class="control-label h4">Comentario:</label>
+          </div>
+          
+          <div class="form-group">
+           
+            <input type="text" class="form-control" id="comentario"
+                  placeholder="Introduce tu comentario">
+          </div>
+          <button @click="guardar( )" type="submit" class="btn btn-primary">Submit</button>
+        </form>
 
         <!--div class="card border-light mb-3" style="max-width: 36rem;">
           <div class="card-header">Comentarios del anuncio filtrado</div>
@@ -106,56 +88,87 @@
     </div>
 
   </div>
-
 </template>
 
 <script>
+
 import axios from 'axios';
-import store from '../store'
+//import router from '../router'
 export default {
-  components: {
-  },
-  props: {
-    id: [String, Number]
-  },
-  data() {
-    return {
-      msgErr: '',
-      target: '',
-      anuncio: {},
-      loading: false,
-      idCatalogoFormaPago: '1',
-      mostrar: true
-    }
-  },
-  watch: {},
-  computed: {},
-  methods: {
-    obtenerAnuncio() {
-      this.loading = true;
-      axios.get("api/dame-anuncio.json?idAnuncio=" + this.id).then(({data}) => {
-        this.anuncio = data;
-      }).finally(() => {
-        this.loading = false;
-      });
+      data () {
+        return {
+            id : '',
+            result: '',
+            value: null,
+            comentario: "jejeje",
+        }
+        
     },
-    actualizaCompra(){
-      const idUsuario = store.state.session.id || 0;
-      this.loading = true;
-      axios("api/actualiza-compra.json?idCatalogoFormaPago="+this.idCatalogoFormaPago+"&idComprador="+idUsuario+"&idProducto="+this.anuncio.id+"&idComprado="+this.anuncio.comprado+"&precio="+this.anuncio.precio)
-          .then(() => {
-            this.obtenerAnuncio();
-          })
-          .finally(() => {
-        this.loading = false;
-      })
-    }
-  },
-  mounted() {
-    store.commit('setToggleHeader', true);
-    store.commit('setToggleFooter', true);
-    this.obtenerAnuncio();
-  }
+      beforeMount() {
+          //console.log(this.id)
+          //this.getId(this.id)
+          console.log('Aqui esta el storage');
+          this.id = Number(localStorage.getItem('id'));
+          console.log(this.id);
+          this.getConsulta();
+      },
+
+
+     methods: {
+        getConsulta(){
+
+           /* aqui vemos el Id */
+            /*let keyAcces = localStorage.getItem('vuex');
+            keyAcces = JSON.parse(keyAcces)
+            console.log(keyAcces)
+
+            let infoUser = keyAcces.session.idUser;
+            console.log("infoUser")
+            console.log(infoUser)*/
+            axios.get('http://localhost:9999/api/obtener-info-comprado.json?idAnuncio='+this.id)
+            .then( res =>{
+                this.result = res.data;
+                console.log('numero de estrellas ' + this.result.estrellas);
+                //console.log(store.state.session.idUser);
+            }).catch(e => console.log(e))
+        },
+        /*async agregarEstrellas(paramid){
+            
+            let objectToSend = {
+              aprobado: this.aprobado,
+              id: this.id
+            }
+            axios.put(`api/auditar-comentario.json?aprobado=${this.aprobado}&id=${this.id}`, {params: objectToSend}).then(response => {
+            
+            if(response.data) console.log(response.data);
+            
+            }).catch(e => console.log(e))
+            window.location.reload();
+        },*/
+        async guardar(){
+            //this.id = id
+            //this.estrellas = estrellas
+            //this.comentario = comentario
+            console.log(this.value)
+            console.log(this.value)
+            console.log(this.value)
+            /*let objectToSend = {
+              id: this.result.id_anuncio
+              comentario 
+            }
+            axios.put(`api/auditar-comentario.json?aprobado=${this.aprobado}&id=${this.id}`, {params: objectToSend}).then(response => {
+            
+            if(response.data) console.log(response.data);
+            
+            }).catch(e => console.log(e))
+            //router.push({'name':'historial-compras'});*/
+        },
+        captureMyMessage(mess){
+          console.log(mess);
+        }
+
+
+     }
 }
 </script>
 
@@ -164,6 +177,12 @@ export default {
 .ancho {
   padding: 20px;
 }
+
+.form- {
+  /*width: 200px;*/
+  width: 100%;
+}
+
 .align {
   text-align: left;
 }
