@@ -5,7 +5,6 @@
     <button class="boton" v-on:click="sendHola()">Enviar un hola al vendedor</button> 
     </div>
     <div v-else style="display: flex; flex-direction: row; overflow: auto;" >
-    <!--<input v-if="noMessages()" v-model="primerMensaje" placeholder="Hola, tengo una duda acerca de tu producto."> -->
         
         <div class="container" v-bind:key=conv.id v-for="(conv,idx) in chatList" 
             :id="'conv' + idx" style="border-style: solid;
@@ -117,7 +116,6 @@ export default {
 
     }
     
-//         #997dc9  ac9fc2
 }
 
 </script>
