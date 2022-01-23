@@ -101,7 +101,6 @@ export default ({
             })
             .finally(()=>this.loading = false);
     },
-    
     agregarCatalogo(tipoCatalogo){
         const nameRegExp = /^[a-zA-Z0-9ñáéíóúÁÉÍÓÚ ]+$/;
         Vue.use(VueSimpleAlert);
