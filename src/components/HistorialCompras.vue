@@ -31,7 +31,7 @@ export default {
         return {
             aprobado : '',
             id : '',
-        result: '',
+            result: '',
         }
         
     },
@@ -59,16 +59,16 @@ export default {
         router.push({'name':'validar-comentario'});
         },
         async getConsulta(paramid){
+            console.log("aqui entra")
             this.id = paramid
             console.log(this.id)
-            let objectToSend = {
+            /**let objectToSend = {
               id: this.id
             }
-            axios.get(`api/obtener-info-comprado.json?idAnuncio=${this.id}`, {params: objectToSend}).then(response => {
-            
-            if(response.data) console.log(response.data);
-            
-            }).catch(e => console.log(e))
+            axios.get(`http://localhost:9999/api/obtener-info-comprado.json?idAnuncio=${this.id}`, {params: objectToSend}).then(response => {
+                if(response.data) 
+                    console.log(response.data);
+            }).catch(e => console.log(e))*/
             router.push({'name':'consulta-compra'});
         },
         
