@@ -297,7 +297,7 @@
         return res + valor;
       },
       averageRating(){
-        axios.get('http://localhost:9999/api/promedio-comprador.json?idUsuario='+this.idUser)
+        axios.get(process.env.VUE_APP_URL + 'api/promedio-comprador.json?idUsuario='+this.idUser)
           .then( res =>{
                 this.result = res.data;
                 console.log('numero de estrellas ' + this.result);
