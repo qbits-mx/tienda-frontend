@@ -497,8 +497,8 @@ import router from '../router'
 
   /* Codigo para centrar*/
   display: flex;
-  justify-content: left;
-  align-items: left;
+  justify-content: center;
+  align-items: center;
   /* Fin del codigo para centrar*/
 }
 
