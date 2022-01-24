@@ -15,7 +15,10 @@ import CambiaClave           from '@/components/CambiaClave'
 import CambiaDatosPersonales from '@/components/CambiaDatosPersonales'
 import MisDirecciones        from '@/components/MisDirecciones'
 import ConsultaRol           from '@/components/ConsultaRol'
-import NotFound              from'@/components/NotFound'
+import Anuncio               from '@/components/Anuncio'
+import NotFound              from '@/components/NotFound'
+
+import AdministraCatalogo    from '@/components/AdministraCatalogo'
 
 Vue.use(Router);
 
@@ -30,6 +33,11 @@ const routes = [
     name: 'crear-anuncio',
     component: CrearAnuncio,
     meta: { allowedRoles: ['admin','normal'] }
+  },
+    path: '/ui/anuncio/:id',
+    name: 'anuncio',
+    props: true, 
+    component: Anuncio
   },
   {
     path: '/ui/cambia-datos-personales',
@@ -87,6 +95,12 @@ const routes = [
     path: '/ui/consulta-rol',
     name: 'ConsultaRol',
     component:ConsultaRol,
+    meta: { allowedRoles: ['admin'] }
+  },
+  {
+    path: '/admin/catalogos',
+    name: 'AdministraCatalogo',
+    component: AdministraCatalogo,
     meta: { allowedRoles: ['admin'] }
   },
   { 
