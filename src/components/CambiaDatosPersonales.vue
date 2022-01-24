@@ -102,6 +102,14 @@
             </div>
           </div>
 
+          <form>
+          <div >
+            <b-form-rating variant="warning" v-model="this.result" readonly></b-form-rating> 
+            <p class="mt-2">Calificación como comprador: {{ this.result }}</p>
+          </div>
+          
+        </form>
+
           <!-- button -->
           <div class="form-group row">
             <div class="col text-center" >
@@ -180,6 +188,8 @@
         styleCalendar : '',
         isVisible : 'hidden',
         activoClave : true, //Cambia el valor del booleano para ver las distintas versiones de validaciones de la clave
+        
+        result: '',
 
         dateConfig : {
           initial : new Date(2000,0,1),
@@ -286,6 +296,13 @@
         }
         return res + valor;
       },
+      averageRating(){
+        axios.get('http://localhost:9999/api/promedio-comprador.json?idUsuario='+this.idUser)
+          .then( res =>{
+                this.result = res.data;
+                console.log('numero de estrellas ' + this.result);
+            }).catch(e => console.log(e))
+      },
       formatDate(dd) {
         var d = new Date(dd);
         const year = d.getFullYear(); // 2019
@@ -328,6 +345,7 @@
     },
     mounted() {
       this.setValues();
+      this.averageRating();
     }
   }
 

@@ -1,5 +1,6 @@
 <template>
     <div class="col-sm-12" style="text-align: center;" >
+
         <h3 class="p-3 text-center" >Historial de ventas</h3>
         <table class="table table-striped table-bordered table-dark">
             <thead>
@@ -18,8 +19,14 @@
                     </td>
                 </tr>
             </tbody>
-        </table>        
-    </div>   
+        </table>      
+        <div class="form-group row">
+             <div class="col text-center" >
+                  <button  class="btn btn--radius btn--green" @click="pagiAnterior"><i class="fas fa-arrow-left"></i>&nbsp;&nbsp;Regresar </button> 
+                                
+              </div>   
+        </div>  
+    </div> 
         
 </template> 
 
@@ -31,16 +38,17 @@ export default {
         return {
             aprobado : '',
             id : '',
-        result: '',
+            result: ''
         }
         
     },
-      beforeMount() {
+
+    beforeMount() {
           this.getHistorial();
       },
      methods: {
        getHistorial(){
-            /* aqui vemos el Id */
+           /* aqui vemos el Id */
             let keyAcces = localStorage.getItem('vuex');
             keyAcces = JSON.parse(keyAcces)
             console.log(keyAcces)
@@ -56,21 +64,24 @@ export default {
             }).catch(e => console.log(e))
        },
         openRegistroPage: function() {
-        router.push({'name':'validar-comentario'});
+        //router.push({'name':'validar-comentario'});
+        },
+        pagiAnterior: function() {
+        router.push({'name':'historiales'});
         },
         async getConsulta(paramid){
-            this.id = paramid
-            console.log(this.id)
-            let objectToSend = {
+            console.log("aqui entra")
+            this.id = paramid;
+            localStorage.setItem('id',this.id);
+            /**let objectToSend = {
               id: this.id
             }
-            axios.get(`api/obtener-info-comprado.json?idAnuncio=${this.id}`, {params: objectToSend}).then(response => {
-            
-            if(response.data) console.log(response.data);
-            
-            }).catch(e => console.log(e))
-        }
-        
+            axios.get(`http://localhost:9999/api/obtener-info-comprado.json?idAnuncio=${this.id}`, {params: objectToSend}).then(response => {
+                if(response.data) 
+                    console.log(response.data);
+            }).catch(e => console.log(e))*/
+            router.push({'name':'consulta-venta'});
+        },        
     }
 }
 

@@ -14,7 +14,7 @@
                     <td>{{item.nombre}}</td>
                     <td>{{item.comentario}}</td>
                     <td>
-                        <button @click="validar(item.id)" class="btn btn-warning" style="background-color: white; border-color: black">Validar este Comentario</button> <button @click="rechazar(item.id)" class="btn btn-warning" style="background-color: white; border-color: black">Rechazar este comentario</button>
+                        <button @click="validar(item.id)" class="btn btn-warning" style="background-color: white; border-color: black">Aprobar este Comentario</button> <button @click="rechazar(item.id)" class="btn btn-warning" style="background-color: white; border-color: black">Rechazar este comentario</button>
                     </td>
                 </tr>
             </tbody>
@@ -32,26 +32,6 @@ export default {
             aprobado : '',
             id : '',
         result: '',
-        items: [
-      {
-        id: 1,
-        name: "Pepe",
-        color: "Rojo",
-        sexo: "Isay es mi chavo"
-      },
-      {
-        id: 55,
-        name: "Uriel",
-        color: "Verde",
-        sexo: "Samuel es mi chavo"
-      },
-      {
-        id: 3,
-        name: "Samuel",
-        color: "Azul",
-        sexo: "Pp es mi chavo"
-      }
-    ],
         }
         
     },
@@ -60,7 +40,7 @@ export default {
       },
      methods: {
        revisaComentarios(){
-         axios.get('api/revisar-comentarios.json')
+         axios.get(process.env.VUE_APP_URL + 'api/revisar-comentarios.json')
             .then( res =>{
                 this.result = res.data;
                 console.log(res.data);
@@ -78,7 +58,7 @@ export default {
               aprobado: this.aprobado,
               id: this.id
             }
-            axios.put(`api/auditar-comentario.json?aprobado=${this.aprobado}&id=${this.id}`, {params: objectToSend}).then(response => {
+            await axios.put(process.env.VUE_APP_URL +`api/auditar-comentario.json?aprobado=${this.aprobado}&id=${this.id}`, {params: objectToSend}).then(response => {
             
             if(response.data) console.log(response.data);
             
@@ -95,24 +75,12 @@ export default {
               id: this.id
             }
             
-            axios.put(`api/auditar-comentario.json?aprobado=${this.aprobado}&id=${this.id}`, {params: objectToSend}).then(response => {
+            await axios.put(process.env.VUE_APP_URL +`api/auditar-comentario.json?aprobado=${this.aprobado}&id=${this.id}`, {params: objectToSend}).then(response => {
             
             if(response.data) console.log(response.data);
             
             }).catch(e => console.log(e))
             window.location.reload();
-        },
-        submition() {
-            let objectToSend = {
-              aprobado: this.aprobado,
-              id: this.id
-            }
-            
-            axios.put(`http://localhost:9999/api/auditar-comentario.json?aprobado=${this.aprobado}&id=${this.id}`, {params: objectToSend}).then(response => {
-            
-            if(response.data) console.log(response.data);
-            
-            }).catch(e => console.log(e))
         }
         
     }

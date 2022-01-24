@@ -1,24 +1,14 @@
 <template>
-
-
   <div class="ancho centra">
-
-
-    <!--div v-if="loading" class="loader"/-->
-
     <div class="row">
       <div class="col-md-5 col-lg-5 col-12">
-        <img src="../assets/bicho1.jpg" width="100%"/>
-      </div>
+        <img v-bind:src="imagePath" width="100%"/>      </div>
       <div class="col-md-7 col-lg-7 col-12">
 
         <div class="card defaultColor w-100">
-       
-        <!-- Este es el cambio   -->
           <div class="card-header">
             <label class="control-label h4">Nombre: {{this.result.nombre}}</label>
           </div>
-        <!--  -->  
 
           <div class="card-header">
             <label class="control-label h4">Precio: {{this.result.precio}}</label>
@@ -28,146 +18,127 @@
             <label class="control-label h4">Comprado el {{this.result.fecha}}</label>
           </div>
           <div class="card-header">
-            <label class="control-label h4">Vendió: @{{this.result.nick_name}}</label>
+            <label class="control-label h4">Vendió: {{this.result.nick_name}}</label>
           </div>
-          <!-- ends card header -->
-        <!-- ends card body -->
-        <!-- ends card -->
+        
         </div>
 
-          
-          
-          
-        
-          <!--div style="margin-left:650px">
-            <button
-                    @click="$router.push('chat')"
-                    class="btn btn-success"
-                    data-toggle="modal"
-                    data-target="#termsModal">Ver Chat
-            </button>
-          </div-->
-    
-              <!--div v-if="mostrar" class="form-group">
-              <div  class="form-group">
-                <label for="exampleFormControlTextarea1">Comentario</label>
-                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" v-model="mensaje"></textarea>
-              </div--> 
-      
 
         <form>
-          <div v-if = "result.estrellas == 0 " class="card-body align">       
-            <b-form-rating show-clear variant="warning" v-model="value"></b-form-rating>
+          <div v-if = "result.estrellas == 0 "  class="card-body align">       
+            <b-form-rating  show-clear variant="warning" v-model="value"></b-form-rating>
           </div>
           <div v-else>
-            <b-form-rating variant="warning" v-model="result.estrellas" readonly></b-form-rating> 
+            <b-form-rating variant="warning" v-model="result.estrellas" class="from-control1" readonly></b-form-rating> 
           </div>
 
-          <div class="card-header">
+          
+          <div class="card-header" v-if="!hayComentario && this.result.estrellas <= 0">
             <label class="control-label h4">Comentario:</label>
           </div>
-          
-          <div class="form-group">
-           
-            <input type="text" class="form-control" id="comentario"
-                  placeholder="Introduce tu comentario">
+
+          <div v-if="hayComentario && result.comentario_aprobado == 1" class="form-floating mb-3">
+            <label for="floatingInput">{{this.result.comentario}}</label>
           </div>
-          <button @click="guardar( )" type="submit" class="btn btn-primary">Submit</button>
+      
+       
+          
+          <div v-if="!hayComentario && this.result.estrellas <= 0">
+            <p> <textarea  name="mensaje" id="msj" v-model="comentario" cols="30" rows="5" placeholder="Escriba un comentario" class="form-control"></textarea></p>
+          </div>
+          <div class="form-group row">
+             <div class="col text-center" >
+                  <button  class="btn btn--radius btn--green" @click="pagiAnterior"><i class="fas fa-arrow-left"></i>&nbsp;&nbsp;Regresar </button> 
+                                
+              </div>
+               <div class="col text-center" >
+                     <button class="btn btn--radius btn--green" type="button" v-if="this.result.estrellas <= 0" :disabled="habilitaBoton" @click="submition()">Enviar</button>
+              </div>
+          </div> 
         </form>
-
-        <!--div class="card border-light mb-3" style="max-width: 36rem;">
-          <div class="card-header">Comentarios del anuncio filtrado</div>
-            <div class="card-body">
-               <h5 class="card-title">Usuario del vendedor</h5>
-                <p class="card-text">Aqui van los comentarios...</p>
-            </div>
-        </div-->
-
-
       </div>
     </div>
 
   </div>
 </template>
 
+
+
 <script>
 
 import axios from 'axios';
-//import router from '../router'
+import router from '../router'
 export default {
       data () {
         return {
             id : '',
             result: '',
             value: null,
-            comentario: "jejeje",
+            hayComentario: false,
+            comentario:'',
+            multimedia: '',
+            imagePath: require('../assets/portada.png'),
         }
         
     },
       beforeMount() {
-          //console.log(this.id)
-          //this.getId(this.id)
-          console.log('Aqui esta el storage');
           this.id = Number(localStorage.getItem('id'));
-          console.log(this.id);
           this.getConsulta();
+          //console.log();
+          this.getMultimedia();
       },
-
-
+      computed:{
+          habilitaBoton: function() {
+            return !this.value  ;
+          }
+        },
      methods: {
+       vista(){
+          if(this.result.comentario != null && this.result.comentario.length > 0 && this.result.comentario_aprobado == 1){
+            this.hayComentario = true;
+          }
+
+        },
         getConsulta(){
-
-           /* aqui vemos el Id */
-            /*let keyAcces = localStorage.getItem('vuex');
-            keyAcces = JSON.parse(keyAcces)
-            console.log(keyAcces)
-
-            let infoUser = keyAcces.session.idUser;
-            console.log("infoUser")
-            console.log(infoUser)*/
-            axios.get('http://localhost:9999/api/obtener-info-comprado.json?idAnuncio='+this.id)
+            axios.get(process.env.VUE_APP_URL + 'api/obtener-info-comprado.json?idAnuncio=' + this.id)
             .then( res =>{
                 this.result = res.data;
-                console.log('numero de estrellas ' + this.result.estrellas);
-                //console.log(store.state.session.idUser);
+                console.log(this.result)
             }).catch(e => console.log(e))
         },
-        /*async agregarEstrellas(paramid){
-            
-            let objectToSend = {
-              aprobado: this.aprobado,
-              id: this.id
+        getMultimedia() {
+          axios.get(process.env.VUE_APP_URL + '/api/conseguir-multimedia.json?idAnuncio=' + this.id)
+          .then(response => {
+            this.vista()
+            console.log(response);
+            if(response.data.length != 0){
+              console.log("NOoo entra aquiii")
+              response.data.forEach(element => {
+                if(element.tipo === "imagen"){ 
+                  console.log(element.url)
+                  this.imagePath = element.url;
+                }
+              });
             }
-            axios.put(`api/auditar-comentario.json?aprobado=${this.aprobado}&id=${this.id}`, {params: objectToSend}).then(response => {
-            
-            if(response.data) console.log(response.data);
-            
-            }).catch(e => console.log(e))
-            window.location.reload();
-        },*/
-        async guardar(){
-            //this.id = id
-            //this.estrellas = estrellas
-            //this.comentario = comentario
-            console.log(this.value)
-            console.log(this.value)
-            console.log(this.value)
-            /*let objectToSend = {
-              id: this.result.id_anuncio
-              comentario 
-            }
-            axios.put(`api/auditar-comentario.json?aprobado=${this.aprobado}&id=${this.id}`, {params: objectToSend}).then(response => {
-            
-            if(response.data) console.log(response.data);
-            
-            }).catch(e => console.log(e))
-            //router.push({'name':'historial-compras'});*/
-        },
+      }).catch(error => {
+          console.log(error);
+      })
+    },
         captureMyMessage(mess){
           console.log(mess);
-        }
+        },
+        pagiAnterior: function() {
+        router.push({'name':'historial-compras'});
+        },
+        async submition() {
+          await axios.put(`${process.env.VUE_APP_URL}api/crear-calificacion-anuncio.json?comentario=${this.comentario}&estrellas=${this.value}&id=${this.id}`).then(response => {
+          this.vista()
+          if(response.data)  console.log(response.data);
+          }).catch(e => console.log(e))
 
-
+          window.location.reload();
+        },
+        
      }
 }
 </script>
@@ -208,6 +179,12 @@ input {
   background-size: 17px;
   background-position-x: 96%;
 }
+.card-header {
+    padding: 1rem 1.25rem;
+    margin-bottom: 1%;
+    background-color: #c0c0c0;
+    border-bottom: 1px solid rgba(0,0,0,.125);
+}
 .redColor:focus {
   background-color: #fff3f3;
   box-shadow: 2px 1px 4px #dba6a6;
@@ -221,6 +198,53 @@ input {
   background-size: 20px;
   background-position-x: 96%;
 }
+/* Color del boton enviar */
+.btn--green {
+  background: #57b846;
+  display: block;
+    width: 100%;
+     text-align: center;;
+}
+div.w-33 {
+  width: 33.33%;
+  background-color: orange;
+}
+
+div.center {
+  text-align: center;
+}
+/*.btn-primary.disabled, .btn-primary:disabled {
+    color: #fff;
+    background-color: #28a745;
+    border-color: #28a745;
+}
+.trans{
+  width: 400px;
+  background-color: red;
+  display: flex;
+  justify-content: center;
+}
+.btn-block {
+    display: block;
+    width: 80%;
+}
+.btn-primary {
+    color: #fff;
+    background-color: #28a745;
+    border-color: #28a745;
+}
+:disabled {
+    color: #fff;
+    background-color: grey;
+    border-color: grey;
+}
+
+.btn btn-primary btn-block {
+    color: #fff;
+    background-color: grey;
+    border-color: gray;
+    
+}*/
 .defaultColor {
   background-color: white;
   box-shadow: 1px 1px 3px #d8dcdd;
@@ -241,5 +265,37 @@ input {
   transform: scale(0.9);
   transform-origin: 0 0;
 }
+.form-control1 {
+    display: block;
+    width: 100%;
+    height: calc(1.5em + .75rem + 2px);
+    padding: .375rem 1rem;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #495057;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 6px solid #ced4da;
+    border-radius: 0rem;
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+.col-lg-7 {
+    flex: 0 0 58.333333%;
+    max-width: 40%;
+}
+
+
+.card-header[data-v-56c3f6fa] {
+    padding: .1rem 1.25rem;
+    margin-bottom: 1%;
+    background-color: #c0c0c0;
+    border-bottom: 1px solid rgba(0,0,0,.125);
+}
+textarea {
+  resize: none;
+}
+
+
 
 </style>

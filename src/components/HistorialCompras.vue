@@ -19,7 +19,14 @@
                     </td>
                 </tr>
             </tbody>
-        </table>        
+        </table> 
+
+        <div class="form-group row">
+             <div class="col text-center" >
+                  <button  class="btn btn--radius btn--green" @click="pagiAnterior"><i class="fas fa-arrow-left"></i>&nbsp;&nbsp;Regresar </button> 
+                                
+              </div>   
+        </div>
     </div> 
         
 </template> 
@@ -32,7 +39,8 @@ export default {
         return {
             aprobado : '',
             id : '',
-            result: ''
+            result: '',
+            idComprador: ''
         }
         
     },
@@ -40,43 +48,44 @@ export default {
     beforeMount() {
           this.getHistorial();
       },
-     methods: {
-       getHistorial(){
+    methods: {
+        getHistorial(){
            /* aqui vemos el Id */
             let keyAcces = localStorage.getItem('vuex');
             keyAcces = JSON.parse(keyAcces)
             console.log(keyAcces)
-
             let infoUser = keyAcces.session.idUser;
             console.log("infoUser")
             console.log(infoUser)
-            axios.get('http://localhost:9999/api/obtener-historial-comprados.json?idComprador=' + infoUser)
+
+            /**
+            let objectToSend = {
+              idComprador: infoUser
+            }
+            */
+
+           console.log(process.env.VUE_APP_URL);
+             
+            axios.get(process.env.VUE_APP_URL + 'api/obtener-historial-comprados.json?idComprador=' + infoUser)
             .then( res =>{
+                console.log("entra")
                 this.result = res.data;
                 console.log(this.result);
                 //console.log(store.state.session.idUser);
             }).catch(e => console.log(e))
-       },
-        openRegistroPage: function() {
-        //router.push({'name':'validar-comentario'});
+            
+        
+        },
+        pagiAnterior: function() {
+        router.push({'name':'historiales'});
         },
         async getConsulta(paramid){
             console.log("aqui entra")
             this.id = paramid;
             localStorage.setItem('id',this.id);
-            /**let objectToSend = {
-              id: this.id
-            }
-            axios.get(`http://localhost:9999/api/obtener-info-comprado.json?idAnuncio=${this.id}`, {params: objectToSend}).then(response => {
-                if(response.data) 
-                    console.log(response.data);
-            }).catch(e => console.log(e))*/
             router.push({'name':'consulta-compra'});
         },
-        
-       
-        
-    }
+    }  
 }
 
 
