@@ -40,7 +40,7 @@ export default {
       },
      methods: {
        revisaComentarios(){
-         axios.get(process.env.VUE_APP_URL + 'api/revisar-comentarios.json')
+         axios.get('api/revisar-comentarios.json')
             .then( res =>{
                 this.result = res.data;
                 console.log(res.data);
@@ -58,7 +58,7 @@ export default {
               aprobado: this.aprobado,
               id: this.id
             }
-            await axios.put(process.env.VUE_APP_URL +`api/auditar-comentario.json?aprobado=${this.aprobado}&id=${this.id}`, {params: objectToSend}).then(response => {
+            await axios.put(`api/auditar-comentario.json?aprobado=${this.aprobado}&id=${this.id}`, {params: objectToSend}).then(response => {
             
             if(response.data) console.log(response.data);
             
@@ -75,7 +75,7 @@ export default {
               id: this.id
             }
             
-            await axios.put(process.env.VUE_APP_URL +`api/auditar-comentario.json?aprobado=${this.aprobado}&id=${this.id}`, {params: objectToSend}).then(response => {
+            await axios.put(`api/auditar-comentario.json?aprobado=${this.aprobado}&id=${this.id}`, {params: objectToSend}).then(response => {
             
             if(response.data) console.log(response.data);
             

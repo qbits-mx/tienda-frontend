@@ -64,9 +64,9 @@ export default {
             }
             */
 
-           console.log(process.env.VUE_APP_URL + 'api/obtener-historial-comprados.json?idComprador=' + infoUser);
+           console.log('api/obtener-historial-comprados.json?idComprador=' + infoUser);
              
-            axios.get(process.env.VUE_APP_URL + 'api/obtener-historial-comprados.json?idComprador=' + infoUser)
+            axios.get('api/obtener-historial-comprados.json?idComprador=' + infoUser)
             .then( res =>{
                 console.log("entra")
                 this.result = res.data;

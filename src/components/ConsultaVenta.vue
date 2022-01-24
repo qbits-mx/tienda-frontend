@@ -82,14 +82,14 @@ export default {
 
      methods: {
         getConsulta(){
-          axios.get(process.env.VUE_APP_URL + 'api/obtener-info-vendido.json?idAnuncio=' + this.id)
+          axios.get('api/obtener-info-vendido.json?idAnuncio=' + this.id)
             .then( res =>{
                 this.result = res.data;
                 console.log(this.result)
             }).catch(e => console.log(e))
         },
         getMultimedia() {
-          axios.get(process.env.VUE_APP_URL + '/api/conseguir-multimedia.json?idAnuncio=' + this.id)
+          axios.get('api/conseguir-multimedia.json?idAnuncio=' + this.id)
           .then(response => {
             this.vista()
             console.log(response);
@@ -110,7 +110,7 @@ export default {
         router.push({'name':'historial-ventas'});
         },  
         async submition() {
-          await axios.put(`${process.env.VUE_APP_URL}api/crear-calificacion-comprador.json?&estrellas=${this.value}&id=${this.id}`).then(response => {
+          await axios.put(`api/crear-calificacion-comprador.json?&estrellas=${this.value}&id=${this.id}`).then(response => {
           this.vista()
           if(response.data)  console.log(response.data);
           }).catch(e => console.log(e))
