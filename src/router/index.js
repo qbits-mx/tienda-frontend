@@ -34,6 +34,7 @@ const routes = [
     component: CrearAnuncio,
     meta: { allowedRoles: ['admin','normal'] }
   },
+  {
     path: '/ui/anuncio/:id',
     name: 'anuncio',
     props: true, 
