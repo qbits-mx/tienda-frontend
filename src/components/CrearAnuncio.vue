@@ -8,104 +8,124 @@
     <!-- Custom styles for this template -->
     <link href="form-validation.css" rel="stylesheet">
     <link rel="stylesheet" href="css/estilos.css">
-  
-      <b-form @submit="onSubmit" @reset="onReset" v-if="show" >
-        <b-form-group id="input-group-nombre" label="Nombre:" label-for="input-nombre">
-        <b-form-textarea
-            id="nombre"
-            v-model="form.nombre"
-            placeholder="Escribe aquí el nombre de tu anuncio"
-            rows="1"
-            max-rows="1"
-            required
-        ></b-form-textarea>
-        </b-form-group>
-        <b-form-group id="input-group-precio" label="Precio:" label-for="input-precio">
-             <b-form-input
-                id="precio"
-                type="number"
-                min="0"
-                v-model="form.precio"
-                placeholder="Escribe aquí el precio de tu artículo"
-                rows="1"
-                max-rows="1"
-                required
-              ></b-form-input>
-        </b-form-group>
 
-        <b-form-group id="input-group-descripcion" label="Descripción:" label-for="input-nombre">
-          <b-form-textarea
-          id="descripcion"
-          v-model="form.descripcion"
-          placeholder="Escribe aqui tu descripcion"
-          rows="3"
-          max-rows="6"
-          required
+    <b-form @submit="onSubmit" @reset="onReset" v-if="show"  >
+      <b-form-group id="input-group-nombre" label="Nombre:" label-for="input-nombre">
+        <b-form-textarea class="shadow-sm p-3 mb-5 bg-body rounded"
+                         id="nombre"
+                         v-model="form.nombre"
+                         :state="form.nombre.length >= 5"
+                         placeholder="Escribe aquí el nombre de tu anuncio, debe contener mas de 5 caracteres"
+                         rows="1"
+                         max-rows="1"
+                         required
         ></b-form-textarea>
-        </b-form-group>
-     
-     <b-form-group id="input-group-departamento" label="Departamento:" label-for="input-departamento">
+      </b-form-group>
+      <b-form-group id="input-group-precio" label="Precio:" label-for="input-precio">
+        <b-form-input class="shadow-sm p-3 mb-5 bg-body rounded"
+                      id="precio"
+                      type="number"
+                      min="1"
+                      step="any"
+
+                      v-model="form.precio"
+                      :state="form.precio>0"
+                      placeholder="Escribe aquí el precio de tu artículo"
+                      rows="1"
+                      description="El precio debe ser positivo y no puede ser 0."
+                      max-rows="1"
+                      required
+        ></b-form-input>
+      </b-form-group>
+
+      <b-form-group id="input-group-descripcion" label="Descripcion:" label-for="input-descripcion">
+        <b-form-textarea class="shadow-sm p-3 mb-5 bg-body rounded"
+                         id="descripcion"
+                         v-model="form.descripcion"
+                         :state="form.descripcion.length >= 10"
+                         placeholder="Escribe aqui tu descripcion debe tener una logitud de mas de 10 caracteres"
+                         rows="3"
+                         max-rows="6"
+                         required
+        ></b-form-textarea>
+      </b-form-group>
+      <b-form-group id="input-group-departamento" label="Departamento:" label-for="input-departamento">
         <b-form-select
-          id="input-zonaE"
-          v-model="form.idCatalogoDepartamento"
-          :options="categorias"
-          required
+            id="input-zonaE"
+            v-model="form.idCatalogoDepartamento"
+            :options="categorias"
+            :state="stateDep"
+            required
+
         ></b-form-select>
       </b-form-group>
-      
+
       <b-form-group
-        id="input-group-1"
-        label="Datos de contacto (correo):"
-        label-for="input-1"
-        description="Proporciona una direccion de correo valida para que puedan contactarte."
+          id="input-group-1"
+          label="Datos de contacto (correo):"
+          label-for="input-1"
+          description="Proporciona una direccion de correo valida para que puedan contactarte."
       >
         <b-form-input
-          id="input-1"
-          v-model="form.contacto"
-          type="email"
-          placeholder="Enter email"
+            id="input-1"
+            v-model="form.contacto"
+            type="email"
+            placeholder="Ingrese su correo electronico"
 
         ></b-form-input>
       </b-form-group>
 
 
-      
+
       <b-form-group id="input-group-zonaE" label="Zona de entrega:" label-for="input-zonaE">
         <b-form-select
-          id="input-zonaE"
-          v-model="form.idCatalogoZonaDeEntrega"
-          :options="entregas"
-          required
+            id="input-zonaE"
+            v-model="form.idCatalogoZonaDeEntrega"
+            :options="entregas"
+            :state="stateZona"
+            required
+
         ></b-form-select>
       </b-form-group>
 
 
       <b-form-group id="input-group-pago" label="Metodo de pago:" label-for="input-pago">
         <b-form-select
-          id="input-pago"
-          v-model="form.idCatalogoFormaDePago"
-          :options="pago"
-          required
+            id="input-pago"
+            v-model="form.idCatalogoFormaDePago"
+            :options="pago"
+            :state="statePago"
+            required
         ></b-form-select>
       </b-form-group>
-     
+
 
       <b-form-group id="input-group-cond" label="Condicion actual de tu producto:" label-for="input-cond">
-       <b-form-select
-          id="input-cond"
-          v-model="form.idCatalogoCondicion"
-          :options="condicion"
-          required
+        <b-form-select
+            id="input-cond"
+            v-model="form.idCatalogoCondicion"
+            :options="condicion"
+
+            :state="stateCon"
+            required
         ></b-form-select>
       </b-form-group>
 
 
 
-      <label for="calendar">Selecciona una fecha como vigencia de tu anuncio:</label>
-      <div >
-        <b-calendar id="calendar" v-model="form.vigenciaAnuncio" :min="min" :max="max" locale="en"
-        ></b-calendar>
-      </div>
+      <b-form-group id="input-group-vig" label="Vigencia de la publicacion:" label-for="input-vig">
+        <b-form-datepicker id="calendar"
+                           v-model="form.vigenciaAnuncio"
+                           :min="min"
+                           :max="max"
+                           block locale=""
+                           selected-variant="success"
+                           nav-button-variant="success"
+                           menu-class="w-100"
+                           calendar-width="100%"
+                           class="mb-2"
+        ></b-form-datepicker>
+      </b-form-group>
 
         <div class="container">
           <div>
@@ -136,28 +156,94 @@
         </div>
      
 
-      <b-button type="submit" variant="primary">Submit</b-button>
-      <b-button type="reset" variant="danger">Reset</b-button>
-      
+    <b-button type="submit" @click="showModal" variant="success">Submit</b-button>
+    <b-button type="reset" variant="danger">Reset</b-button>
+
     </b-form>
+
+    <modal
+        name="mensaje-confirmacion"
+        :clickToClose="false"
+        :reset="true"
+        :width="480"
+        :height="260">
+      <div class="card">
+        <div class="card-header">
+          <h3  class="card-title"> Anuncio creado </h3>
+        </div>
+        <div class="card-body">
+          <p class="card-title">Validación pendiente</p>
+          <p class="card-text">El anuncio será validado por un administrador</p>
+          <b-spinner variant="success" label="Spinning"></b-spinner>
+          <div style="text-align: right;">
+            <a href="#" class="btn btn-success"   @click="regresaInicio">Regresar a la pagina de inicio</a>
+          </div>
+        </div>
+      </div>
+
+    </modal>
+
+    <modal
+        name="mensaje-error"
+        :clickToClose="false"
+        :reset="true"
+        :width="480"
+        :height="260">
+      <div class="card">
+        <div class="card-header">
+          <h3  class="card-title"> Lo sentimos </h3>
+        </div>
+        <div class="card-body">
+          <p class="card-title">Solo se puede tener un anuncio por usuario</p>
+          <p class="card-text">Tienes un anuncio publicado o por validarse.</p>
+          <b-spinner variant="danger" label="Spinning"></b-spinner>
+          <div style="text-align: right;">
+            <a href="#" class="btn btn-danger"   @click="regresaInicio">Regresar a la pagina de inicio</a>
+          </div>
+        </div>
+      </div>
+
+    </modal>
+
       
       
    
   </div>
 </template>
 
+<script
+src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js">
+</script>
+
 <script>
 import axios from 'axios'
 import store from '../store'
+import router from '../router'
+
 
   export default {
+    computed: {
+      stateDep() {
+        return this.form.idCatalogoDepartamento > 0
+      },
+      stateZona() {
+        return this.form.idCatalogoZonaDeEntrega > 0
+      },
+
+      statePago() {
+        return this.form.idCatalogoFormaDePago > 0
+      },
+      stateCon() {
+        return this.form.idCatalogoCondicion > 0
+      }
+    },
     data() {
       const now = new Date()
       const today = new Date(now.getFullYear(), now.getMonth(), now.getDate())
       const minDate = new Date(today)
       const maxDate = new Date(today)
-      maxDate.setMonth(maxDate.getMonth() + 1)
-      maxDate.setDate(maxDate.getDate())
+      maxDate.setMonth(maxDate.getMonth())
+      maxDate.setDate(maxDate.getDate() + 30)
 
 
       var condicionArr = [];
@@ -165,30 +251,30 @@ import store from '../store'
       const axios =  require('axios');
      
       var condicion = [{
-        text:"Condicion de tu producto",
         value:null,
+        text:"Selecciona la condicion de tu producto",
       }]
 
 
       var departamentoArr = [];
       var departamentoArrID = []; 
       var departamento = [{
-        text:"Departamento de tu producto",
         value:null,
+        text:"Selecciona el departamento de tu producto",
       }]
 
       var entregaArr = [];
       var entregaArrID = []; 
       var entrega = [{
-        text:"Zona de Venta / Entrega",
         value:null,
+        text:"Selecciona una zona de venta/entrega",
       }]
 
       var pagoArr = [];
       var pagoArrID = []; 
       var pago = [{
-        text:"Forma de pago",
         value:null,
+        text:"Selecciona una forma de pago",
       }]
 
 
@@ -272,7 +358,7 @@ import store from '../store'
           idUsuario: store.state.session.idUser,
           nombre: "",
           precio: null,
-          vigenciaAnuncio: "",
+          vigenciaAnuncio: null,
           idAnuncio: null,
           imagenes: [],
           videos: []
@@ -320,7 +406,7 @@ import store from '../store'
         event.preventDefault()
         axios.post("http://localhost:9999/api/salva-anuncio.json", this.form).then(res => {
           if(res.data == -1) {
-            alert("Sólo se puede tener un anuncio activo y usted ya tiene uno");
+            this.$modal.show('mensaje-error');
           }else {
             this.form.idAnuncio = res.data;
             var formData = new FormData();
@@ -367,14 +453,17 @@ import store from '../store'
               if(error.response) {
                 this.msgErr = error.response.data['exceptionLongDescription'];
               }});
-            alert("USTED SERÁ REDIRECCIONADO");
+            this.$modal.show('mensaje-confirmacion');
           }
         }).catch(error => {
-              // el catch ocurre aun si el post está bien pero ud es null, por ejemplo !!!!
               this.msgErr = error;
               if(error.response) {
                 this.msgErr = error.response.data['exceptionLongDescription'];
               }});
+      },
+      regresaInicio: function() {
+        this.is_destroying = true;
+        router.push('/');
       },
 
       
@@ -390,7 +479,7 @@ import store from '../store'
         this.form.idCatalogoZonaDeEntrega = 1
         this.form.nombre = ""
         this.form.precio = null
-        this.form.vigenciaAnuncio = ""
+        this.form.vigenciaAnuncio = null
 
         // Trick to reset/clear native browser form validation state
         this.show = false
