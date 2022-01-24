@@ -265,15 +265,15 @@ import store from '../store'
           
           contacto: "",
           descripcion: "",
-          idCatalogoCondicion: 1,
-          idCatalogoDepartamento: 1,
-          idCatalogoFormaDePago: 1,
-          idCatalogoZonaDeEntrega: 1,
+          idCatalogoCondicion: null,
+          idCatalogoDepartamento: null,
+          idCatalogoFormaDePago: null,
+          idCatalogoZonaDeEntrega: null,
           idUsuario: store.state.session.idUser,
           nombre: "",
           precio: null,
           vigenciaAnuncio: "",
-          idAnuncio: 1,
+          idAnuncio: null,
           imagenes: [],
           videos: []
         },
@@ -322,12 +322,25 @@ import store from '../store'
           if(res.data == -1) {
             alert("Sólo se puede tener un anuncio activo y usted ya tiene uno");
           }else {
+            this.form.idAnuncio = res.data;
             var formData = new FormData();
             for(var i = 0; i < this.form.imagenes.length; i++) {
               formData.append('files', this.form.imagenes[i], this.form.imagenes[i].name);
             }
-            axios.put("http://localhost:9999/api/upload.json", formData).catch(error => {
-              // el catch ocurre aun si el post está bien pero ud es null, por ejemplo !!!!
+            axios.put("http://localhost:9999/api/upload.json", formData).then(response => {
+              var imags = response.data;
+              var imagenes = []
+             for(var k = 0; k < response.data.length; k++) {
+                imagenes[k] = {idAnuncio: this.form.idAnuncio,
+                  url: imags[k].nuevoNombre,
+                tipo: "imagen"};
+              }
+              axios.post("http://localhost:9999/api/salva-multimedia.json", imagenes).catch(error => {
+                this.msgErr = error;
+                if(error.response) {
+                  this.msgErr = error.response.data['exceptionLongDescription'];
+                }});
+            }).catch(error => {
               this.msgErr = error;
               if(error.response) {
                 this.msgErr = error.response.data['exceptionLongDescription'];
@@ -336,8 +349,20 @@ import store from '../store'
             for(var j = 0; j < this.form.videos.length; j++) {
               formData.append('files', this.form.videos[j], this.form.videos[j].name);
             }
-            axios.put("http://localhost:9999/api/upload.json", formData).catch(error => {
-              // el catch ocurre aun si el post está bien pero ud es null, por ejemplo !!!!
+            axios.put("http://localhost:9999/api/upload.json", formData).then(response => {
+              var vids = response.data;
+              var videos = []
+              for(var k = 0; k < response.data.length; k++) {
+                videos[k] = {idAnuncio: this.form.idAnuncio,
+                  url: vids[k].nuevoNombre,
+                  tipo: "video"};
+              }
+              axios.post("http://localhost:9999/api/salva-multimedia.json", videos).catch(error => {
+                this.msgErr = error;
+                if(error.response) {
+                  this.msgErr = error.response.data['exceptionLongDescription'];
+                }});
+            }).catch(error => {
               this.msgErr = error;
               if(error.response) {
                 this.msgErr = error.response.data['exceptionLongDescription'];
