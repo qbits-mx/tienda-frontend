@@ -18,6 +18,7 @@
 
           <div class="card-body align">
             <div class="card">
+              {{anuncio.nombre || "Audifonos Skull Candy"}}
               <div class="card-body">
                 {{anuncio.descripcion || "Audífonos Over-Ear Studio3 Wireless con cancelación de Ruido, Chip W1 para audífonos diseñado por Apple, Bluetooth Class 1, cancelación de Ruido Activa, 22 Horas de Audio - Negro"}}
               </div>
@@ -138,7 +139,7 @@ export default {
     actualizaCompra(){
       const idUsuario = store.state.session.id || 0;
       this.loading = true;
-      axios("api/actualiza-compra.json?idCatalogoFormaPago="+this.idCatalogoFormaPago+"&idComprador="+idUsuario+"&idProducto="+this.anuncio.id+"&idComprado="+this.anuncio.comprado+"&precio="+this.anuncio.precio)
+      axios("api/actualiza-compra.json?idCatalogoFormaPago="+this.idCatalogoFormaPago+"&idComprador="+idUsuario+"&idProducto="+this.anuncio.id+"&idComprado="+this.anuncio.comprado+"&precio="+this.anuncio.precio+"&nombre="+this.anuncio.nombre)
           .then(() => {
             this.obtenerAnuncio();
           })
