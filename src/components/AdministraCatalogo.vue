@@ -33,7 +33,6 @@
 
 import axios from 'axios';
 import Vue from 'vue';
-import VueSimpleAlert from "vue-simple-alert";
 
 export default ({  
     name: "AdministraCatalogo",
@@ -103,34 +102,32 @@ export default ({
     },
     agregarCatalogo(tipoCatalogo){
         const nameRegExp = /^[a-zA-Z0-9ñáéíóúÁÉÍÓÚ ]+$/;
-        Vue.use(VueSimpleAlert);
         let activo = true;
-        this.$prompt("Ingresa el nombre del elemento a insertar:").then((nombre) => {
-            if (nombre == null || nombre == "" || !(nameRegExp.test(nombre)) ) {
-                this.abreToast("El nombre no puede contener caracteres especiales y no puede ser vacío");
-            } else {
-                axios.get("api/buscar-catalogo-tipo-catalogo.json?tipoCatalogo="+tipoCatalogo)
-                .then(idCatalogoCategoria => {                    
-                    axios.get("api/insertar-catalogo.json?activo="+activo+"&idCatalogoCategoria="+idCatalogoCategoria.data.id+"&nombre="+nombre)
-                     .then(data => {
-                        if(data.data){
-                            this.cargaCategorias();
-                            this.exitoToast("El catálogo se creó de forma exitosa.");
-                        }else{
-                            this.abreToast("Error al crear el catálogo, compruebe que el nombre no esté en uso.");
-                        }
-                    });    
-                })
-            }            
-        });
+        let nombre = prompt("Ingresa el nombre del elemento a insertar:","Nombre catálogo");
+        if (nombre == null) return;
+        if (nombre == "" || !(nameRegExp.test(nombre)) ) {
+            this.abreToast("El nombre no puede contener caracteres especiales y no puede ser vacío");
+        } else {
+            axios.get("api/buscar-catalogo-tipo-catalogo.json?tipoCatalogo="+tipoCatalogo)
+            .then(idCatalogoCategoria => {                    
+                axios.get("api/insertar-catalogo.json?activo="+activo+"&idCatalogoCategoria="+idCatalogoCategoria.data.id+"&nombre="+nombre)
+                    .then(data => {
+                    if(data.data){
+                        this.cargaCategorias();
+                        this.exitoToast("El catálogo se creó de forma exitosa.");
+                    }else{
+                        this.abreToast("Error al crear el catálogo, compruebe que el nombre no esté en uso.");
+                    }
+                });    
+            })
+        }            
     },
     eliminarCatalogo(id){
-        Vue.use(VueSimpleAlert);
         if (id === 14) {
             this.errorToast("No se puede eliminar este elemento.");
             return;
         }
-        this.$confirm("¿Seguro que deseas eliminar este elemento?").then(() => {
+        if (confirm("¿Seguro que deseas eliminar este elemento?")) {
             axios.get("api/eliminar-catalogo-porId.json?id="+id)
             .then(data =>{
                 if (data.data){
@@ -140,32 +137,31 @@ export default ({
                     this.abreToast("Error al eliminar.");
                 }
             });
-        });
+        }
     },
     renombrarCatalogo(id,nombreAntiguo){
-        Vue.use(VueSimpleAlert);
         if (id === 14) {
             this.errorToast("No se puede renombrar este elemento.");
             return;
         }
         const nameRegExp = /^[a-zA-Z0-9ñáéíóúÁÉÍÓÚ ]+$/;
-        this.$prompt("Ingresa el nuevo nombre para este elemento.").then((nombre) => {
-            if (nombre == null || nombre == "" || !(nameRegExp.test(nombre))) {
-                this.abreToast("El nombre no puede contener caracteres especiales y no puede ser vacío.");
-            } else {
-                this.$confirm("¿Seguro que deseas renombrarlo?").then(() => { 
-                    axios.get("api/modificar-nombreDeCatalogo-porId.json?id="+id+"&nuevoNombre="+nombre)
-                    .then( data =>{
-                        if(data.data){
-                            this.cargaCategorias();
-                            this.exitoToast("El catálago \""+nombreAntiguo+"\" se cambió a \""+ nombre+"\" de forma exitosa");
-                        }else{
-                            this.abreToast("Hubo un error al renombrar, por favor verifique que el nuevo nombre no esté siendo utilizado.");
-                        }
-                    });
+        let nombre = prompt("Ingresa el nuevo nombre para este elemento.");
+        if (nombre == null) return;
+        if (nombre == "" || !(nameRegExp.test(nombre))) {
+            this.abreToast("El nombre no puede contener caracteres especiales y no puede ser vacío.");
+        } else {
+            if (confirm("¿Seguro que deseas renombrarlo?")){ 
+                axios.get("api/modificar-nombreDeCatalogo-porId.json?id="+id+"&nuevoNombre="+nombre)
+                .then( data =>{
+                    if(data.data){
+                        this.cargaCategorias();
+                        this.exitoToast("El catálago \""+nombreAntiguo+"\" se cambió a \""+ nombre+"\" de forma exitosa");
+                    }else{
+                        this.abreToast("Hubo un error al renombrar, por favor verifique que el nuevo nombre no esté siendo utilizado.");
+                    }
                 });
             }
-        });
+        }
    },
   }
 })
