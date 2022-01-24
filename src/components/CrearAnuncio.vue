@@ -32,15 +32,17 @@
                 required
               ></b-form-input>
         </b-form-group>
-      
-      <b-form-textarea
-        id="descripcion"
-        v-model="form.descripcion"
-        placeholder="Escribe aqui tu descripcion"
-        rows="3"
-        max-rows="6"
-        required
-      ></b-form-textarea>
+
+        <b-form-group id="input-group-descripcion" label="Descripción:" label-for="input-nombre">
+          <b-form-textarea
+          id="descripcion"
+          v-model="form.descripcion"
+          placeholder="Escribe aqui tu descripcion"
+          rows="3"
+          max-rows="6"
+          required
+        ></b-form-textarea>
+        </b-form-group>
      
      <b-form-group id="input-group-departamento" label="Departamento:" label-for="input-departamento">
         <b-form-select
@@ -62,7 +64,7 @@
           v-model="form.contacto"
           type="email"
           placeholder="Enter email"
-          
+
         ></b-form-input>
       </b-form-group>
 
@@ -102,40 +104,37 @@
       <label for="calendar">Selecciona una fecha como vigencia de tu anuncio:</label>
       <div >
         <b-calendar id="calendar" v-model="form.vigenciaAnuncio" :min="min" :max="max" locale="en"
-        
         ></b-calendar>
       </div>
-      <label for="Imagenes">Selecciona las imagenes que deseas agregar a tu anuncio:</label>
-      <div>
-        <!-- Styled -->
-        <b-form-file
-          id="imagenes"
-          accept=".jpg, .png, .gif"
-          v-model="form.file1"
-          :state="Boolean(file1)"
-          placeholder="Elige la ubicacion de tu archivo..."
-          drop-placeholder="Arrastra tu archivo a este lugar..."
-      ></b-form-file>
-        <div class="mt-3">Selected file: {{ file1 ? file1.name : '' }}</div>
 
-      </div>
-      <label for="Videos">Selecciona los videos que deseas agregar a tu anuncio:</label>
-      <div>
-        <!-- Styled -->
-        <b-form-file
-          id="videos"
-          accept=".mp4"
-          v-model="form.file2"
-          :state="Boolean(file2)"
-          placeholder="Elige la ubicacion de tu archivo..."
-          drop-placeholder="Arrastra tu archivo a este lugar..."
-      ></b-form-file>
-        <div class="mt-3">Selected file: {{ file2 ? file2.name : '' }}</div>
+        <div class="container">
+          <div>
+            <h1>Imágenes</h1>
+            <hr/>
+            <label>Imágenes
+              <input type="file" multiple @change="handleImageUploads( $event )"
+                     required
+                     accept="image/png,image/jpeg"
+              />
+            </label>
+            <br>
+          </div>
+        </div>
 
-      </div>
-
+        <div class="container">
+          <div>
+            <h1>Videos</h1>
+            <hr/>
+            <label>Videos
+              <input type="file" multiple @change="handleVideoUploads( $event )"
+              required
+                     accept="video/mp4"
+              />
+            </label>
+            <br>
+          </div>
+        </div>
      
-      
 
       <b-button type="submit" variant="primary">Submit</b-button>
       <b-button type="reset" variant="danger">Reset</b-button>
@@ -273,7 +272,10 @@ import store from '../store'
           idUsuario: store.state.session.idUser,
           nombre: "",
           precio: null,
-          vigenciaAnuncio: ""
+          vigenciaAnuncio: "",
+          idAnuncio: 1,
+          imagenes: [],
+          videos: []
         },
         
         show: true
@@ -282,16 +284,72 @@ import store from '../store'
     },
 
     methods: {
-
+      handleImageUploads( event ){
+        const files = event.target.files;
+        for(var i = 0; i < files.length; i++) {
+          if(files[i].size > 1048576) {
+            alert("No puedes subir imágenes de tamaño mayor a 1MB");
+            event.target.value = ''
+            return;
+          }
+        }
+        if(files.length > 20) {
+          alert("El número máximo de imágenes permitidas es 20");
+          event.target.value = ''
+        } else {
+          this.form.imagenes = event.target.files;
+        }
+      },
+      handleVideoUploads( event ){
+        const files = event.target.files;
+        for(var i = 0; i < files.length; i++) {
+          if(files[i].size > 5242880) {
+            alert("No puedes subir videos de tamaño mayor a 5MB");
+            event.target.value = ''
+            return;
+          }
+        }
+        if(files.length > 10) {
+          alert("El número máximo de videos permitidos es 10");
+          event.target.value = ''
+        } else {
+          this.form.videos = event.target.files;
+        }
+      },
       onSubmit(event) {
         event.preventDefault()
         axios.post("http://localhost:9999/api/salva-anuncio.json", this.form).then(res => {
           if(res.data == -1) {
             alert("Sólo se puede tener un anuncio activo y usted ya tiene uno");
           }else {
+            var formData = new FormData();
+            for(var i = 0; i < this.form.imagenes.length; i++) {
+              formData.append('files', this.form.imagenes[i], this.form.imagenes[i].name);
+            }
+            axios.put("http://localhost:9999/api/upload.json", formData).catch(error => {
+              // el catch ocurre aun si el post está bien pero ud es null, por ejemplo !!!!
+              this.msgErr = error;
+              if(error.response) {
+                this.msgErr = error.response.data['exceptionLongDescription'];
+              }});
+            formData = new FormData();
+            for(var j = 0; j < this.form.videos.length; j++) {
+              formData.append('files', this.form.videos[j], this.form.videos[j].name);
+            }
+            axios.put("http://localhost:9999/api/upload.json", formData).catch(error => {
+              // el catch ocurre aun si el post está bien pero ud es null, por ejemplo !!!!
+              this.msgErr = error;
+              if(error.response) {
+                this.msgErr = error.response.data['exceptionLongDescription'];
+              }});
             alert("USTED SERÁ REDIRECCIONADO");
           }
-        });
+        }).catch(error => {
+              // el catch ocurre aun si el post está bien pero ud es null, por ejemplo !!!!
+              this.msgErr = error;
+              if(error.response) {
+                this.msgErr = error.response.data['exceptionLongDescription'];
+              }});
       },
 
       
@@ -314,7 +372,7 @@ import store from '../store'
         this.$nextTick(() => {
           this.show = true
         })
-      }
+      },
     }   
   }
 </script>   
