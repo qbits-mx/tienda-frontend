@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import store from '../store'
 import axios from 'axios';
 
+import CrearAnuncio          from '@/components/CrearAnuncio'
 import Inicio                from '@/components/Inicio'
 import Login                 from '@/components/Login'
 import Registro              from '@/components/Registro2'
@@ -28,6 +29,11 @@ const routes = [
     component: NotFound
   },
   {
+    path: '/ui/crear-anuncio',
+    name: 'crear-anuncio',
+    component: CrearAnuncio,
+    meta: { allowedRoles: ['admin','normal'] }
+  },
     path: '/ui/anuncio/:id',
     name: 'anuncio',
     props: true, 
