@@ -56,7 +56,7 @@ export default {
             let infoUser = keyAcces.session.idUser;
             console.log("infoUser")
             console.log(infoUser)
-            axios.get('http://localhost:9999/api/obtener-historial-vendidos.json?idUsuario=' + infoUser)
+            axios.get(process.env.VUE_APP_URL + 'api/obtener-historial-vendidos.json?idUsuario=' + infoUser)
             .then( res =>{
                 this.result = res.data;
                 console.log(this.result);
