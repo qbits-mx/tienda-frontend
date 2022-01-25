@@ -269,12 +269,12 @@ export default {
       text:"Selecciona una forma de pago",
     }]
     axios.get('/api/obtener-catalogos-porIdCatalogoCategoria.json?idCatalogoCategoria=1').then(resp => {
-
+      
       for(var i=0;i<resp.data.length;i++){
         if(resp.data[i].activo == 1){
-          condicionArr.push(resp.data[i].nombre);
-          condicion.push({ text: resp.data[i].nombre, value: resp.data[i].id });
-          condicionArrID.push(resp.data[i].id);
+        condicionArr.push(resp.data[i].nombre);
+        condicion.push({ text: resp.data[i].nombre, value: resp.data[i].id });
+        condicionArrID.push(resp.data[i].id);
         }
       }
       for(var f=0;f<condicionArr.length;f++){
@@ -285,9 +285,9 @@ export default {
     axios.get('/api/obtener-catalogos-porIdCatalogoCategoria.json?idCatalogoCategoria=2').then(resp => {
       for(var i=0;i<resp.data.length;i++){
         if(resp.data[i].activo == 1){
-          departamentoArr.push(resp.data[i].nombre);
-          departamento.push({ text: resp.data[i].nombre, value: resp.data[i].id });
-          departamentoArrID.push(resp.data[i].id);
+        departamentoArr.push(resp.data[i].nombre);
+        departamento.push({ text: resp.data[i].nombre, value: resp.data[i].id });
+        departamentoArrID.push(resp.data[i].id);
         }
       }
       for(var f=0;f<departamentoArr.length;f++){
@@ -299,9 +299,9 @@ export default {
     axios.get('/api/obtener-catalogos-porIdCatalogoCategoria.json?idCatalogoCategoria=3').then(resp => {
       for(var i=0;i<resp.data.length;i++){
         if(resp.data[i].activo == 1){
-          entregaArr.push(resp.data[i].nombre);
-          entrega.push({ text: resp.data[i].nombre, value: resp.data[i].id });
-          entregaArrID.push(resp.data[i].id);
+        entregaArr.push(resp.data[i].nombre);
+        entrega.push({ text: resp.data[i].nombre, value: resp.data[i].id });
+        entregaArrID.push(resp.data[i].id);
         }
       }
       for(var f=0;f<entregaArr.length;f++){
@@ -313,9 +313,9 @@ export default {
     axios.get('/api/obtener-catalogos-porIdCatalogoCategoria.json?idCatalogoCategoria=4').then(resp => {
       for(var i=0;i<resp.data.length;i++){
         if(resp.data[i].activo == 1){
-          pagoArr.push(resp.data[i].nombre);
-          pago.push({ text: resp.data[i].nombre, value: resp.data[i].id });
-          pagoArrID.push(resp.data[i].id);
+        pagoArr.push(resp.data[i].nombre);
+        pago.push({ text: resp.data[i].nombre, value: resp.data[i].id });
+        pagoArrID.push(resp.data[i].id);
         }
       }
       for(var f=0;f<pagoArr.length;f++){
@@ -510,3 +510,5 @@ export default {
   max-width: 960px;
 }
 </style>
+message.txt
+17 KB
