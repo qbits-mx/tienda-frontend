@@ -78,6 +78,7 @@
 
           </div><!-- ends card body -->
         </div><!-- ends card -->
+        
           <div style="margin-left:650px">
             <button
                     @click="$router.push('chat')"
@@ -87,14 +88,19 @@
             </button>
           </div>
 
-        <div class="card border-light mb-3" style="max-width: 36rem;">
-  <div class="card-header">Comentarios</div>
-  <div class="card-body">
-    <h5 class="card-title">Usuario</h5>
-    <p class="card-text">Aqui van los comentarios...</p>
-  </div>
-</div>
+          <div class="card border-light mb-3" style="max-width: 36rem;">
+            <div class="card-header">Comentarios</div>
+            <div class="card-body">
+              <h5 class="card-title">Usuario</h5>
+              <p class="card-text">Aqui van los comentarios...</p>
+            </div>
+          </div>
 
+        <!-- Empieza chat -->
+        <div class="card-header">
+            <label class="control-label h4">Chat</label>
+            <Chat v-bind:chatList="chatList" v-bind:idAnuncio=this.id[1] v-bind:idRemitente= this.idUsuario />
+        </div>
 
       </div>
     </div>
@@ -110,8 +116,11 @@ import axios from 'axios';
 
 import store from '../store'
 
+import Chat from './Chat'
+
 export default {
   components: {
+    Chat
   },
   props: {
     id: [String, Number]
@@ -122,7 +131,10 @@ export default {
       target: '',
       anuncio: {},
       loading: false,
-      idCatalogoFormaPago: '1'
+      idCatalogoFormaPago: '1',
+      chatList: [],
+      soyVendedorb : '',
+      idUsuario : store.state.session.detalles.id
     }
   },
   watch: {},
@@ -146,13 +158,54 @@ export default {
           .finally(() => {
         this.loading = false;
       })
-    }
+    },
+    soyVendedor(id){
+      console.log("idRemitente = " + id)
+      axios("/api/soy-vendedor.json?idAnuncio="+this.id[1] +"&idRemitente="+id)
+          .then(x => {
+            this.soyVendedorb = x.data;
+          })
+      console.log("idAnuncio = " + this.id[1])
+    },
+    cargaMensajes(id){
+      //Hacer comprobacion de si es comprador o vendedor
+      //Revisar si es comprador, vendedor.
+      if (this.soyVendedorb) {
+        axios.get("api/get-conversaciones.json?idAnuncio="+id)
+          .then( x => {
+            this.chatList = x.data;
+          })        
+      }else{
+
+        axios.get("/api/get-conversacion.json?idAnuncio="+id+ "&idHiloPadre="+this.idUsuario)
+          .then( x => {
+            if (this.chatList.length === 0){
+              this.chatList.push(x.data);
+            }else{
+              this.chatList.pop();
+              this.chatList.push(x.data);
+
+            }
+          })
+      }
+
+
+     }
   },
+
   mounted() {
     store.commit('setToggleHeader', true);
     store.commit('setToggleFooter', true);
-    this.obtenerAnuncio();
-  }
+    this.soyVendedor(this.idUsuario);
+    setInterval(function() {
+      this.cargaMensajes(this.id[1]); }.bind(this) , 500);
+
+    //this.obtenerAnuncio();
+
+  },
+  created(){
+
+  },
 }
 
 </script>
