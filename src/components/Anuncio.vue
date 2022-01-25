@@ -66,7 +66,8 @@
             <div class="form-group row">
               <div class="col text-center">
                 <div v-if="true">
-                  <button type="button" class="btn btn-lg btn-primary" enabled onClick="this.disabled=true">Comprar</button>
+                  <button type="button" class="btn btn-lg btn-primary" enabled @click="actualizaCompra" v-if=anuncio.activo>Comprar</button>
+                  <button type="button" class="btn btn-lg btn-primary" disabled v-else>Comprar</button>
                 </div>
                 
               
@@ -151,7 +152,7 @@ export default {
     actualizaCompra(){
       const idUsuario = store.state.session.id || 0;
       this.loading = true;
-      axios("api/actualiza-compra.json?idCatalogoFormaPago="+this.idCatalogoFormaPago+"&idComprador="+idUsuario+"&idProducto="+this.anuncio.id+"&idComprado="+this.anuncio.comprado+"&precio="+this.anuncio.precio+"&nombre="+this.anuncio.nombre)
+      axios("api/actualiza-compra.json?idCatalogoFormaPago="+this.idCatalogoFormaPago+"&idComprador="+idUsuario+"&idProducto="+this.anuncio.id+"&idComprado="+this.anuncio.comprado)
           .then(() => {
             this.obtenerAnuncio();
           })
@@ -200,7 +201,7 @@ export default {
     setInterval(function() {
       this.cargaMensajes(this.id[1]); }.bind(this) , 500);
 
-    //this.obtenerAnuncio();
+      this.obtenerAnuncio();
 
   },
   created(){
