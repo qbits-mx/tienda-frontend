@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import store from '../store'
 import axios from 'axios';
 
+import CrearAnuncio          from '@/components/CrearAnuncio'
 import Inicio                from '@/components/Inicio'
 import Login                 from '@/components/Login'
 import Registro              from '@/components/Registro2'
@@ -19,6 +20,8 @@ import GestorAdministrador   from '@/components/GestorAdministrador'
 import AnuncioValidar        from '@/components/AnuncioValidar'
 import AnuncioRechazar       from '@/components/AnuncioRechazar'
 import Admin                 from '@/components/Admin'
+import Anuncio               from '@/components/Anuncio'
+import AdministraCatalogo    from '@/components/AdministraCatalogo'
 
 Vue.use(Router);
 
@@ -27,6 +30,18 @@ const routes = [
     path: '/ui/not-found',
     name: 'not-found',
     component: NotFound
+  },
+  {
+    path: '/ui/crear-anuncio',
+    name: 'crear-anuncio',
+    component: CrearAnuncio,
+    meta: { allowedRoles: ['admin','normal'] }
+  },
+  {
+    path: '/ui/anuncio/:id',
+    name: 'anuncio',
+    props: true, 
+    component: Anuncio
   },
   {
     path: '/ui/cambia-datos-personales',
@@ -110,6 +125,11 @@ const routes = [
     name: 'AnuncioRechazar',
     component: AnuncioRechazar,
     props: castNumberParam,
+  },
+  {
+    path: '/ui/admin/catalogos',
+    name: 'AdministraCatalogo',
+    component: AdministraCatalogo,
     meta: { allowedRoles: ['admin'] }
   },
   { 
