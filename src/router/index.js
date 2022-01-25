@@ -15,6 +15,12 @@ import CambiaDatosPersonales from '@/components/CambiaDatosPersonales'
 import MisDirecciones        from '@/components/MisDirecciones'
 import ConsultaRol           from '@/components/ConsultaRol'
 import NotFound              from '@/components/NotFound'
+import GestorAdministrador   from '@/components/GestorAdministrador'
+import AnuncioValidar        from '@/components/AnuncioValidar'
+import AnuncioRechazar       from '@/components/AnuncioRechazar'
+import Admin                 from '@/components/Admin'
+import Anuncio               from '@/components/Anuncio'
+import AdministraCatalogo    from '@/components/AdministraCatalogo'
 import Historiales           from '@/components/Historiales'
 import HistorialCompras      from '@/components/HistorialCompras'
 import HistorialVentas       from '@/components/HistorialVentas'
@@ -90,6 +96,37 @@ const routes = [
     path: '/ui/consulta-rol',
     name: 'ConsultaRol',
     component:ConsultaRol,
+    meta: { allowedRoles: ['admin'] }
+  },
+  {
+  path: '/ui/admin',
+    name: 'Admin',
+    component: Admin,
+    meta: { allowedRoles: ['admin'] }
+  },
+  {
+    path: '/ui/gestor-administrador',
+    name: 'GestorAdministrador',
+    component:GestorAdministrador,
+    meta: { allowedRoles: ['admin'] }
+  },
+  {
+    path: '/validar-rechazar/anuncio/:idAnuncio',
+    name: 'AnuncioValidar',
+    component: AnuncioValidar,
+    props: castNumberParam,
+    meta: { allowedRoles: ['admin'] }
+  },
+  {
+    path: '/validar-rechazar/rechazar/:idAnuncio',
+    name: 'AnuncioRechazar',
+    component: AnuncioRechazar,
+    props: castNumberParam,
+  },
+  {
+    path: '/ui/admin/catalogos',
+    name: 'AdministraCatalogo',
+    component: AdministraCatalogo,
     meta: { allowedRoles: ['admin'] }
   },
   {
