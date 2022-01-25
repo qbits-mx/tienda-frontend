@@ -16,7 +16,7 @@
         </div>
         <div class="col d-flex my-2">
           <botonAdmin colorTarjeta="rgba(255,0,0,0.4)" titulo="Administrar Catálogo" descripcion="Se administra el catálogo de la tienda"
-                      link="/admin/catalogos" icono="fas fa-compact-disc fa-4x icono shrink" color="btn btn-danger btn-block">
+                      link="/ui/admin/catalogos" icono="fas fa-compact-disc fa-4x icono shrink" color="btn btn-danger btn-block">
           </botonAdmin>
         </div>
       </div>
