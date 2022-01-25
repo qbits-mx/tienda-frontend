@@ -280,7 +280,7 @@ import router from '../router'
 
 
 
-      axios.get('http://localhost:9999/api/obtener-catalogos-porIdCatalogoCategoria.json?idCatalogoCategoria=1').then(resp => {
+      axios.get('/api/obtener-catalogos-porIdCatalogoCategoria.json?idCatalogoCategoria=1').then(resp => {
 
         for(var i=0;i<resp.data.length;i++){
           condicionArr.push(resp.data[i].nombre);
@@ -294,7 +294,7 @@ import router from '../router'
         }
       });
 
-      axios.get('http://localhost:9999/api/obtener-catalogos-porIdCatalogoCategoria.json?idCatalogoCategoria=2').then(resp => {
+      axios.get('/api/obtener-catalogos-porIdCatalogoCategoria.json?idCatalogoCategoria=2').then(resp => {
 
         for(var i=0;i<resp.data.length;i++){
           departamentoArr.push(resp.data[i].nombre);
@@ -308,7 +308,7 @@ import router from '../router'
         }
       });
       
-      axios.get('http://localhost:9999/api/obtener-catalogos-porIdCatalogoCategoria.json?idCatalogoCategoria=3').then(resp => {
+      axios.get('/api/obtener-catalogos-porIdCatalogoCategoria.json?idCatalogoCategoria=3').then(resp => {
 
         for(var i=0;i<resp.data.length;i++){
           entregaArr.push(resp.data[i].nombre);
@@ -323,7 +323,7 @@ import router from '../router'
       });
       
 
-      axios.get('http://localhost:9999/api/obtener-catalogos-porIdCatalogoCategoria.json?idCatalogoCategoria=4').then(resp => {
+      axios.get('/api/obtener-catalogos-porIdCatalogoCategoria.json?idCatalogoCategoria=4').then(resp => {
 
         for(var i=0;i<resp.data.length;i++){
           pagoArr.push(resp.data[i].nombre);
@@ -404,7 +404,7 @@ import router from '../router'
       },
       onSubmit(event) {
         event.preventDefault()
-        axios.post("http://localhost:9999/api/salva-anuncio.json", this.form).then(res => {
+        axios.post("/api/salva-anuncio.json", this.form).then(res => {
           if(res.data == -1) {
             this.$modal.show('mensaje-error');
           }else {
@@ -413,7 +413,7 @@ import router from '../router'
             for(var i = 0; i < this.form.imagenes.length; i++) {
               formData.append('files', this.form.imagenes[i], this.form.imagenes[i].name);
             }
-            axios.put("http://localhost:9999/api/upload.json", formData).then(response => {
+            axios.put("/api/upload.json", formData).then(response => {
               var imags = response.data;
               var imagenes = []
              for(var k = 0; k < response.data.length; k++) {
@@ -421,7 +421,7 @@ import router from '../router'
                   url: imags[k].nuevoNombre,
                 tipo: "imagen"};
               }
-              axios.post("http://localhost:9999/api/salva-multimedia.json", imagenes).catch(error => {
+              axios.post("/api/salva-multimedia.json", imagenes).catch(error => {
                 this.msgErr = error;
                 if(error.response) {
                   this.msgErr = error.response.data['exceptionLongDescription'];
@@ -435,7 +435,7 @@ import router from '../router'
             for(var j = 0; j < this.form.videos.length; j++) {
               formData.append('files', this.form.videos[j], this.form.videos[j].name);
             }
-            axios.put("http://localhost:9999/api/upload.json", formData).then(response => {
+            axios.put("/api/upload.json", formData).then(response => {
               var vids = response.data;
               var videos = []
               for(var k = 0; k < response.data.length; k++) {
@@ -443,7 +443,7 @@ import router from '../router'
                   url: vids[k].nuevoNombre,
                   tipo: "video"};
               }
-              axios.post("http://localhost:9999/api/salva-multimedia.json", videos).catch(error => {
+              axios.post("/api/salva-multimedia.json", videos).catch(error => {
                 this.msgErr = error;
                 if(error.response) {
                   this.msgErr = error.response.data['exceptionLongDescription'];
