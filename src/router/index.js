@@ -99,7 +99,7 @@ const routes = [
     meta: { allowedRoles: ['admin'] }
   },
   {
-    path: '/admin/catalogos',
+    path: '/ui/admin/catalogos',
     name: 'AdministraCatalogo',
     component: AdministraCatalogo,
     meta: { allowedRoles: ['admin'] }
