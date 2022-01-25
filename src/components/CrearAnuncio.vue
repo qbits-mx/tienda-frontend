@@ -26,6 +26,7 @@
                       id="precio"
                       type="number"
                       min="1"
+                      max="999999"
                       step="any"
 
                       v-model="form.precio"
@@ -219,8 +220,6 @@
 import axios from 'axios'
 import store from '../store'
 import router from '../router'
-
-
 export default {
   computed: {
     stateDep() {
@@ -229,7 +228,6 @@ export default {
     stateZona() {
       return this.form.idCatalogoZonaDeEntrega > 0
     },
-
     statePago() {
       return this.form.idCatalogoFormaDePago > 0
     },
@@ -244,8 +242,6 @@ export default {
     const maxDate = new Date(today)
     maxDate.setMonth(maxDate.getMonth())
     maxDate.setDate(maxDate.getDate() + 30)
-
-
     var condicionArr = [];
     var condicionArrID = [];
     const axios =  require('axios');
@@ -254,33 +250,25 @@ export default {
       value:null,
       text:"Selecciona la condicion de tu producto",
     }]
-
-
     var departamentoArr = [];
     var departamentoArrID = [];
     var departamento = [{
       value:null,
       text:"Selecciona el departamento de tu producto",
     }]
-
     var entregaArr = [];
     var entregaArrID = [];
     var entrega = [{
       value:null,
       text:"Selecciona una zona de venta/entrega",
     }]
-
     var pagoArr = [];
     var pagoArrID = [];
     var pago = [{
       value:null,
       text:"Selecciona una forma de pago",
     }]
-
-
-
-
-    axios.get('http://localhost:9999/api/obtener-catalogos-porIdCatalogoCategoria.json?idCatalogoCategoria=1').then(resp => {
+    axios.get('/api/obtener-catalogos-porIdCatalogoCategoria.json?idCatalogoCategoria=1').then(resp => {
 
       for(var i=0;i<resp.data.length;i++){
         if(resp.data[i].activo == 1){
@@ -289,15 +277,12 @@ export default {
           condicionArrID.push(resp.data[i].id);
         }
       }
-
       for(var f=0;f<condicionArr.length;f++){
         console.log(condicionArr[f]);
         console.log(condicionArrID[f]);
       }
     });
-
-    axios.get('http://localhost:9999/api/obtener-catalogos-porIdCatalogoCategoria.json?idCatalogoCategoria=2').then(resp => {
-
+    axios.get('/api/obtener-catalogos-porIdCatalogoCategoria.json?idCatalogoCategoria=2').then(resp => {
       for(var i=0;i<resp.data.length;i++){
         if(resp.data[i].activo == 1){
           departamentoArr.push(resp.data[i].nombre);
@@ -305,15 +290,13 @@ export default {
           departamentoArrID.push(resp.data[i].id);
         }
       }
-
       for(var f=0;f<departamentoArr.length;f++){
         console.log(departamento[f].text);
         console.log(departamento[f].value);
       }
     });
 
-    axios.get('http://localhost:9999/api/obtener-catalogos-porIdCatalogoCategoria.json?idCatalogoCategoria=3').then(resp => {
-
+    axios.get('/api/obtener-catalogos-porIdCatalogoCategoria.json?idCatalogoCategoria=3').then(resp => {
       for(var i=0;i<resp.data.length;i++){
         if(resp.data[i].activo == 1){
           entregaArr.push(resp.data[i].nombre);
@@ -321,16 +304,13 @@ export default {
           entregaArrID.push(resp.data[i].id);
         }
       }
-
       for(var f=0;f<entregaArr.length;f++){
         console.log(entrega[f].text);
         console.log(entrega[f].value);
       }
     });
 
-
-    axios.get('http://localhost:9999/api/obtener-catalogos-porIdCatalogoCategoria.json?idCatalogoCategoria=4').then(resp => {
-
+    axios.get('/api/obtener-catalogos-porIdCatalogoCategoria.json?idCatalogoCategoria=4').then(resp => {
       for(var i=0;i<resp.data.length;i++){
         if(resp.data[i].activo == 1){
           pagoArr.push(resp.data[i].nombre);
@@ -338,7 +318,6 @@ export default {
           pagoArrID.push(resp.data[i].id);
         }
       }
-
       for(var f=0;f<pagoArr.length;f++){
         console.log(pago[f].text);
         console.log(pago[f].value);
@@ -350,7 +329,6 @@ export default {
       max: maxDate,
       categorias: departamento,
       entregas:   entrega,
-
       pago:       pago,
       condicion:  condicion,
 
@@ -376,7 +354,6 @@ export default {
 
     }
   },
-
   methods: {
     handleImageUploads( event ){
       const files = event.target.files;
@@ -412,7 +389,7 @@ export default {
     },
     onSubmit(event) {
       event.preventDefault()
-      axios.post("http://localhost:9999/api/salva-anuncio.json", this.form).then(res => {
+      axios.post("/api/salva-anuncio.json", this.form).then(res => {
         if(res.data == -1) {
           this.$modal.show('mensaje-error');
         }else {
@@ -421,15 +398,15 @@ export default {
           for(var i = 0; i < this.form.imagenes.length; i++) {
             formData.append('files', this.form.imagenes[i], this.form.imagenes[i].name);
           }
-          axios.put("http://localhost:9999/api/upload.json", formData).then(response => {
+          axios.put("/api/upload.json", formData).then(response => {
             var imags = response.data;
             var imagenes = []
             for(var k = 0; k < response.data.length; k++) {
               imagenes[k] = {idAnuncio: this.form.idAnuncio,
-                url:"fotos.qbits.mx/"+imags[k].nuevoNombre,
+                url: "https://fotos.qbits.mx/"+imags[k].nuevoNombre,
                 tipo: "imagen"};
             }
-            axios.post("http://localhost:9999/api/salva-multimedia.json", imagenes).catch(error => {
+            axios.post("/api/salva-multimedia.json", imagenes).catch(error => {
               this.msgErr = error;
               if(error.response) {
                 this.msgErr = error.response.data['exceptionLongDescription'];
@@ -443,15 +420,15 @@ export default {
           for(var j = 0; j < this.form.videos.length; j++) {
             formData.append('files', this.form.videos[j], this.form.videos[j].name);
           }
-          axios.put("http://localhost:9999/api/upload.json", formData).then(response => {
+          axios.put("/api/upload.json", formData).then(response => {
             var vids = response.data;
             var videos = []
             for(var k = 0; k < response.data.length; k++) {
               videos[k] = {idAnuncio: this.form.idAnuncio,
-                url:"fotos.qbits.mx/" + vids[k].nuevoNombre,
+                url: "https://fotos.qbits.mx/"+vids[k].nuevoNombre,
                 tipo: "video"};
             }
-            axios.post("http://localhost:9999/api/salva-multimedia.json", videos).catch(error => {
+            axios.post("/api/salva-multimedia.json", videos).catch(error => {
               this.msgErr = error;
               if(error.response) {
                 this.msgErr = error.response.data['exceptionLongDescription'];
@@ -474,11 +451,9 @@ export default {
       router.push('/');
     },
 
-
     onReset(event) {
       event.preventDefault()
       // Reset our form values
-
       this.form.contacto = ""
       this.form.descripcion = ""
       this.form.idCatalogoCondicion =  1
@@ -488,7 +463,6 @@ export default {
       this.form.nombre = ""
       this.form.precio = null
       this.form.vigenciaAnuncio = null
-
       // Trick to reset/clear native browser form validation state
       this.show = false
       this.$nextTick(() => {
@@ -502,16 +476,13 @@ export default {
 
 <style>
 .padre {
-
   /* Codigo para centrar*/
   display: flex;
   justify-content: center;
   align-items: center;
   /* Fin del codigo para centrar*/
 }
-
 .imagen {
-
   /* Codigo para centrar*/
   display: flex;
   justify-content: right;
