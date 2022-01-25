@@ -1,11 +1,15 @@
-<template>
+<><template>
   <div class="buscar-producto">
     <div>
+      
       <input
         v-model="producto"
         placeholder="Buscar producto"
-        class="barra-busqueda"
-      />
+        class="barra-busqueda" />
+      <button ondblclick="Buscar()">
+      Buscar
+      </button>
+        
       <div class="forma-pago">
         <p>Forma de pago</p>
         <b-form-checkbox
@@ -438,109 +442,72 @@
     </div>
   </div>
 </template>
-
 <script>
-//import AnuncioItem from "./AnuncioItem.vue";
-import axios from "axios";
-export default {
-  components: {
-    //AnuncioItem,
-  },
-  methods: {
-    buscarProducto: function() {
-      axios.get("/api/buscarPoducto", {
-        descripcion: this.producto,
-        idCatalogoDepartamento: this.departamento,
-        idCatalogoZonaEntrega: this.zona,
-        idCatalogoFormaPago: this.pago,
-        idCatalogoCondicion: this.condiciones,
-        estrellas: this.puntuacion,
-      });
-    },
-  },
-  data() {
-    return {
-      producto: "",
-      pago: "",
-      condiciones: "",
-      departamento: "",
-      zona: "",
-      puntuacion: "",
-    };
-  },
+  import axios from "axios";
+  export default {
+    Buscar() {
+      axios.get("/api/buscarPoducto").then((result) => {
+        //mostrar lo recogido
+        console.log(result.data);
+      })
+    }
 };
 </script>
-
 <style scoped>
-.buscar-producto {
-  display: flex;
-}
-.barra-busqueda {
-  margin: 10px;
-  padding: 10px;
-}
-.forma-pago {
-  background-color: #a9c3db;
-  margin: 10px;
-  padding: 10px;
-}
-.categoria {
-  background-color: #c5d1dc;
-  margin: 10px;
-  padding: 10px;
-}
-.condicion {
-  background-color: #a9c3db;
-  margin: 10px;
-  padding: 10px;
-}
-.zona {
-  background-color: #c5d1dc;
-  margin: 10px;
-  padding: 10px;
-}
-.estrellas {
-  background-color: #a9c3db;
-  margin: 10px;
-  padding: 10px;
-}
-.filtros {
-  background-color: #c5d1dc;
-  margin: 10px;
-  padding: 10px;
-}
-.anuncio {
-  display: flex;
-  background-color: #e9ecef;
-  margin: 75px;
-  padding: 10px;
-  width: 1200px;
-  height: 300px;
-  border: 10px;
-}
-.images {
-  width: 275px;
-  height: 275px;
-}
-.articulo {
-  font-size: 250%;
-  margin: 10px;
-  padding: 10px;
-}
-.descripcion {
-  flex-direction: column;
-}
-.desc {
-  margin: 10px;
-  padding: 10px;
-}
-.calificacion {
-  display: flex;
-  margin: 10px;
-  padding: 10px;
-}
-.estrella {
-  width: 50px;
-  height: 50px;
-}
-</style>
+    .buscar-producto {display}: flex;
+    }
+    .barra-busqueda {margin}: 10px;
+    padding: 10px;
+    }
+    .forma-pago {background - color}: #a9c3db;
+    margin: 10px;
+    padding: 10px;
+    }
+    .categoria {background - color}: #c5d1dc;
+    margin: 10px;
+    padding: 10px;
+    }
+    .condicion {background - color}: #a9c3db;
+    margin: 10px;
+    padding: 10px;
+    }
+    .zona {background - color}: #c5d1dc;
+    margin: 10px;
+    padding: 10px;
+    }
+    .estrellas {background - color}: #a9c3db;
+    margin: 10px;
+    padding: 10px;
+    }
+    .filtros {background - color}: #c5d1dc;
+    margin: 10px;
+    padding: 10px;
+    }
+    .anuncio {display}: flex;
+    background-color: #e9ecef;
+    margin: 75px;
+    padding: 10px;
+    width: 1200px;
+    height: 300px;
+    border: 10px;
+    }
+    .images {width}: 275px;
+    height: 275px;
+    }
+    .articulo {font - size}: 250%;
+    margin: 10px;
+    padding: 10px;
+    }
+    .descripcion {flex - direction}: column;
+    }
+    .desc {margin}: 10px;
+    padding: 10px;
+    }
+    .calificacion {display}: flex;
+    margin: 10px;
+    padding: 10px;
+    }
+    .estrella {width}: 50px;
+    height: 50px;
+    }
+  </style></>
