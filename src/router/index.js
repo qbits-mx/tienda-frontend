@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import store from '../store'
 import axios from 'axios';
 
+import CrearAnuncio          from '@/components/CrearAnuncio'
 import Inicio                from '@/components/Inicio'
 import Login                 from '@/components/Login'
 import Registro              from '@/components/Registro2'
@@ -27,10 +28,10 @@ import HistorialVentas       from '@/components/HistorialVentas'
 import CalificarProducto     from '@/components/CalificarProducto'
 import AuditarComentario     from '@/components/AuditarComentario'
 import ValidarComentario     from '@/components/ValidarComentario'
-import ProductoVen     from '@/components/ProductoVen'
-import ProductoCom     from '@/components/ProductoCom'
-import ConsultaCompra   from  '@/components/ConsultaCompra'
-import ConsultaVenta    from '@/components/ConsultaVenta'
+import ProductoVen           from '@/components/ProductoVen'
+import ProductoCom           from '@/components/ProductoCom'
+import ConsultaCompra        from  '@/components/ConsultaCompra'
+import ConsultaVenta         from '@/components/ConsultaVenta'
 
 Vue.use(Router);
 
@@ -39,6 +40,18 @@ const routes = [
     path: '/ui/not-found',
     name: 'not-found',
     component: NotFound
+  },
+  {
+    path: '/ui/crear-anuncio',
+    name: 'crear-anuncio',
+    component: CrearAnuncio,
+    meta: { allowedRoles: ['admin','normal'] }
+  },
+  {
+    path: '/ui/anuncio/:id',
+    name: 'anuncio',
+    props: true, 
+    component: Anuncio
   },
   {
     path: '/ui/cambia-datos-personales',
@@ -99,7 +112,7 @@ const routes = [
     meta: { allowedRoles: ['admin'] }
   },
   {
-  path: '/ui/admin',
+    path: '/ui/admin',
     name: 'Admin',
     component: Admin,
     meta: { allowedRoles: ['admin'] }
@@ -258,5 +271,10 @@ router.beforeEach((to, from, next) => {
   next(); // *** El recurso NO requiere autenticación
 })
 
+function castNumberParam(route) {
+  return {
+    idAnuncio: Number(route.params.idAnuncio),
+  };
+}
 
 export default router;
