@@ -22,6 +22,16 @@ import AnuncioRechazar       from '@/components/AnuncioRechazar'
 import Admin                 from '@/components/Admin'
 import Anuncio               from '@/components/Anuncio'
 import AdministraCatalogo    from '@/components/AdministraCatalogo'
+import Historiales           from '@/components/Historiales'
+import HistorialCompras      from '@/components/HistorialCompras'
+import HistorialVentas       from '@/components/HistorialVentas'
+import CalificarProducto     from '@/components/CalificarProducto'
+import AuditarComentario     from '@/components/AuditarComentario'
+import ValidarComentario     from '@/components/ValidarComentario'
+import ProductoVen           from '@/components/ProductoVen'
+import ProductoCom           from '@/components/ProductoCom'
+import ConsultaCompra        from  '@/components/ConsultaCompra'
+import ConsultaVenta         from '@/components/ConsultaVenta'
 
 Vue.use(Router);
 
@@ -131,6 +141,57 @@ const routes = [
     name: 'AdministraCatalogo',
     component: AdministraCatalogo,
     meta: { allowedRoles: ['admin'] }
+  },
+  {
+    path: '/ui/historial-compras',
+    name: 'historial-compras',
+    component: HistorialCompras,
+  },
+  {
+    path: '/ui/historial-ventas',
+    name: 'historial-ventas',
+    component: HistorialVentas,
+  },
+  {
+    path: '/ui/historiales',
+    name: 'historiales',
+    component: Historiales
+  },
+  {
+    path: '/ui/calificar-producto',
+    name: 'calificar-producto',
+    component: CalificarProducto
+  },
+  {
+    path: '/ui/auditar-comentario',
+    name: 'auditar-comentario',
+    component: AuditarComentario,
+    meta: { allowedRoles: ['admin'] }
+  },
+  {
+  path: '/ui/producto-ven',
+  name: 'producto-ven',
+  component: ProductoVen
+  },
+  {
+    path: '/ui/producto-com',
+    name: 'producto-com',
+    component: ProductoCom
+    },
+  {
+    path: '/ui/validar-comentario',
+    name: 'validar-comentario',
+    component: ValidarComentario
+  },
+  {
+    path: '/ui/consulta-compra',
+    name: 'consulta-compra',
+    component: ConsultaCompra
+  },
+  {
+    path: '/ui/consulta-venta',
+    name: 'consulta-venta',
+    component: ConsultaVenta
   },
   { 
     path: "*", 
