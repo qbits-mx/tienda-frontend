@@ -15,9 +15,12 @@ import CambiaClave           from '@/components/CambiaClave'
 import CambiaDatosPersonales from '@/components/CambiaDatosPersonales'
 import MisDirecciones        from '@/components/MisDirecciones'
 import ConsultaRol           from '@/components/ConsultaRol'
-import Anuncio               from '@/components/Anuncio'
 import NotFound              from '@/components/NotFound'
-
+import GestorAdministrador   from '@/components/GestorAdministrador'
+import AnuncioValidar        from '@/components/AnuncioValidar'
+import AnuncioRechazar       from '@/components/AnuncioRechazar'
+import Admin                 from '@/components/Admin'
+import Anuncio               from '@/components/Anuncio'
 import AdministraCatalogo    from '@/components/AdministraCatalogo'
 
 Vue.use(Router);
@@ -97,6 +100,31 @@ const routes = [
     name: 'ConsultaRol',
     component:ConsultaRol,
     meta: { allowedRoles: ['admin'] }
+  },
+  {
+    path: '/ui/admin',
+    name: 'Admin',
+    component: Admin,
+    meta: { allowedRoles: ['admin'] }
+  },
+  {
+    path: '/ui/gestor-administrador',
+    name: 'GestorAdministrador',
+    component:GestorAdministrador,
+    meta: { allowedRoles: ['admin'] }
+  },
+  {
+    path: '/validar-rechazar/anuncio/:idAnuncio',
+    name: 'AnuncioValidar',
+    component: AnuncioValidar,
+    props: castNumberParam,
+    meta: { allowedRoles: ['admin'] }
+  },
+  {
+    path: '/validar-rechazar/rechazar/:idAnuncio',
+    name: 'AnuncioRechazar',
+    component: AnuncioRechazar,
+    props: castNumberParam,
   },
   {
     path: '/ui/admin/catalogos',
@@ -182,5 +210,10 @@ router.beforeEach((to, from, next) => {
   next(); // *** El recurso NO requiere autenticación
 })
 
+function castNumberParam(route) {
+  return {
+    idAnuncio: Number(route.params.idAnuncio),
+  };
+}
 
 export default router;
