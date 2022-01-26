@@ -100,7 +100,7 @@
         <!-- Empieza chat -->
         <div class="card-header">
             <label class="control-label h4">Chat</label>
-            <Chat v-bind:chatList="chatList" v-bind:idAnuncio=this.id[1] v-bind:idRemitente= this.idUsuario />
+            <Chat v-bind:chatList="chatList" v-bind:idAnuncio=this.id.substring(1) v-bind:idRemitente= this.idUsuario />
         </div>
 
       </div>
@@ -162,7 +162,7 @@ export default {
     },
     soyVendedor(id){
       console.log("idRemitente = " + id)
-      axios("/api/soy-vendedor.json?idAnuncio="+this.id[1] +"&idRemitente="+id)
+      axios("/api/soy-vendedor.json?idAnuncio="+this.id.substring(1) +"&idRemitente="+id)
           .then(x => {
             this.soyVendedorb = x.data;
           })
@@ -199,7 +199,7 @@ export default {
     store.commit('setToggleFooter', true);
     this.soyVendedor(this.idUsuario);
     setInterval(function() {
-      this.cargaMensajes(this.id[1]); }.bind(this) , 500);
+      this.cargaMensajes(this.id.substring(1)); }.bind(this) , 500);
 
       this.obtenerAnuncio();
 
