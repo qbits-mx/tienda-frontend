@@ -6,7 +6,7 @@
 
     <div class="row">
       <div class="col-md-5 col-lg-5 col-12">
-        <img src="../assets/audifonos.jpg" width="100%"/>
+        <img :src="anuncio.image" width="100%"/>
       </div>
       <div class="col-md-7 col-lg-7 col-12">
 
@@ -81,12 +81,7 @@
         </div><!-- ends card -->
         
           <div style="margin-left:650px">
-            <button
-                    @click="$router.push('chat')"
-                    class="btn btn-success"
-                    data-toggle="modal"
-                    data-target="#termsModal">Ver Chat
-            </button>
+          
           </div>
 
           <div class="card border-light mb-3" style="max-width: 36rem;">
@@ -216,28 +211,22 @@ export default {
 .ancho {
   padding: 20px;
 }
-
 .align {
   text-align: left;
 }
-
 .centra {
   text-align: center;
 }
-
 .notValid {
   color: rgb(235, 74, 74);
 }
-
 .greenColor:focus {
   background-color: #eefaee;
   box-shadow: 2px 1px 4px #bdd3ae;
 }
-
 input {
   padding-right: 15%;
 }
-
 .correct {
   border-color: rgb(96, 161, 99);
   border-width: 1px;
@@ -247,12 +236,10 @@ input {
   background-size: 17px;
   background-position-x: 96%;
 }
-
 .redColor:focus {
   background-color: #fff3f3;
   box-shadow: 2px 1px 4px #dba6a6;
 }
-
 .incorrect {
   border-color: rgb(235, 74, 74);
   border-width: 1px;
@@ -262,54 +249,41 @@ input {
   background-size: 20px;
   background-position-x: 96%;
 }
-
 .defaultColor {
   background-color: white;
   box-shadow: 1px 1px 3px #d8dcdd;
 }
-
 .hidden {
   display: none;
 }
-
 .show {
   display: block;
 }
-
 .combo {
   margin-bottom: 5px;
 }
-
 .info {
   font-size: 10px;
 }
-
 .g-recaptcha {
   transform: scale(0.9);
   transform-origin: 0 0;
 }
-
 .collapse {
-
 &
 :not(.show) {
   display: none;
 }
-
 }
-
 .collapsing {
   height: 0;
   overflow: hidden;
   @include transition($transition-collapse);
-
 &
 .collapse-horizontal {
   width: 0;
   height: auto;
   @include transition($transition-collapse-width);
 }
-
 }
-
 </style>
